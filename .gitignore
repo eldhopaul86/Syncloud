@@ -1,0 +1,29 @@
+# Root .gitignore for Syn_cloud
+
+# Dependencies
+node_modules/
+backend/node_modules/
+Synfrontend/node_modules/
+
+# Environment
+.env
+backend/.env
+Synfrontend/.env
+
+# IDEs
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build outputs
+dist/
+build/
+backend/dist/
+Synfrontend/dist/
+Synfrontend/web-build/
+
+# Expo
+Synfrontend/.expo/

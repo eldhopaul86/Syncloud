@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SynCloud Upload</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+    .container {
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      padding: 30px;
+    }
+    input[type="file"] {
+      margin: 20px 0;
+      padding: 10px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    #result {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 5px;
+      display: none;
+    }
+    .success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    .info {
+      background-color: #d1ecf1;
+      color: #0c5460;
+      border: 1px solid #bee5eb;
+    }
+    .loading {
+      color: #856404;
+      background-color: #fff3cd;
+      border: 1px solid #ffeeba;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🌥️ SynCloud Upload</h2>
+    <p>Upload files to Dropbox with AI-powered importance analysis</p>
+
+    <!-- NEW: Cloud selection -->
+    <div style="margin: 10px 0; font-size: 14px;">
+      <label for="cloudSelect" style="display:block; margin-bottom: 6px;">
+        Select storage:
+      </label>
+      <select id="cloudSelect" style="padding: 8px; width: 100%;">
+        <option value="dropbox" selected>Dropbox</option>
+        <option value="cloudinary">Cloudinary</option>
+        <option value="mega">Mega</option>
+      </select>
+    </div>
+
+    <input
+      type="file"
+      id="fileInput"
+      accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.gif,.xlsx,.pptx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,image/*,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.presentationml.presentation"
+    />
+    <button id="uploadBtn" onclick="upload()">Upload</button>
+
+    <!-- Debug toggle: prints AES key + full encryptedFile to console -->
+    <div style="margin-top: 10px; font-size: 14px;">
+      <label>
+        <input type="checkbox" id="debugCryptoToggle" />
+        Debug crypto (prints AES key + full encryptedFile to console)
+      </label>
+    </div>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const UPLOAD_URL = '/api/upload';
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function safeHttpUrl(raw) {
+      try {
+        const u = new URL(String(raw), window.location.origin);
+        if (u.protocol === 'http:' || u.protocol === 'https:') return u.toString();
+      } catch (_) {}
+      return '#';
+    }
+
+    function postFormDataWithProgress(url, formData, onProgress) {
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.responseType = 'text';
+
+        xhr.upload.onprogress = (evt) => {
+          if (!evt.lengthComputable) return;
+          const pct = Math.round((evt.loaded / evt.total) * 100);
+          onProgress?.(pct);
+        };
+
+        xhr.onload = () => resolve({ status: xhr.status, text: xhr.responseText });
+        xhr.onerror = () => reject(new Error('Network error'));
+        xhr.send(formData);
+      });
+    }
+
+    function inferDebugFromUrl() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("debug") === "1" || params.get("debug") === "true";
+      } catch {
+        return false;
+      }
+    }
+
+    function getSelectedCloud() {
+      const v = document.getElementById("cloudSelect")?.value;
+      if (v === "dropbox" || v === "cloudinary" || v === "mega") return v;
+      return "dropbox";
+    }
+
+    function arrayBufferToBase64(buffer) {
+      const bytes = new Uint8Array(buffer);
+      let binary = "";
+      bytes.forEach(b => (binary += String.fromCharCode(b)));
+      return btoa(binary);
+    }
+
+    async function sha256HexFromArrayBuffer(buffer) {
+      const hash = await crypto.subtle.digest("SHA-256", buffer);
+      return [...new Uint8Array(hash)].map(b => b.toString(16).padStart(2, "0")).join("");
+    }
+
+    function shapeMetadata({ file, clientSha256, backend, score, reason, cloud }) {
+      const backendMeta = backend?.metadata || backend?.meta || null;
+
+      const fileName = backendMeta?.fileName || backendMeta?.originalName || file?.name || "unknown";
+      const fileType = backendMeta?.fileType || backendMeta?.mimeType || file?.type || "application/octet-stream";
+      const fileSize = backendMeta?.fileSize || backendMeta?.size || file?.size || 0;
+      const lastModified =
+        backendMeta?.lastModified ||
+        backendMeta?.createdAt ||
+        (file?.lastModified ? new Date(file.lastModified).toISOString() : new Date().toISOString());
+
+      const hash =
+        backend?.sha256 ||
+        backend?.fileHash ||
+        backendMeta?.sha256 ||
+        backendMeta?.hash ||
+        clientSha256 ||
+        null;
+
+      return {
+        encrypted: true,
+        fileName,
+        fileType,
+        fileSize,
+        lastModified,
+        hash,
+        version: 1,
+        priority: score ?? "PENDING",
+        reason: reason ?? null,
+        cloud: backend?.cloud || backendMeta?.cloud || cloud || "dropbox", // NEW
+      };
+    }
+
+    async function encryptArrayBufferAesGcmToBase64(buffer, aesKey) {
+      const iv = crypto.getRandomValues(new Uint8Array(12));
+      const encrypted = await crypto.subtle.encrypt({ name: "AES-GCM", iv }, aesKey, buffer);
+      return { encryptedFile: arrayBufferToBase64(encrypted), iv: Array.from(iv) };
+    }
+
+    // CHANGED:
+    // - Always generate AES key + encrypt file (so encryptedFile is always available)
+    // - Only export/return the AES key when revealAesKey=true
+    async function buildClientCryptoPreview(file, { revealAesKey } = {}) {
+      const buf = await file.arrayBuffer();
+      const sha256File = await sha256HexFromArrayBuffer(buf);
+
+      const metadata = {
+        encrypted: true,
+        fileName: file.name,
+        fileType: file.type,
+        fileSize: file.size,
+        lastModified: new Date(file.lastModified).toISOString(),
+        hash: sha256File,
+        version: 1,
+        priority: "PENDING",
+        reason: null,
+        cloud: getSelectedCloud(), // NEW
+      };
+
+      const aesKey = await crypto.subtle.generateKey(
+        { name: "AES-GCM", length: 256 },
+        true,
+        ["encrypt", "decrypt"]
+      );
+
+      const { encryptedFile, iv } = await encryptArrayBufferAesGcmToBase64(buf, aesKey);
+
+      let aesKeyB64 = null;
+      if (revealAesKey) {
+        const rawKey = await crypto.subtle.exportKey("raw", aesKey);
+        aesKeyB64 = arrayBufferToBase64(rawKey);
+      }
+
+      return {
+        metadata,
+        sha256File,
+        encryptedFile,
+        iv,
+        aesKey: aesKeyB64, // null unless debug
+      };
+    }
+
+    async function upload() {
+      const fileInput = document.querySelector('input[type="file"]');
+      const file = fileInput.files[0];
+      const uploadBtn = document.getElementById('uploadBtn');
+
+      if (!file) {
+        showResult('Please select a file', 'error');
+        return;
+      }
+
+      const cloud = getSelectedCloud();
+      const debugFromUrl = inferDebugFromUrl();
+      const debugFromToggle = !!document.getElementById("debugCryptoToggle")?.checked;
+      const revealAesKey = debugFromUrl || debugFromToggle;
+
+      // Always show basic file metadata in console
+      console.groupCollapsed("SynCloud: client file info");
+      console.log("cloud:", cloud);
+      console.log("name:", file.name);
+      console.log("type:", file.type);
+      console.log("size:", file.size);
+      console.log("lastModified:", new Date(file.lastModified).toISOString());
+      console.groupEnd();
+
+      let clientPreview = null;
+
+      // WebCrypto requires secure context (https) except localhost.
+      if (!crypto?.subtle) {
+        console.warn("WebCrypto (crypto.subtle) is unavailable; cannot compute SHA-256/AES.");
+      } else {
+        try {
+          clientPreview = await buildClientCryptoPreview(file, { revealAesKey });
+
+          console.groupCollapsed(`SynCloud: client crypto (${revealAesKey ? "DEBUG" : "normal"})`);
+          console.log("metadata:", clientPreview.metadata);
+          console.log("sha256(file):", clientPreview.sha256File);
+
+          // Always show encryption exists, but avoid dumping huge base64 unless debug enabled
+          console.log("iv:", clientPreview.iv);
+          console.log("encryptedFile(base64) length:", clientPreview.encryptedFile?.length ?? 0);
+          console.log("encryptedFile(base64) preview:", (clientPreview.encryptedFile || "").slice(0, 120) + "...");
+
+          if (revealAesKey) {
+            console.log("payload(full):", {
+              aesKey: clientPreview.aesKey,
+              encryptedFile: clientPreview.encryptedFile,
+              iv: clientPreview.iv,
+              metadata: clientPreview.metadata,
+            });
+          }
+          console.groupEnd();
+        } catch (e) {
+          console.warn("Client crypto computation failed:", e);
+        }
+      }
+
+      uploadBtn.disabled = true;
+      showResult('Uploading (0%)…', 'loading');
+
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('cloud', cloud); // NEW: tell backend which storage you chose
+
+      try {
+        const { status, text } = await postFormDataWithProgress(
+          UPLOAD_URL,
+          formData,
+          (pct) => showResult(`Uploading (${pct}%)…`, 'loading')
+        );
+
+        let data = null;
+        let jsonParseError = null;
+        try { data = JSON.parse(text); } catch (e) { jsonParseError = e; }
+
+        if (status >= 200 && status < 300) {
+          const shaped = shapeMetadata({
+            file,
+            clientSha256: clientPreview?.sha256File,
+            backend: data,
+            score: data?.importanceScore,
+            reason: data?.importanceReason,
+            cloud,
+          });
+
+          // Update client metadata with AI-derived priority/reason + cloud
+          if (clientPreview?.metadata) {
+            clientPreview.metadata.priority = shaped.priority;
+            clientPreview.metadata.reason = shaped.reason;
+            clientPreview.metadata.cloud = shaped.cloud;
+          }
+
+          console.groupCollapsed("SynCloud: upload (SUCCESS)");
+          console.log("status:", status);
+          console.log("shapedMetadata:", shaped);
+          console.log("response:", data);
+          console.groupEnd();
+
+          showResult(`
+            ✅ File uploaded successfully!<br><br>
+            <strong>Stored in:</strong> ${escapeHtml(shaped.cloud)}<br>
+            <strong>Importance Score:</strong> ${escapeHtml(data?.importanceScore)}/10<br>
+            <strong>Reason:</strong> ${escapeHtml(data?.importanceReason)}<br>
+            ${shaped.hash ? `<br><strong>SHA-256:</strong> <code>${escapeHtml(shaped.hash)}</code><br>` : ``}
+            <br>
+            <a href="${safeHttpUrl(data?.shareUrl)}" target="_blank" rel="noopener noreferrer">View File</a>
+          `, 'success');
+          return;
+        }
+
+        const d = data || {};
+        const shapedError = shapeMetadata({
+          file,
+          clientSha256: clientPreview?.sha256File,
+          backend: d,
+          score: d?.score ?? d?.importanceScore,
+          reason: d?.reason ?? d?.importanceReason,
+          cloud,
+        });
+
+        if (clientPreview?.metadata) {
+          clientPreview.metadata.priority = shapedError.priority;
+          clientPreview.metadata.reason = shapedError.reason;
+          clientPreview.metadata.cloud = shapedError.cloud;
+        }
+
+        console.groupCollapsed("SynCloud: upload (ERROR)");
+        console.log("status:", status);
+        console.log("shapedMetadata:", shapedError);
+        if (d) console.log("response json:", d);
+        else {
+          console.log("response json parse error:", jsonParseError?.message || String(jsonParseError));
+          console.log("response text:", text);
+        }
+        console.groupEnd();
+
+        let message = `❌ Upload Failed<br><br>`;
+        if (d.rejected && d.score !== null) {
+          message += `<strong>File not important enough</strong><br>`;
+          message += `Score: ${escapeHtml(d.score)}/10 (Threshold: ${escapeHtml(d.threshold)})<br>`;
+          message += `Reason: ${escapeHtml(d.reason)}`;
+        } else if (d.decision === 'ERROR') {
+          message += `<strong>AI Analysis Error</strong><br>`;
+          message += `${escapeHtml(d.reason)}<br><br>`;
+          message += `Please check:<br>`;
+          message += `1. Gemini API key is valid<br>`;
+          message += `2. Backend console for detailed errors<br>`;
+          message += `3. File type is supported`;
+        } else if (d.decision === 'UNSUPPORTED') {
+          message += `<strong>Unsupported file type</strong><br>`;
+          message += `Supported: PDF, DOC, DOCX, TXT, JPG, PNG, GIF, XLSX, PPTX`;
+        } else {
+          message += escapeHtml(d.error || d.reason || text || `HTTP ${status}`);
+        }
+
+        showResult(message, 'error');
+      } catch (error) {
+        showResult(`
+          ❌ Network Error<br><br>
+          ${escapeHtml(error?.message)}<br><br>
+          Please ensure the backend server is running and reachable
+        `, 'error');
+      } finally {
+        uploadBtn.disabled = false;
+      }
+    }
+
+    function showResult(message, type) {
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = message;
+      resultDiv.className = type;
+      resultDiv.style.display = 'block';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+﻿node : file:///C:/Users/LE
+NOVO/OneDrive/Desktop/Syn_
+cloud/backend/controllers/
+upload.controller.js:111
+At line:1 char:1
++ node server.js 2>&1 | 
+Out-File -FilePath 
+startup_full_error.txt 
+-Enco ...
++ ~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo        
+      : NotSpecified: (f  
+  ile:///C:/User...ntro   
+ ller.js:111:String) [    
+], RemoteException
+    + FullyQualifiedError 
+   Id : NativeCommandErr  
+  or
+ 
+Riverside
+^
+
+ReferenceError: Riverside 
+is not defined
+    at file:///C:/Users/LE
+NOVO/OneDrive/Desktop/Syn_
+cloud/backend/controllers/
+upload.controller.js:111:1
+    at ModuleJob.run (node
+:internal/modules/esm/modu
+le_job:345:25)
+    at async onImport.trac
+ePromise.__proto__ (node:i
+nternal/modules/esm/loader
+:651:26)
+    at async asyncRunEntry
+PointWithESMLoader (node:i
+nternal/modules/run_main:1
+17:5)
+
+Node.js v22.19.0

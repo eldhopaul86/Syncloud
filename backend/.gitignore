@@ -1,0 +1,52 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+.npm/
+.eslintcache
+
+# Environment variables / secrets
+.env
+.env.*.local
+!.env.example
+
+# Logs
+logs/
+*.log
+
+# Runtime data / caches
+pids/
+*.pid
+*.seed
+*.pid.lock
+.cache/
+.tmp/
+tmp/
+
+# Coverage / test artifacts
+coverage/
+.nyc_output/
+
+# Build outputs
+dist/
+build/
+
+# IDE / editor settings
+.vscode/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Optional: local cloud/provider creds or config overrides
+*.pem
+*.key
+
+# Optional: generated uploads (if any local upload dir exists)
+uploads/
