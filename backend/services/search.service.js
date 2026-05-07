@@ -95,7 +95,11 @@ class SearchService {
                     if (nowRaw - uploadRaw <= 30 * oneDay) dateMatch = true;
                 }
 
-                if (dateMatch) score += 4;
+                if (dateMatch) {
+                    score += 8; // Increased from 4 to 8 to dominate relevance
+                } else {
+                    score -= 5; // Penalty for not matching the requested time period
+                }
             }
 
             return {

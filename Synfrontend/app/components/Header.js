@@ -9,7 +9,7 @@ import { useTheme } from '../context/ThemeContext';
 
 export default function Header() {
     const navigation = useNavigation();
-    const { colors, spacing, radius, typography, userData, notifications, setNotifications, clearNotifications, setSessionAlertsProcessed } = useTheme();
+    const { colors, spacing, radius, typography, userData, notifications, setNotifications, clearNotifications, markAllNotificationsAsRead, setSessionAlertsProcessed } = useTheme();
     const [sidebarVisible, setSidebarVisible] = useState(false);
     const [notifVisible, setNotifVisible] = useState(false);
     const [slideAnim] = useState(new Animated.Value(-Dimensions.get('window').height));
@@ -70,9 +70,8 @@ export default function Header() {
 
     const handleLogout = () => {
         setSessionAlertsProcessed(false);
+        clearNotifications(); // Clear notifications for the current user
         toggleSidebar(false);
-        // Simple navigation to Auth screen
-        // In a real app, you'd clear session/tokens here
         navigation.navigate('Auth');
     };
 
@@ -159,7 +158,7 @@ export default function Header() {
                         <View style={[styles.notifHeader, { marginBottom: spacing.md }]}>
                             <View>
                                 <Text style={[styles.notifTitle, { color: colors.textPrimary }]}>Notifications</Text>
-                                <Text style={[styles.notifSubtitle, { color: colors.textDim }]}>{notifications.length} Unread</Text>
+                                <Text style={[styles.notifSubtitle, { color: colors.textDim }]}>{notifications.filter(n => !n.read).length} Unread</Text>
                             </View>
                             <View style={styles.headerRight}>
                                 {notifications.length > 0 && (
@@ -238,17 +237,23 @@ export default function Header() {
                 </View>
             </View>
             <View style={styles.right}>
-                <TouchableOpacity style={styles.notifBtn} onPress={() => setNotifVisible(true)}>
+                <TouchableOpacity 
+                    style={styles.notifBtn} 
+                    onPress={() => {
+                        setNotifVisible(true);
+                        markAllNotificationsAsRead();
+                    }}
+                >
                     <Ionicons name="notifications-outline" size={24} color={colors.textPrimary} />
-                    {notifications.length > 0 && (
+                    {notifications.filter(n => !n.read).length > 0 && (
                         <View style={[
                             styles.notifBadge,
                             {
-                                backgroundColor: notifications.some(n => n.type === 'danger') ? colors.danger : colors.warning,
+                                backgroundColor: notifications.some(n => !n.read && n.type === 'danger') ? colors.danger : colors.warning,
                                 borderColor: colors.bgPrimary
                             }
                         ]}>
-                            <Text style={styles.notifBadgeText}>{notifications.length}</Text>
+                            <Text style={styles.notifBadgeText}>{notifications.filter(n => !n.read).length}</Text>
                         </View>
                     )}
                 </TouchableOpacity>

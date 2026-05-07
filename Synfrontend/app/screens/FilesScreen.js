@@ -71,7 +71,7 @@ export default function FilesScreen() {
                         message: `Please configure credentials for your default cloud: ${defaultCloud.toUpperCase()}`,
                         icon: 'alert-circle-outline',
                         color: colors.warning
-                    });
+                    }, 2000);
                 }
             }
         } catch (err) {
@@ -192,7 +192,7 @@ export default function FilesScreen() {
                     message: `Please connect your ${targetCloud.toUpperCase()} account.`,
                     icon: 'cloud-offline-outline',
                     color: colors.warning
-                });
+                }, 2000);
                 return;
             }
 
@@ -302,7 +302,7 @@ export default function FilesScreen() {
                         { label: 'Review', type: 'danger' },
                         { label: 'Reject', type: 'primary' }
                     ]
-                });
+                }, 2000);
                 Alert.alert(
                     '⚠️ SECURITY RISK',
                     `This file is rank as a malicusous file. Do you want to upload or reject this file?`,
@@ -317,7 +317,7 @@ export default function FilesScreen() {
                                     message: `File "${decodedName}" was rejected due to security risk.`,
                                     icon: 'close-circle-outline',
                                     color: colors.info
-                                });
+                                }, 2000);
                             }
                         },
                         {
@@ -338,7 +338,7 @@ export default function FilesScreen() {
                         message: `"${decodedName}" already exists. Reusing existing content.`,
                         icon: 'copy-outline',
                         color: colors.info
-                    });
+                    }, 2000);
                 } else {
                     Alert.alert('Success', resData.message);
                     addNotification({
@@ -347,7 +347,7 @@ export default function FilesScreen() {
                         message: resData.message,
                         icon: resData.version > 1 ? 'refresh-circle-outline' : 'cloud-done-outline',
                         color: colors.success
-                    });
+                    }, 2000);
                 }
                 fetchFiles();
             } else {
@@ -362,7 +362,7 @@ export default function FilesScreen() {
                 message: err.message,
                 icon: 'warning-outline',
                 color: colors.danger
-            });
+            }, 2000);
         } finally {
             setInitialLoading(false);
         }
@@ -375,10 +375,13 @@ export default function FilesScreen() {
             setInitialLoading(true);
             const fileUri = `${FileSystem.cacheDirectory}${file.name}`;
 
-            console.log(`📡 Downloading file: ${file.name} from ${file.url}`);
+            console.log(`📡 Downloading file: ${file.name} (ID: ${file.id}) via proxy`);
+            const downloadUrl = `${API_BASE}/api/files/${file.id}/download`;
 
-            // 1. Download the file
-            const downloadRes = await FileSystem.downloadAsync(file.url, fileUri);
+            // 1. Download the file via Backend Proxy
+            const downloadRes = await FileSystem.downloadAsync(downloadUrl, fileUri, {
+                headers: { 'Authorization': `Bearer ${userData.token}` }
+            });
 
             if (downloadRes.status !== 200) {
                 throw new Error('Failed to download file from cloud storage');
@@ -453,7 +456,7 @@ export default function FilesScreen() {
                                     message: `"${file.name}" has been permanently removed.`,
                                     icon: 'trash-outline',
                                     color: colors.danger
-                                });
+                                }, 2000);
                                 setActiveFile(null);
                             }
                         } catch (error) {
@@ -464,7 +467,7 @@ export default function FilesScreen() {
                                 message: 'An error occurred while trying to delete the file.',
                                 icon: 'alert-circle-outline',
                                 color: colors.danger
-                            });
+                            }, 2000);
                         }
                     }
                 }

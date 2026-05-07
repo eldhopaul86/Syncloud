@@ -5,20 +5,20 @@ import { useTheme } from '../context/ThemeContext';
 import { BlurView } from 'expo-blur';
 
 export default function NotificationAlerts() {
-    const { colors, spacing, radius, notifications, setNotifications } = useTheme();
+    const { colors, spacing, radius, notifications, dismissNotificationPopup } = useTheme();
+    const visibleNotifs = notifications?.filter(n => n.popupVisible) || [];
 
-    if (!notifications || notifications.length === 0) return null;
+    if (visibleNotifs.length === 0) return null;
 
     const handleAction = (id) => {
-        // Simple mock action: remove notification
-        setNotifications(prev => prev.filter(n => n.id !== id));
+        dismissNotificationPopup(id);
     };
 
     return (
         <View style={styles.container}>
-            {notifications.map((notif) => (
+            {visibleNotifs.map((notif) => (
                 <View key={notif.id} style={[styles.alertWrapper, { marginBottom: spacing.sm }]}>
-                    <BlurView intensity={20} tint="dark" style={[styles.alertCard, { borderRadius: radius.card, borderColor: notif.color + '40' }]}>
+                    <BlurView intensity={80} tint="dark" style={[styles.alertCard, { borderRadius: radius.card, borderColor: notif.color + '60' }]}>
                         <View style={[styles.iconBox, { backgroundColor: notif.color + '20' }]}>
                             <Ionicons name={notif.icon || 'notifications-outline'} size={22} color={notif.color} />
                         </View>
@@ -43,18 +43,28 @@ export default function NotificationAlerts() {
 
 const styles = StyleSheet.create({
     container: {
+        position: 'absolute',
+        top: 85,
+        left: 0,
+        right: 0,
         paddingHorizontal: 16,
-        marginTop: 8,
+        zIndex: 10000,
     },
     alertWrapper: {
         overflow: 'hidden',
         borderRadius: 16,
+        elevation: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 10 },
+        shadowOpacity: 0.5,
+        shadowRadius: 15,
     },
     alertCard: {
         flexDirection: 'row',
         alignItems: 'center',
-        padding: 12,
-        borderWidth: 1,
+        padding: 14,
+        borderWidth: 1.5,
+        backgroundColor: 'rgba(20, 25, 20, 0.85)',
     },
     iconBox: {
         width: 44,

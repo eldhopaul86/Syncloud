@@ -22,7 +22,11 @@ export const ThemeProvider = ({ children }) => {
         agentToken: '153022c1-26e4-4c4d-b287-c14759254ecf',
         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OThhNmJhOTFmZjE0NGJjYmNkZDI5MCIsImlhdCI6MTc3MTcwNjExNywiZXhwIjoxNzc0Mjk4MTE3fQ.m9-R4CELONXoOVtww7TA3qgGE9fGnF8PlAtsnlDOI58', // Set for authenticated testing
         aesEncryptionEnabled: false,
-        defaultCloud: 'cloudinary'
+        defaultCloud: 'cloudinary',
+        autoBackupEnabled: false,
+        autoBackupInterval: '1h',
+        autoBackupCustomInterval: 60,
+        autoBackupCloud: 'cloudinary'
     });
 
     const [viewCloudFilter, setViewCloudFilter] = useState('all');
@@ -33,24 +37,33 @@ export const ThemeProvider = ({ children }) => {
     const addNotification = (notif, duration = null) => {
         const id = Date.now();
         setNotifications(prev => {
-            // Deduplication: Don't add if a notification with the same title exists
-            if (notif.title && prev.some(n => n.title === notif.title)) {
-                return prev;
-            }
             const newNotif = {
                 id,
                 timestamp: id,
+                read: false,
+                popupVisible: true,
                 ...notif
             };
 
             if (duration) {
                 setTimeout(() => {
-                    setNotifications(current => current.filter(n => n.id !== id));
+                    dismissNotificationPopup(id);
                 }, duration);
             }
 
-            return [newNotif, ...prev];
+            // Limit total notifications to 50 to prevent memory issues
+            return [newNotif, ...prev].slice(0, 50);
         });
+    };
+
+    const dismissNotificationPopup = (id) => {
+        setNotifications(current => current.map(n => 
+            n.id === id ? { ...n, popupVisible: false } : n
+        ));
+    };
+
+    const markAllNotificationsAsRead = () => {
+        setNotifications(prev => prev.map(n => ({ ...n, read: true, popupVisible: false })));
     };
 
     const clearNotifications = () => {
@@ -75,10 +88,14 @@ export const ThemeProvider = ({ children }) => {
                 body: JSON.stringify(updates)
             });
 
-            const data = await response.json();
-            if (!data.success) {
-                // Rollback or handle error
-                console.error('Failed to sync settings with backend');
+            const responseText = await response.text();
+            try {
+                const data = JSON.parse(responseText);
+                if (!data.success) {
+                    console.error('Failed to sync settings with backend:', data.message);
+                }
+            } catch (parseError) {
+                console.error('❌ Settings JSON Parse Error. Server returned:', responseText.substring(0, 200));
             }
         } catch (error) {
             console.error('Update settings failed:', error);
@@ -94,12 +111,13 @@ export const ThemeProvider = ({ children }) => {
         isDark,
         toggleTheme,
         userData,
-        setUserData, // Shared function to update user data
-        updateUserSettings, // Shared function to update settings with backend sync
+        setUserData,
+        updateUserSettings,
         notifications,
-        setNotifications,
         addNotification,
         clearNotifications,
+        markAllNotificationsAsRead,
+        dismissNotificationPopup,
         viewCloudFilter,
         setViewCloudFilter,
         sessionAlertsProcessed,

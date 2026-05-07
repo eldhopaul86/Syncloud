@@ -60,21 +60,11 @@ export default function ResetPasswordScreen() {
                 throw new Error(data.error || 'Reset failed');
             }
 
-            addNotification({
-                type: 'success',
-                title: 'Password Reset',
-                message: 'Your password has been updated successfully.',
-                icon: 'checkmark-circle-outline'
-            }, 5000);
+            Alert.alert('Password Reset', 'Your password has been updated successfully.');
 
             navigation.navigate('Auth');
         } catch (error) {
-            addNotification({
-                type: 'danger',
-                title: 'Reset Failed',
-                message: error.message,
-                icon: 'close-circle-outline'
-            }, 5000);
+            Alert.alert('Reset Failed', error.message);
         } finally {
             setLoading(false);
         }

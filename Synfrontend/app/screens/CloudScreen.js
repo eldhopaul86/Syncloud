@@ -144,7 +144,7 @@ export default function CloudSetupScreen() {
                 message: `Successfully connected and saved ${activeProvider} credentials.`,
                 icon: 'cloud-done-outline',
                 color: colors.accentPrimary
-            });
+            }, 2000);
             fetchConnectedClouds(); // Refresh connections
             handleClear(); // Automatically clear form as requested
         } catch (err) {
@@ -194,7 +194,7 @@ export default function CloudSetupScreen() {
                 message: `${activeProvider} credentials verified successfully.`,
                 icon: 'checkmark-circle-outline',
                 color: colors.accentPrimary
-            });
+            }, 2000);
         } catch (err) {
             setStatus({ type: 'error', message: err.message });
         } finally {

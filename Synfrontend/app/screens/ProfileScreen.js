@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, Alert, Modal, Switch } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -11,6 +11,7 @@ export default function ProfileScreen() {
     const navigation = useNavigation();
     const { colors, spacing, radius, isDark, toggleTheme, userData, updateUserSettings, addNotification } = useTheme();
     const [notifications, setNotifications] = useState(true);
+    const [autoBackupModalVisible, setAutoBackupModalVisible] = useState(false);
 
     const API_BASE = (process.env.EXPO_PUBLIC_API_URL || 'https://alivia-unrayed-dewitt.ngrok-free.dev').replace(/\/$/, '');
 
@@ -141,8 +142,30 @@ export default function ProfileScreen() {
                                     message: `Backup Destination Updated: Your files will now sync to ${clouds[nextIndex].toUpperCase()}.`,
                                     icon: 'swap-horizontal-outline',
                                     color: colors.success
-                                });
+                                }, 2000);
                             }}
+                        />
+                        <SettingItem
+                            icon="⏲️"
+                            label="Auto Backup"
+                            type="toggle"
+                            value={userData.autoBackupEnabled}
+                            onValueChange={(val) => {
+                                updateUserSettings({ autoBackupEnabled: val });
+                                addNotification({
+                                    type: val ? 'success' : 'info',
+                                    title: val ? 'Auto Backup Active' : 'Auto Backup Paused',
+                                    message: val ? 'SynCloud will now periodically scan and backup your important files.' : 'Automatic background scanning has been disabled.',
+                                    icon: val ? 'sync-outline' : 'pause-circle-outline',
+                                    color: val ? colors.success : colors.textDim
+                                }, 2000);
+                            }}
+                        />
+                        <SettingItem
+                            icon="📅"
+                            label="Backup Interval"
+                            value={userData.autoBackupEnabled ? `${userData.autoBackupInterval}` : "N/A"}
+                            onPress={() => userData.autoBackupEnabled && setAutoBackupModalVisible(true)}
                             isLast
                         />
                     </SettingsSection>
@@ -153,7 +176,26 @@ export default function ProfileScreen() {
                             label="AES Encryption"
                             type="toggle"
                             value={userData.aesEncryptionEnabled}
-                            onValueChange={(val) => updateUserSettings({ aesEncryptionEnabled: val })}
+                            onValueChange={(val) => {
+                                updateUserSettings({ aesEncryptionEnabled: val });
+                                if (val) {
+                                    addNotification({
+                                        type: 'success',
+                                        title: 'AES Encryption Active',
+                                        message: 'Now onward all your files will be stored in cloud in AES-256 encrypted format.',
+                                        icon: 'lock-closed-outline',
+                                        color: colors.success
+                                    }, 2000);
+                                } else {
+                                    addNotification({
+                                        type: 'warning',
+                                        title: 'Encryption Disabled',
+                                        message: 'Files will now be stored in their original format.',
+                                        icon: 'lock-open-outline',
+                                        color: colors.warning
+                                    }, 2000);
+                                }
+                            }}
                         />
                         <SettingItem
                             icon="🔑"
@@ -182,6 +224,61 @@ export default function ProfileScreen() {
                 </ScrollView>
             </SafeAreaView>
 
+            <Modal
+                visible={autoBackupModalVisible}
+                transparent
+                animationType="slide"
+            >
+                <TouchableOpacity
+                    style={styles.modalOverlay}
+                    activeOpacity={1}
+                    onPress={() => setAutoBackupModalVisible(false)}
+                >
+                    <View style={[styles.modalCard, { backgroundColor: colors.bgCard, borderColor: colors.bgCardBorder, marginTop: 'auto' }]}>
+                        <View style={styles.modalHeader}>
+                            <View>
+                                <Text style={[styles.modalTitle, { color: colors.textPrimary }]}>Auto Backup</Text>
+                                <Text style={[styles.modalSubtitle, { color: colors.textMuted }]}>Configure background sync</Text>
+                            </View>
+                            <TouchableOpacity
+                                style={[styles.closeBtn, { backgroundColor: colors.bgCard2 }]}
+                                onPress={() => setAutoBackupModalVisible(false)}
+                            >
+                                <Ionicons name="close" size={20} color={colors.textPrimary} />
+                            </TouchableOpacity>
+                        </View>
+
+                        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.modalBody}>
+                            <View style={styles.inputGroup}>
+                                <Text style={[styles.modalLabel, { color: colors.textMuted }]}>Check Interval</Text>
+                                <Text style={{ fontSize: 11, color: colors.textDim, marginBottom: 8 }}>Choose how often SynCloud should scan for new files.</Text>
+                                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+                                    {["1m", "5m", "30m", "1h", "1d"].map((interval) => (
+                                        <TouchableOpacity
+                                            key={interval}
+                                            style={[
+                                                styles.intervalTag,
+                                                { borderColor: colors.bgCardBorder, backgroundColor: userData.autoBackupInterval === interval ? colors.accentPrimary + '20' : colors.bgCard2 },
+                                                userData.autoBackupInterval === interval && { borderColor: colors.accentPrimary }
+                                            ]}
+                                            onPress={() => updateUserSettings({ autoBackupInterval: interval })}
+                                        >
+                                            <Text style={{ color: userData.autoBackupInterval === interval ? colors.accentPrimary : colors.textPrimary }}>{interval}</Text>
+                                        </TouchableOpacity>
+                                    ))}
+                                </View>
+                            </View>
+
+                            <TouchableOpacity
+                                style={[styles.updateBtn, { backgroundColor: colors.accentPrimary }]}
+                                onPress={() => setAutoBackupModalVisible(false)}
+                            >
+                                <Text style={styles.updateBtnText}>Done</Text>
+                            </TouchableOpacity>
+                        </ScrollView>
+                    </View>
+                </TouchableOpacity>
+            </Modal>
         </View>
     );
 }
@@ -229,6 +326,11 @@ const styles = StyleSheet.create({
     logoutText: {
         fontSize: 16,
         fontWeight: '700',
+    },
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        justifyContent: 'flex-end',
     },
     modalCard: {
         width: '100%',
@@ -280,11 +382,12 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 8,
+        marginTop: 24,
     },
-    updateBtnText: {
-        color: '#fff',
-        fontSize: 16,
-        fontWeight: '700',
-    },
+    intervalTag: {
+        paddingVertical: 10,
+        paddingHorizontal: 16,
+        borderRadius: 8,
+        borderWidth: 1,
+    }
 });

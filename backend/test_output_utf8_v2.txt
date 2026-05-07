@@ -1,0 +1,113 @@
+﻿[dotenv@17.2.3] injecting env (29) from .env -- tip: ΓÜÖ∩╕Å  specify custom .env file path with { path: '/custom/path/.env' }
+
+--- Testing Query: "show me today's files" ---
+Γä╣∩╕Å  Groq client initialized with API key.
+Structured AI Result: {
+  "intent": "search",
+  "primary_subject": "files",
+  "semantic_synonyms": [
+    "documents",
+    "data",
+    "records",
+    "archives"
+  ],
+  "keywords": [
+    "today",
+    "files"
+  ],
+  "file_type": "any",
+  "cloud_source": "any",
+  "date_filter": "today",
+  "raw_query": "show me today's files"
+}
+[DEBUG] Ranked Results (before AI): [ { name: 'Daily_Report_Today.pdf', score: 13 } ]
+[DEBUG] AI Verification: 1 relevant files found out of 1 candidates.
+Initial ranked results: 1
+Final AI verified results: 1
+1. Daily_Report_Today.pdf (Uploaded: 3/27/2026)
+PASS: Results appear correctly filtered by date.
+
+--- Testing Query: "what did I backup yesterday?" ---
+Structured AI Result: {
+  "intent": "search",
+  "primary_subject": "backup",
+  "semantic_synonyms": [
+    "archive",
+    "copy",
+    "save",
+    "restore"
+  ],
+  "keywords": [
+    "yesterday",
+    "backup"
+  ],
+  "file_type": "any",
+  "cloud_source": "any",
+  "date_filter": "yesterday",
+  "raw_query": "what did I backup yesterday?"
+}
+[DEBUG] Ranked Results (before AI): [ { name: 'Meeting_Notes_Yesterday.docx', score: 13 } ]
+[DEBUG] AI Verification: 1 relevant files found out of 1 candidates.
+Initial ranked results: 1
+Final AI verified results: 1
+1. Meeting_Notes_Yesterday.docx (Uploaded: 3/26/2026)
+PASS: Results appear correctly filtered by date.
+
+--- Testing Query: "files from last week" ---
+Structured AI Result: {
+  "intent": "filter",
+  "primary_subject": "files",
+  "semantic_synonyms": [
+    "documents",
+    "data",
+    "records",
+    "archives"
+  ],
+  "keywords": [
+    "files",
+    "last",
+    "week"
+  ],
+  "file_type": "any",
+  "cloud_source": "any",
+  "date_filter": "last_week",
+  "raw_query": "files from last week"
+}
+[DEBUG] Ranked Results (before AI): [
+  { name: 'Project_Proposal.pdf', score: 12 },
+  { name: 'Daily_Report_Today.pdf', score: 8 },
+  { name: 'Meeting_Notes_Yesterday.docx', score: 8 }
+]
+[DEBUG] AI Verification: 3 relevant files found out of 3 candidates.
+Initial ranked results: 3
+Final AI verified results: 3
+1. Project_Proposal.pdf (Uploaded: 3/22/2026)
+2. Daily_Report_Today.pdf (Uploaded: 3/27/2026)
+3. Meeting_Notes_Yesterday.docx (Uploaded: 3/26/2026)
+PASS: Results appear correctly filtered by date.
+
+--- Testing Query: "backup from today" ---
+Structured AI Result: {
+  "intent": "filter",
+  "primary_subject": "backup",
+  "semantic_synonyms": [
+    "archive",
+    "copy",
+    "save",
+    "restore"
+  ],
+  "keywords": [
+    "backup",
+    "today"
+  ],
+  "file_type": "any",
+  "cloud_source": "any",
+  "date_filter": "today",
+  "raw_query": "backup from today"
+}
+[DEBUG] Ranked Results (before AI): [ { name: 'Daily_Report_Today.pdf', score: 13 } ]
+[DEBUG] AI Verification: 1 relevant files found out of 1 candidates.
+Initial ranked results: 1
+Final AI verified results: 1
+1. Daily_Report_Today.pdf (Uploaded: 3/27/2026)
+PASS: Results appear correctly filtered by date.

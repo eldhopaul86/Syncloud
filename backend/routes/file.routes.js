@@ -1,11 +1,12 @@
 import express from "express";
 import { FileMetadata } from "../models/FileMetadata.js";
-import { getUserFiles, deleteFileMetadata, getRecentFiles, createFolder, moveFile, getFileStats, renameFile, checkDedupe } from "../controllers/file.controller.js";
+import { getUserFiles, deleteFileMetadata, getRecentFiles, createFolder, moveFile, getFileStats, renameFile, checkDedupe, downloadFile } from "../controllers/file.controller.js";
 import { protect } from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 
 router.get("/", protect, getUserFiles);
+router.get("/:id/download", protect, downloadFile);
 router.post("/check-dedupe", protect, checkDedupe);
 router.get("/recent", protect, getRecentFiles);
 router.get("/stats", protect, getFileStats);

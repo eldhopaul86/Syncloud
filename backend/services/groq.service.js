@@ -100,9 +100,17 @@ class GroqService {
       
       Requirements:
       1. Determine if a candidate is relevant based on BOTH content (name/reason) AND metadata (type/date/cloud).
-      2. CATEGORICAL SEARCH: If the user looks for a category (e.g., "PDFs", "Images", "from last week", "from Google Drive"), ANY file matching that metadata category is RELEVANT, regardless of its semantic topic.
-      3. TOPICAL SEARCH: If the user looks for a specific subject (e.g., "Resume", "Assignment", "Sports"), be stricter about the meaning matching the fileName or description.
-      4. If NO files are relevant, return an empty array [].
+      2. CATEGORICAL/TIME SEARCH: If the user looks for a category (e.g., "PDFs", "Images") or a specific time (e.g., "today", "yesterday", "last week"), you MUST EXCLUDE any file that does not match that filter.
+      3. DEFINITIONS: 
+         - "today": ONLY files from the Current Date.
+         - "yesterday": ONLY files from the day before Current Date.
+         - "last week": Files from the last 7 days (INCLUDING today/yesterday).
+         - "last month": Files from the last 30 days (INCLUDING today/yesterday).
+      4. For "today" or "yesterday", check the 'uploadDate' field against the Current Date provided above.
+      5. TOPICAL SEARCH: If the user looks for a specific subject (e.g., "Resume", "Assignment"), be stricter about the meaning matching the fileName or description.
+      6. If NO files are relevant, return an empty array [].
+      
+      CRITICAL: If the user explicitly asks for "today", ONLY return files where the 'uploadDate' is the same as the Current Date.
       
       Return Format: A JSON object with a key 'relevant_ids' containing an array of strings.
     `;

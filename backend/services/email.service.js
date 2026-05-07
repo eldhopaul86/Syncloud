@@ -1,8 +1,8 @@
+import nodemailer from "nodemailer";
 import { Logger } from "../utils/logger.js";
 
 /**
- * Service to handle all email communications.
- * In production, this would use a service like SendGrid, Mailgun, or Nodemailer.
+ * Service to handle all email communications using Nodemailer.
  */
 export const EmailService = {
     /**
@@ -13,7 +13,17 @@ export const EmailService = {
      */
     sendOTP: async (email, otp, type = 'verification') => {
         try {
-            // Placeholder: Log to terminal for local development
+            // Configure transporter
+            const transporter = nodemailer.createTransport({
+                host: process.env.SMTP_HOST || 'smtp.gmail.com',
+                port: parseInt(process.env.SMTP_PORT || '465'),
+                secure: true, // true for 465, false for other ports
+                auth: {
+                    user: process.env.SMTP_USER,
+                    pass: process.env.SMTP_PASS,
+                },
+            });
+
             const subject = type === 'verification'
                 ? "SynCloud: Verify Your Email"
                 : "SynCloud: Password Reset Code";
@@ -22,18 +32,29 @@ export const EmailService = {
                 ? `Welcome to SynCloud! Your verification code is: ${otp}`
                 : `You requested a password reset. Your reset code is: ${otp}`;
 
-            console.log("\n--- 📧 OUTGOING EMAIL SIMULATION ---");
-            console.log(`To: ${email}`);
-            console.log(`Subject: ${subject}`);
-            console.log(`Body: ${message}`);
-            console.log("------------------------------------\n");
+            // Send mail
+            const info = await transporter.sendMail({
+                from: process.env.SMTP_FROM || `"SynCloud" <${process.env.SMTP_USER}>`,
+                to: email,
+                subject: subject,
+                text: message,
+                html: `<div style="font-family: Arial, sans-serif; padding: 20px;">
+                        <h2>${subject}</h2>
+                        <p>${message.split(': ')[0]}:</p>
+                        <h1 style="color: #4CAF50; letter-spacing: 5px;">${otp}</h1>
+                        <p>This code will expire in 10 minutes.</p>
+                      </div>`,
+            });
 
-            // Mocking a slight delay for network latency
-            await new Promise(resolve => setTimeout(resolve, 500));
-
-            return { success: true };
+            Logger.info(`Email sent successfully: ${info.messageId}`);
+            return { success: true, messageId: info.messageId };
         } catch (error) {
             Logger.error("Failed to send email:", error);
+            // Fallback: Simulation log in development if SMTP fails
+            console.log("\n--- 📧 EMAIL SENDING FAILED (FALLBACK TO LOG) ---");
+            console.log(`To: ${email}`);
+            console.log(`Error: ${error.message}`);
+            console.log("------------------------------------\n");
             return { success: false, error: error.message };
         }
     }

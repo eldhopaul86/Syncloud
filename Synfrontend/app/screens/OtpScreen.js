@@ -62,12 +62,7 @@ export default function OtpScreen() {
     const handleVerify = async () => {
         const otpString = otp.join('');
         if (otpString.length !== OTP_LENGTH) {
-            addNotification({
-                type: 'warning',
-                title: 'Invalid Code',
-                message: 'Please enter the full 6-digit code.',
-                icon: 'alert-circle-outline'
-            }, 3000);
+            Alert.alert('Invalid Code', 'Please enter the full 6-digit code.');
             return;
         }
 
@@ -93,12 +88,6 @@ export default function OtpScreen() {
                 throw new Error(data.error || 'Verification failed');
             }
 
-            addNotification({
-                type: 'success',
-                title: 'Verified Successfully',
-                message: 'Your email has been verified.',
-                icon: 'checkmark-circle-outline'
-            }, 4000);
 
             if (data.token && data.user) {
                 setUserData({
@@ -118,12 +107,7 @@ export default function OtpScreen() {
                 navigation.replace('Auth');
             }
         } catch (error) {
-            addNotification({
-                type: 'danger',
-                title: 'Verification Failed',
-                message: error.message,
-                icon: 'close-circle-outline'
-            }, 5000);
+            Alert.alert('Verification Failed', error.message);
         } finally {
             setLoading(false);
         }
@@ -141,12 +125,7 @@ export default function OtpScreen() {
 
             if (response.ok) {
                 setTimer(60);
-                addNotification({
-                    type: 'success',
-                    title: 'OTP Resent',
-                    message: 'A new code has been sent to your email.',
-                    icon: 'mail-outline'
-                }, 3000);
+                Alert.alert('OTP Resent', 'A new code has been sent to your email.');
             }
         } catch (error) {
             console.error("Resend error:", error);

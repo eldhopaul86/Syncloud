@@ -36,23 +36,31 @@ export default function HomeScreen() {
             const response = await fetch(`${API_BASE}/api/cloud/credentials`, {
                 headers: { 'Authorization': `Bearer ${userData.token}` }
             });
-            const data = await response.json();
-            if (data.success) {
-                setCloudCount(data.connections?.length || 0);
-                const clouds = data.connections?.map(c => c.cloudName.toLowerCase()) || [];
-                setActiveClouds(data.connections?.map(c => c.cloudName.toLowerCase()) || []);
+            const responseText = await response.text();
+            let clouds = [];
+            try {
+                const data = JSON.parse(responseText);
+                if (data.success) {
+                    setCloudCount(data.connections?.length || 0);
+                    clouds = data.connections?.map(c => c.cloudName.toLowerCase()) || [];
+                    setActiveClouds(clouds);
 
-                // Check default cloud
-                const defaultCloud = userData.defaultCloud?.toLowerCase() || 'cloudinary';
-                if (!clouds.includes(defaultCloud) && !sessionAlertsProcessed) {
-                    addNotification({
-                        type: 'warning',
-                        title: 'Storage Not Connected',
-                        message: `Your default vault (${defaultCloud.toUpperCase()}) needs setup.`,
-                        icon: 'alert-circle-outline',
-                        color: colors.warning
-                    });
+                    // ... (rest of notification logic if needed)
                 }
+            } catch (parseError) {
+                console.error('❌ Clouds JSON Parse Error. Server returned:', responseText.substring(0, 200));
+            }
+
+            // Check default cloud
+            const defaultCloud = userData.defaultCloud?.toLowerCase() || 'cloudinary';
+            if (!clouds.includes(defaultCloud) && !sessionAlertsProcessed) {
+                addNotification({
+                    type: 'warning',
+                    title: 'Storage Not Connected',
+                    message: `Your default vault (${defaultCloud.toUpperCase()}) needs setup.`,
+                    icon: 'alert-circle-outline',
+                    color: colors.warning
+                }, 2000);
             }
         } catch (err) {
             console.error('Failed to fetch clouds:', err);
@@ -65,45 +73,45 @@ export default function HomeScreen() {
             const response = await fetch(`${API_BASE}/api/files/stats?cloud=${viewCloudFilter}`, {
                 headers: { 'Authorization': `Bearer ${userData.token}` }
             });
-            const data = await response.json();
-            if (data.success) {
-                setStats(data.stats);
+            const responseText = await response.text();
+            try {
+                const data = JSON.parse(responseText);
+                if (data.success) {
+                    setStats(data.stats);
 
-                // 🚨 Session-based Alerts (Initial Audit on Login)
-                if (!sessionAlertsProcessed) {
-                    // 1. Security Threat Warning
-                    if (data.stats.global.threatCount > 0) {
-                        addNotification({
-                            type: 'danger',
-                            title: 'Active Security Threat',
-                            message: `Warning: ${data.stats.global.threatCount} malicious file(s) detected in your vault. Manual review required.`,
-                            icon: 'shield-alert-outline',
-                            color: colors.danger,
-                            actions: [{ label: 'Review', type: 'danger' }]
-                        });
+                    // 🚨 Session-based Alerts
+                    if (!sessionAlertsProcessed) {
+                        if (data.stats.global?.threatCount > 0) {
+                            addNotification({
+                                type: 'danger',
+                                title: 'Active Security Threat',
+                                message: `Warning: ${data.stats.global.threatCount} malicious file(s) detected.`,
+                                icon: 'shield-alert-outline',
+                                color: colors.danger
+                            }, 2000);
+                        }
+
+                        const limit = 5 * 1024 * 1024 * 1024;
+                        const used = data.stats.global?.totalUsed || 0;
+                        if (used > limit * 0.9) {
+                            addNotification({
+                                type: 'danger',
+                                title: 'Storage Capacity Warning',
+                                message: 'Critical: Your cloud vault is nearly full.',
+                                icon: 'disc-outline',
+                                color: colors.danger
+                            }, 2000);
+                        }
+                        setSessionAlertsProcessed(true);
                     }
-
-                    // 2. Storage Capacity Warning
-                    const limit = 5 * 1024 * 1024 * 1024;
-                    const used = data.stats.global.totalUsed;
-                    if (used > limit * 0.9) {
-                        addNotification({
-                            type: 'danger',
-                            title: 'Storage Capacity Warning',
-                            message: `Critical: Your cloud vault is ${((used / limit) * 100).toFixed(1)}% full. Consider managing your storage.`,
-                            icon: 'disc-outline',
-                            color: colors.danger
-                        });
-                    }
-
-                    // Mark as processed for this login session
-                    setSessionAlertsProcessed(true);
                 }
+            } catch (pErr) {
+                console.error('❌ Stats JSON Parse Error:', responseText.substring(0, 100));
             }
         } catch (err) {
             console.error('Failed to fetch stats:', err);
         }
-    }, [userData.token, viewCloudFilter, userData.defaultCloud, API_BASE]);
+    }, [userData.token, viewCloudFilter, API_BASE, addNotification, colors.danger, colors.warning, sessionAlertsProcessed, setSessionAlertsProcessed]);
 
     useFocusEffect(
         useCallback(() => {

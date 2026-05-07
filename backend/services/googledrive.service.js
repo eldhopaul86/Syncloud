@@ -72,4 +72,20 @@ async function deleteFile(fileId, creds = null) {
   return await drive.files.delete({ fileId });
 }
 
-export default { uploadFile, validateCredentials, deleteFile };
+/**
+ * Fetches the file as a stream for proxying
+ */
+async function downloadFile(fileId, creds) {
+  try {
+    const drive = getDriveInstance(creds);
+    const response = await drive.files.get(
+      { fileId, alt: 'media' },
+      { responseType: 'stream' }
+    );
+    return { stream: response.data };
+  } catch (error) {
+    throw new Error(`Google Drive download failed: ${error.message}`);
+  }
+}
+
+export default { uploadFile, validateCredentials, deleteFile, downloadFile };

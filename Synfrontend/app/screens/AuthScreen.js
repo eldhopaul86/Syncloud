@@ -116,13 +116,6 @@ export default function AuthScreen() {
         // Final Validation
         if (!isFormValid()) {
             setError('Please correct errors before submitting');
-            addNotification({
-                type: 'danger',
-                title: 'Validation Error',
-                message: 'Please fill all fields correctly.',
-                icon: 'alert-circle-outline',
-                color: colors.danger
-            }, 3000);
             return;
         }
 
@@ -166,13 +159,6 @@ export default function AuthScreen() {
 
             console.log('Auth success:', data);
 
-            addNotification({
-                type: 'success',
-                title: isLogin ? 'Welcome Back' : 'Account Created',
-                message: isLogin ? 'Successfully logged in.' : 'Your account has been created successfully!',
-                icon: 'checkmark-circle-outline',
-                color: colors.success
-            }, 4000);
 
             // Inject dynamic user data into global state
             if (isLogin && data.user) {
@@ -202,13 +188,6 @@ export default function AuthScreen() {
             }
 
             setError(err.message);
-            addNotification({
-                type: 'danger',
-                title: 'Auth Failed',
-                message: err.message,
-                icon: 'close-circle-outline',
-                color: colors.danger
-            }, 5000);
         } finally {
             setLoading(false);
         }

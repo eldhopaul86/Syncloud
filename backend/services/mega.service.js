@@ -1,4 +1,5 @@
 import { Storage } from "megajs";
+import { Logger } from "../utils/logger.js";
 
 /**
  * Validates credentials by attempting a login
@@ -108,4 +109,66 @@ async function deleteFile(handle, creds = null) {
   }
 }
 
-export default { uploadFile, validateCredentials, deleteFile };
+/**
+ * Fetches the file as a stream for proxying
+ */
+async function downloadFile(handle, creds, originalUrl) {
+  const email = creds?.email;
+  const password = creds?.password;
+
+  // Strategy 1: Attempt download from URL if a shared link with key exists
+  if (originalUrl && originalUrl.includes('mega.nz/file/') && originalUrl.includes('#')) {
+    Logger.info(`🔗 Attempting MEGA download from shared URL: ${handle}`);
+    try {
+        const { File } = await import('megajs');
+        const file = File.fromURL(originalUrl);
+        const stream = file.download();
+        
+        // Return immediately if stream starts successfully
+        return { stream };
+    } catch (urlErr) {
+        Logger.warn(`⚠️ MEGA URL download failed for ${handle}, falling back to storage login: ${urlErr.message}`);
+    }
+  }
+
+  // Strategy 2: Login and find file by handle
+  Logger.info(`📡 Connecting to MEGA for handle: ${handle}`);
+  const storage = new Storage({ email, password });
+  try {
+    await new Promise((resolve, reject) => {
+      storage.on("ready", resolve);
+      storage.on("error", (err) => {
+        Logger.error(`❌ MEGA Login Failed for ${email}`, err.message);
+        reject(new Error(`Mega Login Failed: ${err.message}`));
+      });
+    });
+
+    Logger.info(`🔍 Searching for handle: ${handle} in MEGA`);
+    const file = storage.find(handle);
+    if (!file) {
+        Logger.error(`❌ File not found in MEGA: ${handle}`);
+        throw new Error("File not found on MEGA");
+    }
+
+    Logger.info(`✅ Found file: ${file.name}. Starting download stream...`);
+    const stream = file.download();
+    
+    // Auto-close storage when stream ends or errors
+    stream.on('end', () => {
+        Logger.info(`✅ MEGA stream ended for ${handle}`);
+        storage.close?.();
+    });
+    stream.on('error', (err) => {
+        Logger.error(`❌ MEGA stream error for ${handle}`, err.message);
+        storage.close?.();
+    });
+
+    return { stream };
+  } catch (err) {
+    try { storage.close?.(); } catch (e) { }
+    Logger.error(`❌ MEGA download process failed for ${handle}`, err.message);
+    throw new Error(`MEGA download failed: ${err.message}`);
+  }
+}
+
+export default { uploadFile, validateCredentials, deleteFile, downloadFile };

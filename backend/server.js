@@ -33,7 +33,7 @@ if (!dbUri) {
   Logger.info(`Connecting to DB: ${maskedUri}`);
 
   mongoose
-    .connect(dbUri)
+    .connect(dbUri, { family: 4, serverSelectionTimeoutMS: 5000 })
     .then(() => Logger.success("Connected to MongoDB (syncloud)"))
     .catch((err) => Logger.error("MongoDB connection error", err));
 }

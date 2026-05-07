@@ -6,7 +6,7 @@ dotenv.config();
 
 async function verify() {
     try {
-        await mongoose.connect(process.env.MONGODB_URI);
+        await mongoose.connect(process.env.MONGODB_URI, { family: 4 });
         const count = await User.countDocuments();
         console.log(`\n--- DB Verification ---`);
         console.log(`Total Users in DB: ${count}`);

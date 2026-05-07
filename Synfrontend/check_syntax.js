@@ -1,5 +1,5 @@
 const fs = require('fs');
-const content = fs.readFileSync('c:\\Users\\LENOVO\\OneDrive\\Desktop\\Syn_cloud\\Synfrontend\\app\\screens\\FilesScreen.js', 'utf8');
+const content = fs.readFileSync('c:\\Users\\LENOVO\\OneDrive\\Desktop\\Syn_cloud\\Synfrontend\\app\\utils\\BackupService.js', 'utf8');
 
 function count(str, char) {
     return str.split(char).length - 1;
@@ -7,14 +7,13 @@ function count(str, char) {
 
 console.log('Total { :', count(content, '{'));
 console.log('Total } :', count(content, '}'));
-console.log('Total ( :', count(content, '('));  
+console.log('Total ( :', count(content, '('));
 console.log('Total ) :', count(content, ')'));
 console.log('Total < :', count(content, '<'));
 console.log('Total > :', count(content, '>'));
 
-// Check for unclosed JSX tags (rudimentary)
 const tags = [];
-const regex = /<(\/?[a-zA-Z]+)/g;
+const regex = /<(\/?[a-zA-Z0-9]+)/g;
 let match;
 while ((match = regex.exec(content)) !== null) {
     const tagName = match[1];
@@ -24,10 +23,23 @@ while ((match = regex.exec(content)) !== null) {
             console.log(`Mismatch: Expected ${last}, found ${tagName}`);
         }
     } else {
-        // Check if self-closing
-        const startIdx = match.index;
-        const endIdx = content.indexOf('>', startIdx);
-        if (content[endIdx - 1] !== '/') {
+        // Find the matching > for this tag
+        let endIdx = -1;
+        let depth = 0;
+        for (let i = match.index; i < content.length; i++) {
+            if (content[i] === '<') depth++;
+            if (content[i] === '>') {
+                depth--;
+                if (depth === 0) {
+                    endIdx = i;
+                    break;
+                }
+            }
+        }
+
+        // Check if the tag is self-closing by looking for / before >
+        const tagContent = content.substring(match.index, endIdx + 1);
+        if (!tagContent.trim().endsWith('/>')) {
             tags.push(tagName);
         }
     }

@@ -157,10 +157,14 @@ export default function PromptSearchScreen() {
             setDownloadingFileId(file._id);
             const fileUri = `${FileSystem.cacheDirectory}${file.fileName}`;
 
-            console.log(`📡 Downloading file: ${file.fileName} from ${file.url}`);
+            console.log(`📡 Downloading file: ${file.fileName} (ID: ${file._id}) via proxy`);
+            const API_BASE = (process.env.EXPO_PUBLIC_API_URL || 'https://alivia-unrayed-dewitt.ngrok-free.dev').replace(/\/$/, '');
+            const downloadUrl = `${API_BASE}/api/files/${file._id}/download`;
 
-            // 1. Download the file
-            const downloadRes = await FileSystem.downloadAsync(file.url, fileUri);
+            // 1. Download the file via Backend Proxy
+            const downloadRes = await FileSystem.downloadAsync(downloadUrl, fileUri, {
+                headers: { 'Authorization': `Bearer ${userData.token}` }
+            });
 
             if (downloadRes.status !== 200) {
                 throw new Error('Failed to download file from cloud storage');

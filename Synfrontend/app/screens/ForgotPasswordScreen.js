@@ -55,22 +55,12 @@ export default function ForgotPasswordScreen() {
                 throw new Error(data.error || 'Failed to request reset');
             }
 
-            addNotification({
-                type: 'success',
-                title: 'Code Sent',
-                message: 'A password reset code has been sent to your email.',
-                icon: 'mail-outline'
-            }, 5000);
+            Alert.alert('Code Sent', 'A password reset code has been sent to your email.');
 
             // Navigate to OtpScreen in reset mode
             navigation.navigate('Otp', { email, mode: 'reset' });
         } catch (error) {
-            addNotification({
-                type: 'danger',
-                title: 'Request Failed',
-                message: error.message,
-                icon: 'close-circle-outline'
-            }, 5000);
+            Alert.alert('Request Failed', error.message);
             setError(error.message);
         } finally {
             setLoading(false);

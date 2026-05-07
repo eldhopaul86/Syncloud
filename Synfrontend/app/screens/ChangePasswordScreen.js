@@ -28,15 +28,15 @@ export default function ChangePasswordScreen() {
 
     const handleUpdate = async () => {
         if (!passwordData.current || !passwordData.new || !passwordData.confirm) {
-            addNotification({ type: 'warning', title: 'Required', message: 'All fields are required.' }, 3000);
+            Alert.alert('Required', 'All fields are required.');
             return;
         }
         if (passwordData.new !== passwordData.confirm) {
-            addNotification({ type: 'warning', title: 'Mismatch', message: 'New passwords do not match.' }, 3000);
+            Alert.alert('Mismatch', 'New passwords do not match.');
             return;
         }
         if (passwordData.new.length < 8) {
-            addNotification({ type: 'warning', title: 'Weak Password', message: 'Min 8 characters required.' }, 3000);
+            Alert.alert('Weak Password', 'Min 8 characters required.');
             return;
         }
 
@@ -58,12 +58,7 @@ export default function ChangePasswordScreen() {
             const data = await response.json();
             if (!response.ok) throw new Error(data.error || 'Update failed');
 
-            addNotification({
-                type: 'success',
-                title: 'Password Updated',
-                message: 'Your password has been changed successfully.',
-                icon: 'checkmark-circle-outline'
-            }, 3000);
+            Alert.alert('Password Updated', 'Your password has been changed successfully.');
 
             // Update local state with new timestamp
             if (data.passwordLastChanged) {
@@ -72,7 +67,7 @@ export default function ChangePasswordScreen() {
 
             navigation.goBack();
         } catch (error) {
-            addNotification({ type: 'danger', title: 'Update Failed', message: error.message }, 5000);
+            Alert.alert('Update Failed', error.message);
         } finally {
             setLoading(false);
         }
@@ -109,12 +104,7 @@ export default function ChangePasswordScreen() {
                         <View style={styles.inputLabelRow}>
                             <Text style={[styles.inputLabel, { color: colors.textDim }]}>CURRENT PASSWORD</Text>
                             <TouchableOpacity onPress={() => {
-                                addNotification({
-                                    type: 'info',
-                                    title: 'Password Reset',
-                                    message: 'Please log out and use "Forgot Password" on the login screen.',
-                                    icon: 'information-circle-outline'
-                                }, 6000);
+                                Alert.alert('Password Reset', 'Please log out and use "Forgot Password" on the login screen.');
                             }}>
                                 <Text style={{ color: colors.accentPrimary, fontSize: 12, fontWeight: '600' }}>Forgot?</Text>
                             </TouchableOpacity>

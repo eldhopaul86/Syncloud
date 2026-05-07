@@ -13,6 +13,9 @@ const UserSchema = new mongoose.Schema(
         passwordLastChanged: { type: Date, default: Date.now },
         aesEncryptionEnabled: { type: Boolean, default: false },
         defaultCloud: { type: String, enum: ["dropbox", "cloudinary", "mega", "googledrive"], default: "cloudinary" },
+        autoBackupEnabled: { type: Boolean, default: false },
+        autoBackupInterval: { type: String, enum: ["1m", "5m", "30m", "1h", "1d", "custom"], default: "1h" },
+        autoBackupCustomInterval: { type: Number, default: 60 }, // in minutes
     },
     {
         timestamps: true,

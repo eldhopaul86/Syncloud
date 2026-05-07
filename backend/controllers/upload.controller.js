@@ -36,8 +36,31 @@ export async function uploadToSelectedCloud(req, res) {
     );
 
     const forceUpload = req.body?.forceUpload === "true" || req.body?.forceUpload === true;
+    const isAutoBackup = req.body?.isAutoBackup === "true" || req.body?.isAutoBackup === true;
+    const score = importanceCheck.score;
 
-    if (!importanceCheck.isImportant && !forceUpload) {
+    if (isAutoBackup && !forceUpload) {
+      if (score < 5) {
+        Logger.info(`⛔ Auto-Backup rejected: Score ${score} < 5 (${req.file.originalname})`);
+        return res.json({
+          status: "rejected",
+          message: "File not important enough for automatic backup",
+          score,
+          reason: importanceCheck.reason
+        });
+      }
+      if (score >= 5 && score <= 7) {
+        Logger.info(`⚠️ Auto-Backup pending: Score ${score} (5-7) (${req.file.originalname})`);
+        return res.json({
+          status: "pending_confirmation",
+          message: "File importance is medium, awaiting user confirmation",
+          score,
+          reason: importanceCheck.reason
+        });
+      }
+    }
+
+    if (!importanceCheck.isImportant && !forceUpload && !isAutoBackup) {
       Logger.info(`⛔ Upload rejected to ${cloud} - File not important enough\n`);
       return res.status(400).json({
         error: "File deemed not important for cloud storage",

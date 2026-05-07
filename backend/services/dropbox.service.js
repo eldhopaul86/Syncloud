@@ -123,4 +123,30 @@ async function deleteFile(fileId, creds = null) {
   return await dbx.filesDeleteV2({ path: fileId });
 }
 
-export default { uploadFile, validateCredentials, deleteFile };
+/**
+ * Fetches the file for proxying
+ */
+async function downloadFile(fileId, creds) {
+  try {
+    const accessToken = creds?.accessToken;
+    if (!accessToken) throw new Error("Missing Dropbox access token");
+    
+    Logger.info(`📡 Connecting to Dropbox for file: ${fileId}`);
+    const dbx = new Dropbox({ accessToken });
+    const response = await dbx.filesDownload({ path: fileId });
+    
+    if (!response.result || !response.result.fileBinary) {
+        Logger.error(`❌ Dropbox response missing fileBinary for ${fileId}`);
+        throw new Error("Invalid response from Dropbox: missing content");
+    }
+
+    Logger.info(`✅ Dropbox download successful for ${fileId} (${response.result.size} bytes)`);
+    // dropbox SDK for node returns the file content in 'fileBinary'
+    return { buffer: response.result.fileBinary };
+  } catch (error) {
+    Logger.error(`❌ Dropbox download failed for ${fileId}`, error.message);
+    throw new Error(`Dropbox download failed: ${error.message}`);
+  }
+}
+
+export default { uploadFile, validateCredentials, deleteFile, downloadFile };

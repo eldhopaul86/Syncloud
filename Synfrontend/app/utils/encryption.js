@@ -1,4 +1,5 @@
 import CryptoJS from 'crypto-js';
+import * as Crypto from 'expo-crypto';
 
 /**
  * Encrypts a string using AES-256-CBC.
@@ -6,9 +7,13 @@ import CryptoJS from 'crypto-js';
  */
 export const encryptFile = async (base64Data, originalFileName) => {
     try {
-        // 1. Generate a random 32-byte key and 16-byte IV
-        const key = CryptoJS.lib.WordArray.random(32);
-        const iv = CryptoJS.lib.WordArray.random(16);
+        // 1. Generate a secure random 32-byte key and 16-byte IV using Expo Crypto
+        const keyBytes = await Crypto.getRandomBytesAsync(32);
+        const ivBytes = await Crypto.getRandomBytesAsync(16);
+
+        // Convert Uint8Array to CryptoJS WordArray
+        const key = CryptoJS.lib.WordArray.create(keyBytes);
+        const iv = CryptoJS.lib.WordArray.create(ivBytes);
 
         // 2. Encrypt the base64 data
         const encrypted = CryptoJS.AES.encrypt(base64Data, key, {
@@ -55,7 +60,7 @@ export const decryptFile = (encryptedBase64, keyHex, ivHex) => {
             padding: CryptoJS.pad.Pkcs7
         });
 
-        return decrypted.toString(CryptoJS.enc.Base64);
+        return decrypted.toString(CryptoJS.enc.Utf8);
     } catch (error) {
         console.error('Decryption failed:', error);
         throw new Error('Failed to decrypt file');

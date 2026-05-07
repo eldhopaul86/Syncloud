@@ -2,6 +2,7 @@ import { FileMetadata } from "../models/FileMetadata.js";
 import { Logger } from "../utils/logger.js";
 import { decrypt } from "../utils/encryption.service.js";
 import mongoose from "mongoose";
+import cloudStorageFactory from "../services/cloudStorage.factory.js";
 
 /**
  * Lists all file metadata for the authenticated user
@@ -351,6 +352,88 @@ export const renameFile = async (req, res) => {
         res.status(500).json({ error: "Failed to rename file" });
     }
 };
+/**
+ * Proxies file download from cloud storage to the client
+ */
+export const downloadFile = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const fileId = req.params.id;
+
+        const file = await FileMetadata.findOne({ _id: fileId, userId });
+        if (!file) {
+            return res.status(404).json({ error: "File not found" });
+        }
+
+        if (file.fileType === 'folder') {
+            return res.status(400).json({ error: "Cannot download a folder" });
+        }
+
+        Logger.info(`📥 Proxying download for: ${file.fileName} from ${file.cloud}`);
+
+        const service = cloudStorageFactory.getService(file.cloud);
+        if (!service || !service.downloadFile) {
+            // Fallback: If service doesn't support direct download, redirect to original URL
+            Logger.warn(`⚠️ Service ${file.cloud} does not support proxied download. Redirecting to backup URL.`);
+            return res.redirect(file.url);
+        }
+
+        // We need credentials for most private downloads
+        const { default: cloudManager } = await import("../services/cloudManager.service.js");
+        const credentials = await cloudManager.getUserCredentials(userId, file.cloud);
+
+        if (!credentials && file.cloud !== 'cloudinary') {
+            Logger.warn(`⚠️ No credentials found for ${file.cloud}. Redirecting to stored URL.`);
+            return res.redirect(file.url);
+        }
+
+        const downloadResult = await service.downloadFile(file.publicId, credentials, file.url);
+        Logger.info(`✅ Service download result obtained for ${file.fileName}`);
+
+        // Set headers for download
+        let contentType = file.fileType || 'application/octet-stream';
+        if (!contentType.includes('/')) {
+            // Fallback for simple extensions if stored incorrectly
+            if (contentType.toLowerCase() === 'pdf') contentType = 'application/pdf';
+            else contentType = 'application/octet-stream';
+        }
+
+        res.setHeader('Content-Type', contentType);
+        res.setHeader('Content-Disposition', `attachment; filename="${file.fileName}"`);
+        if (file.fileSize) {
+            res.setHeader('Content-Length', file.fileSize);
+        }
+
+        // Handle stream or buffer
+        if (downloadResult.stream) {
+            Logger.info(`📡 Piping stream for ${file.fileName}`);
+            downloadResult.stream.pipe(res);
+            
+            downloadResult.stream.on('error', (streamErr) => {
+                Logger.error(`❌ Stream error during piping for ${file.fileName}`, streamErr.message);
+                if (!res.headersSent) {
+                    res.status(500).json({ error: "Stream error during download" });
+                }
+            });
+        } else if (downloadResult.buffer) {
+            Logger.info(`📦 Sending buffer for ${file.fileName} (${downloadResult.buffer.length} bytes)`);
+            res.send(downloadResult.buffer);
+        } else if (downloadResult.redirect) {
+            Logger.info(`🔗 Redirecting to ${downloadResult.redirect} for ${file.fileName}`);
+            res.redirect(downloadResult.redirect);
+        } else {
+            throw new Error("Invalid download result from service");
+        }
+
+    } catch (err) {
+        Logger.error(`❌ Download proxy failed for ${req.params.id}`, err.message);
+        if (err.stack) Logger.error(err.stack);
+        if (!res.headersSent) {
+            res.status(500).json({ error: "Failed to download file", details: err.message });
+        }
+    }
+};
+
 /**
  * Checks for deduplication or modification before actual upload
  */

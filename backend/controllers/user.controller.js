@@ -7,11 +7,22 @@ import { Logger } from "../utils/logger.js";
 export const updateUserSettings = async (req, res) => {
     try {
         const userId = req.user.id;
-        const { aesEncryptionEnabled, defaultCloud } = req.body;
+        const {
+            aesEncryptionEnabled,
+            defaultCloud,
+            autoBackupEnabled,
+            autoBackupInterval,
+            autoBackupCustomInterval,
+            autoBackupCloud
+        } = req.body;
 
         const updates = {};
         if (typeof aesEncryptionEnabled === "boolean") updates.aesEncryptionEnabled = aesEncryptionEnabled;
         if (defaultCloud) updates.defaultCloud = defaultCloud;
+        if (typeof autoBackupEnabled === "boolean") updates.autoBackupEnabled = autoBackupEnabled;
+        if (autoBackupInterval) updates.autoBackupInterval = autoBackupInterval;
+        if (typeof autoBackupCustomInterval === "number") updates.autoBackupCustomInterval = autoBackupCustomInterval;
+        if (autoBackupCloud) updates.autoBackupCloud = autoBackupCloud;
 
         const user = await User.findByIdAndUpdate(userId, updates, { new: true }).select("-password");
 
