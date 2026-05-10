@@ -8,6 +8,7 @@ Synfrontend/node_modules/
 # Environment
 .env
 backend/.env
+backend/.env.example
 Synfrontend/.env
 
 # IDEs
