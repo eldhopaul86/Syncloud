@@ -70,6 +70,10 @@ export const ThemeProvider = ({ children }) => {
         setNotifications([]);
     };
 
+    const removeNotification = (id) => {
+        setNotifications(prev => prev.filter(n => n.id !== id));
+    };
+
     const updateUserSettings = async (updates) => {
         try {
             // Optimistic update
@@ -116,6 +120,7 @@ export const ThemeProvider = ({ children }) => {
         notifications,
         addNotification,
         clearNotifications,
+        removeNotification,
         markAllNotificationsAsRead,
         dismissNotificationPopup,
         viewCloudFilter,

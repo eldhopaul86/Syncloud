@@ -68,6 +68,28 @@ class CloudManagerService {
     }
 
     /**
+     * Checks if a file with the given hash already exists for the user.
+     * Useful for skipping expensive AI analysis if the file is already backed up.
+     */
+    async checkDeduplication(userId, sha256) {
+        if (!sha256) return null;
+        
+        const existingByHash = await FileMetadata.findOne({ userId, hash: sha256 });
+        if (existingByHash) {
+            Logger.info(`♻️ Deduplication check: Found existing file for user ${userId} (Hash: ${sha256}).`);
+            return {
+                url: existingByHash.url,
+                publicId: existingByHash.publicId,
+                size: existingByHash.fileSize,
+                mimeType: existingByHash.fileType,
+                metadata: existingByHash,
+                version: existingByHash.version
+            };
+        }
+        return null;
+    }
+
+    /**
      * Orchestrates the upload process with enhanced metadata and optional encryption
      */
     async upload(userId, cloudName, fileData) {
@@ -87,6 +109,8 @@ class CloudManagerService {
         } = fileData;
 
         // Generate SHA-256 Hash from Binary Buffer (Requirement 1 & 2)
+        // Note: If deduplication was checked before calling this, it might be redundant, 
+        // but we regenerate here for security (ensure hash matches buffer).
         const sha256 = generateSHA256(buffer);
 
         // 1. Try to get user-specific credentials
@@ -98,17 +122,17 @@ class CloudManagerService {
         }
 
         // CASE 1: Exact Duplicate (User-level)
-        const existingByHash = await FileMetadata.findOne({ userId, hash: sha256 });
+        const existingByHash = await this.checkDeduplication(userId, sha256);
         if (existingByHash) {
-            Logger.info(`♻️ CASE 1: Exact duplicate found for user ${userId} (Hash: ${sha256}). Skipping upload.`);
+            Logger.info(`♻️ CASE 1: Exact duplicate confirmed (Hash: ${sha256}). Skipping upload.`);
             return {
                 result: {
                     url: existingByHash.url,
                     publicId: existingByHash.publicId,
-                    size: existingByHash.fileSize,
-                    mimeType: existingByHash.fileType
+                    size: existingByHash.size,
+                    mimeType: existingByHash.mimeType
                 },
-                metadata: existingByHash,
+                metadata: existingByHash.metadata,
                 deduplicated: true,
                 version: existingByHash.version
             };

@@ -3,6 +3,7 @@ import cloudManagerService from "../services/cloudManager.service.js";
 import { GEMINI_CONFIG } from "../config/gemini.config.js";
 import virustotalService from "../services/virustotal.service.js";
 import { Logger } from "../utils/logger.js";
+import { AnalysisCache } from "../models/AnalysisCache.js";
 
 /**
  * Main upload controller using CloudManager orchestrator
@@ -29,11 +30,107 @@ export async function uploadToSelectedCloud(req, res) {
     Logger.info(`   - Target Cloud: ${cloud}`);
     Logger.info(`   - Folder ID: ${req.body.parentFolderId}`);
 
-    // 1. Check file importance with Gemini
-    const importanceCheck = await geminiService.analyzeFile(
-      req.file.originalname,
-      req.file.buffer
-    );
+    // 1. Calculate Hash (Foundation for Security & Deduplication)
+    const { sha256: bodySha256 } = req.body;
+    let fileHash = bodySha256;
+    if (!fileHash && req.file.buffer) {
+      const { generateSHA256 } = await import("../utils/hashing.service.js");
+      fileHash = generateSHA256(req.file.buffer);
+    }
+
+    // 2. Threat Detection FIRST (Security Requirement)
+    Logger.info(`🔍 Performing priority threat scan for: ${req.file.originalname}`);
+    let scanResult = null;
+    let scanStatus = 'pending';
+
+    try {
+      if (fileHash) {
+        const existingReport = await virustotalService.checkFileHash(fileHash);
+        if (existingReport) {
+          scanResult = virustotalService.summarizeResults(existingReport);
+          scanStatus = 'completed';
+          Logger.info(`✅ VirusTotal report found. Malicious: ${scanResult.malicious}`);
+        } else {
+          // If not found by hash, perform an actual upload & scan
+          Logger.info(`📤 File not known to VT. Uploading for scan...`);
+          const analysisId = await virustotalService.uploadAndScanFile(req.file.buffer, req.file.originalname);
+          if (analysisId) {
+            scanStatus = 'scanning';
+            Logger.info(`⏳ Scan initiated. Analysis ID: ${analysisId}`);
+          }
+        }
+      }
+    } catch (vtErr) {
+      Logger.error("VirusTotal process failed", vtErr.message);
+      scanStatus = 'failed';
+    }
+
+    // BLOCK if malicious BEFORE deduplication or AI
+    const bypassThreat = req.body?.bypassThreat === "true" || req.body?.bypassThreat === true;
+    if (scanResult && (scanResult.malicious > 0 || scanResult.suspicious > 0) && !bypassThreat) {
+      Logger.warn(`🚫 Threat detected in ${req.file.originalname}. Pausing upload for security.`);
+      return res.status(409).json({
+        status: "threat_detected",
+        message: "Malicious content detected by VirusTotal",
+        scanResult
+      });
+    }
+
+    // 3. Deduplication check (Optimization)
+    const deduplicationResult = await cloudManagerService.checkDeduplication(req.user.id, fileHash);
+    
+    if (deduplicationResult) {
+      Logger.info(`♻️ Early Deduplication: Skipping Gemini for ${req.file.originalname} (Hash: ${fileHash})`);
+      return res.json({
+        status: "success",
+        message: "Identical file already exists. Skipping upload.",
+        fileId: deduplicationResult.metadata._id,
+        version: deduplicationResult.version,
+        duplicate: true,
+        cloud,
+        shareUrl: deduplicationResult.url,
+        importanceReason: deduplicationResult.metadata.importanceReason,
+        importanceScore: deduplicationResult.metadata.importanceScore,
+        scanStatus: deduplicationResult.metadata.scanStatus,
+        scanResult: deduplicationResult.metadata.scanResult
+      });
+    }
+
+    // 4. Check file importance with Gemini (Only if NOT a duplicate and NOT malicious)
+    // Check Analysis Cache first
+    let importanceCheck = null;
+    const cachedAnalysis = await AnalysisCache.findOne({ hash: fileHash });
+
+    if (cachedAnalysis) {
+      Logger.info(`🧠 Analysis Cache Hit: Using existing score ${cachedAnalysis.score} for ${req.file.originalname}`);
+      importanceCheck = {
+        score: cachedAnalysis.score,
+        reason: cachedAnalysis.reason,
+        isImportant: cachedAnalysis.score >= GEMINI_CONFIG.IMPORTANCE_THRESHOLD && cachedAnalysis.score <= 10,
+        decision: "CACHED"
+      };
+    } else {
+      importanceCheck = await geminiService.analyzeFile(
+        req.file.originalname,
+        req.file.buffer
+      );
+
+      // Save to cache if analysis was successful
+      if (importanceCheck && importanceCheck.score !== null && importanceCheck.score !== -1) {
+        try {
+          await AnalysisCache.create({
+            hash: fileHash,
+            score: importanceCheck.score,
+            reason: importanceCheck.reason,
+            fileName: req.file.originalname,
+            modelUsed: GEMINI_CONFIG.MODEL
+          });
+          Logger.info(`💾 Analysis result cached for ${req.file.originalname}`);
+        } catch (cacheErr) {
+          Logger.error("Failed to save analysis to cache", cacheErr.message);
+        }
+      }
+    }
 
     const forceUpload = req.body?.forceUpload === "true" || req.body?.forceUpload === true;
     const isAutoBackup = req.body?.isAutoBackup === "true" || req.body?.isAutoBackup === true;
@@ -75,45 +172,6 @@ export async function uploadToSelectedCloud(req, res) {
 
     if (forceUpload && !importanceCheck.isImportant) {
       Logger.info(`ℹ️ Manual Override: Allowing "unimportant" upload to ${cloud} (Score: ${importanceCheck.score})`);
-    }
-
-    // 2. VirusTotal Threat Detection (Hash check first)
-    Logger.info(`🔍 Performing threat scan for: ${req.file.originalname}`);
-    let scanResult = null;
-    let scanStatus = 'pending';
-
-    try {
-      const fileHash = req.body.sha256;
-      if (fileHash) {
-        const existingReport = await virustotalService.checkFileHash(fileHash);
-        if (existingReport) {
-          scanResult = virustotalService.summarizeResults(existingReport);
-          scanStatus = 'completed';
-          Logger.info(`✅ VirusTotal report found. Malicious: ${scanResult.malicious}`);
-        } else {
-          // If not found by hash, perform an actual upload & scan
-          Logger.info(`📤 File not known to VT. Uploading for scan...`);
-          const analysisId = await virustotalService.uploadAndScanFile(req.file.buffer, req.file.originalname);
-          if (analysisId) {
-            scanStatus = 'scanning';
-            Logger.info(`⏳ Scan initiated. Analysis ID: ${analysisId}`);
-          }
-        }
-      }
-    } catch (vtErr) {
-      Logger.error("VirusTotal process failed", vtErr.message);
-      scanStatus = 'failed';
-    }
-
-    // 3. Check for threats BEFORE upload unless bypassed
-    const bypassThreat = req.body?.bypassThreat === "true" || req.body?.bypassThreat === true;
-    if (scanResult && (scanResult.malicious > 0 || scanResult.suspicious > 0) && !bypassThreat) {
-      Logger.warn(`🚫 Threat detected in ${req.file.originalname}. Pausing upload for user confirmation.`);
-      return res.status(409).json({
-        status: "threat_detected",
-        message: "Malicious content detected by VirusTotal",
-        scanResult
-      });
     }
 
     // 4. Delegate to CloudManager for credential lookup, upload, and metadata persistence
@@ -169,6 +227,7 @@ export async function uploadToSelectedCloud(req, res) {
       fileId: metadata._id,
       version: metadata.version,
       duplicate: !!deduplicated,
+      updated: !!updated,
       cloud,
       shareUrl: result.url,
       importanceReason: importanceCheck.reason,

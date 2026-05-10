@@ -12,7 +12,14 @@ export class GeminiService {
       throw new Error("GEMINI_API_KEY is not configured");
     }
     this.genAI = new GoogleGenerativeAI(GEMINI_CONFIG.API_KEY);
-    this.model = this.genAI.getGenerativeModel({ model: GEMINI_CONFIG.MODEL });
+    this.model = this.genAI.getGenerativeModel({ 
+      model: GEMINI_CONFIG.MODEL,
+      generationConfig: {
+        temperature: 0,
+        topP: 1,
+        topK: 1
+      }
+    });
     Logger.success("Gemini API initialized successfully");
   }
 

@@ -6,10 +6,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '../context/ThemeContext';
+import { confirmPendingBackup } from '../utils/BackupService';
 
 export default function Header() {
     const navigation = useNavigation();
-    const { colors, spacing, radius, typography, userData, notifications, setNotifications, clearNotifications, markAllNotificationsAsRead, setSessionAlertsProcessed } = useTheme();
+    const { colors, spacing, radius, typography, userData, notifications, removeNotification, clearNotifications, markAllNotificationsAsRead, setSessionAlertsProcessed } = useTheme();
     const [sidebarVisible, setSidebarVisible] = useState(false);
     const [notifVisible, setNotifVisible] = useState(false);
     const [slideAnim] = useState(new Animated.Value(-Dimensions.get('window').height));
@@ -46,15 +47,20 @@ export default function Header() {
     };
 
     const handleAction = (notifId, actionLabel) => {
-        if (actionLabel === 'Manual Backup' || actionLabel === 'Review' || actionLabel === 'Optimize') {
+        const notification = notifications.find(n => n.id === notifId);
+        const { file, userData: fileUserData } = notification?.data || {};
+
+        if (actionLabel === 'Accept' && file) {
+            confirmPendingBackup(file, fileUserData, true);
+        } else if (actionLabel === 'Reject' && file) {
+            confirmPendingBackup(file, fileUserData, false);
+        } else if (actionLabel === 'Manual Backup' || actionLabel === 'Review' || actionLabel === 'Optimize') {
             setNotifVisible(false);
             navigation.navigate('Files');
-        } else if (actionLabel === 'Reject' || actionLabel === 'Dismiss') {
-            // Standard dismiss logic
         }
 
         // Remove the notification after action
-        setNotifications(notifications.filter(n => n.id !== notifId));
+        removeNotification(notifId);
     };
 
     const formatTime = (ts) => {

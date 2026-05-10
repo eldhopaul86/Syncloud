@@ -103,21 +103,22 @@ Notifications.setNotificationCategoryAsync('BACKUP_CONFIRMATION', [
   {
     identifier: 'REJECT',
     buttonTitle: '❌ Reject',
-    options: { opensAppToForeground: false },
+    options: { opensAppToForeground: true },
   },
 ]);
 
 // 2. Set default handler behavior
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
-    shouldShowAlert: true,
+    shouldShowBanner: true,
+    shouldShowList: true,
     shouldPlaySound: true,
     shouldSetBadge: false,
   }),
 });
 
 function AppContent() {
-  const { colors, userData, addNotification } = useTheme();
+  const { colors, userData, notifications, addNotification, removeNotification } = useTheme();
 
   const lastBackupConfig = React.useRef(null);
 
@@ -165,12 +166,10 @@ function AppContent() {
         type = 'warning';
         icon = 'close-circle-outline';
         color = colors.warning;
-        persist = true;
       } else if (title.includes('Required')) {
         type = 'danger';
         icon = 'help-circle-outline';
         color = colors.danger;
-        persist = true;
       } else if (title.includes('Success') || title.includes('Backed up') || title.includes('Confirmed')) {
         type = 'success';
         icon = 'checkmark-circle-outline';
@@ -179,26 +178,30 @@ function AppContent() {
         type = 'info';
         icon = 'copy-outline';
         color = '#2196F3'; // Blue for info/deduplication
-        persist = true;
       } else if (title.includes('Threat') || title.includes('Malicious')) {
         type = 'danger';
-        icon = 'shield-alert-outline';
+        icon = 'alert-circle-outline';
         color = colors.danger;
-        persist = true;
       } else if (title.includes('Scan Started')) {
         type = 'info';
         icon = 'search-outline';
         color = colors.accentPrimary;
       } else if (title.includes('Scan Complete')) {
         type = 'success';
-        icon = 'shield-checkmark-outline';
+        icon = 'shield-outline';
         color = colors.success || '#4CAF50';
       }
 
-      // 🚨 FEATURE: Hide popups for Auto Scan notifications to reduce noise, 
+      // 🚨 FEATURE: Hide popups for Auto Scan/Backup notifications to reduce noise, 
       // but keep them in the history (modal)
-      const isAutoScan = title.includes('Auto Scan') || title.includes('Auto Backup');
+      const isAutoScan = title.includes('Auto Scan') || title.includes('Auto Backup') || title.includes('Backup Ignored') || title.includes('Backup Confirmed') || title.includes('Version Updated');
       const isProgress = title.includes('Scanning') || title.includes('Checking');
+
+      const actions = [];
+      if (title.includes('Required')) {
+        actions.push({ label: 'Accept', type: 'success' });
+        actions.push({ label: 'Reject', type: 'danger' });
+      }
 
       addNotification({
         type: type,
@@ -206,14 +209,28 @@ function AppContent() {
         message: body,
         icon,
         color,
+        actions,
+        data: notification.request.content.data,
         popupVisible: !(isAutoScan || isProgress)
       }, persist ? null : 2000);
     });
 
     // Listener for when a user CLICKS/RESPONDS to a notification
-    const responseSubscription = Notifications.addNotificationResponseReceivedListener(response => {
+    const responseSubscription = Notifications.addNotificationResponseReceivedListener(async (response) => {
       const { actionIdentifier, notification } = response;
       const { file, userData: fileUserData } = notification.request.content.data || {};
+
+      // 1. Immediately dismiss from OS tray
+      await Notifications.dismissNotificationAsync(notification.request.identifier);
+
+      // 2. Immediately remove from internal state (History Modal)
+      const targetNotif = (notifications || []).find(n => 
+        n.title === notification.request.content.title && 
+        n.message === notification.request.content.body
+      );
+      if (targetNotif) {
+        removeNotification(targetNotif.id);
+      }
 
       if (actionIdentifier === 'ACCEPT' && file) {
         console.log('User accepted backup from notification');
@@ -228,7 +245,7 @@ function AppContent() {
       foregroundSubscription.remove();
       responseSubscription.remove();
     };
-  }, [colors.accentPrimary]);
+  }, [colors.accentPrimary, notifications]);
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.bgPrimary }}>

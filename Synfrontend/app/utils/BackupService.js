@@ -12,10 +12,11 @@ const MANIFEST_KEY = 'BACKUP_MANIFEST';
 
 // Fake real-time file watcher reference (periodic scan)
 let fakeWatcherInterval = null;
+let isScanning = false;
 
 const ALLOWED_EXTENSIONS = [
     '.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx',
-    '.jpg', '.jpeg', '.png'
+    '.jpg', '.jpeg', '.png', '.txt'
 ];
 
 const MIME_TYPES = {
@@ -53,7 +54,13 @@ TaskManager.defineTask(BACKUP_TASK_NAME, async () => {
 let foregroundInterval = null;
 
 export const performAutoBackup = async (userData) => {
+    if (isScanning) {
+        console.log('⚠️ Scan already in progress. Skipping loop.');
+        return [];
+    }
+
     try {
+        isScanning = true;
         console.log('🔍 Starting broad auto-backup scan...');
         
         await Notifications.scheduleNotificationAsync({
@@ -89,10 +96,27 @@ export const performAutoBackup = async (userData) => {
 
         console.log(`⏱️ Cutoff active: Account Created -> ${new Date(userCreatedAt).toISOString()} | First Login Epoch -> ${new Date(scanEpoch).toISOString()}`);
 
-        // 2. Shallow Directory Diffing Scan (User requested model)
+        // 2. Comprehensive Directory Scan (Modern + Legacy + System + WhatsApp)
         const DIRECTORIES = [
             'file:///storage/emulated/0/Download/',
-            'file:///storage/emulated/0/Documents/'
+            'file:///storage/emulated/0/Documents/',
+            'file:///storage/emulated/0/Pictures/',
+            'file:///storage/emulated/0/DCIM/',
+            'file:///storage/emulated/0/DCIM/Camera/',
+            // WhatsApp Modern Paths (Android 11+)
+            'file:///storage/emulated/0/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Images/',
+            'file:///storage/emulated/0/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Images/Sent/',
+            'file:///storage/emulated/0/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Images/Private/',
+            'file:///storage/emulated/0/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Documents/',
+            'file:///storage/emulated/0/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Documents/Sent/',
+            'file:///storage/emulated/0/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Documents/Private/',
+            // WhatsApp Legacy Paths
+            'file:///storage/emulated/0/WhatsApp/Media/WhatsApp Images/',
+            'file:///storage/emulated/0/WhatsApp/Media/WhatsApp Images/Sent/',
+            'file:///storage/emulated/0/WhatsApp/Media/WhatsApp Images/Private/',
+            'file:///storage/emulated/0/WhatsApp/Media/WhatsApp Documents/',
+            'file:///storage/emulated/0/WhatsApp/Media/WhatsApp Documents/Sent/',
+            'file:///storage/emulated/0/WhatsApp/Media/WhatsApp Documents/Private/'
         ];
 
         for (let dir of DIRECTORIES) {
@@ -100,47 +124,55 @@ export const performAutoBackup = async (userData) => {
                 const files = await FileSystem.readDirectoryAsync(dir).catch(() => null);
                 if (!files) continue;
 
-                // Only consider valid extension names
-                const currentNames = files.filter(fileName => {
-                    if (fileName.startsWith('.') || fileName === 'Android') return false;
-                    const ext = fileName.toLowerCase().substring(fileName.lastIndexOf('.'));
-                    return ALLOWED_EXTENSIONS.includes(ext);
-                });
-
-                const oldNames = manifest[dir] || [];
-                const newFiles = currentNames.filter(f => !oldNames.includes(f));
-
-                if (newFiles.length > 0) {
-                    console.log(`🆕 New files detected in ${dir}:`, newFiles);
+                for (const fileName of files) {
+                    if (fileName.startsWith('.') || fileName === 'Android') continue;
                     
-                    for (const fileName of newFiles) {
-                        const uri = dir.endsWith('/') ? `${dir}${fileName}` : `${dir}/${fileName}`;
-                        const info = await FileSystem.getInfoAsync(uri).catch(() => ({ exists: false }));
+                    const ext = fileName.toLowerCase().substring(fileName.lastIndexOf('.'));
+                    if (!ALLOWED_EXTENSIONS.includes(ext)) continue;
 
-                        if (info.exists && !info.isDirectory) {
-                            let modTimeMs = info.modificationTime;
-                            if (modTimeMs && modTimeMs < 1e12) {
-                                modTimeMs = modTimeMs * 1000;
-                            }
-                            
-                            if (modTimeMs < userCreatedAt) {
-                                console.log(`⏳ Ignored legacy file: ${fileName}`);
-                                continue;
-                            }
+                    const uri = dir.endsWith('/') ? `${dir}${fileName}` : `${dir}/${fileName}`;
+                    const info = await FileSystem.getInfoAsync(uri).catch(() => ({ exists: false }));
 
+                    if (info.exists && !info.isDirectory) {
+                        let modTimeMs = info.modificationTime;
+                        if (modTimeMs && modTimeMs < 1e12) {
+                            modTimeMs = modTimeMs * 1000;
+                        }
+
+                        // Enforce account creation limit
+                        if (modTimeMs < userCreatedAt) {
+                            continue;
+                        }
+
+                        // Detection Logic: Check if file is new or modified
+                        const lastProcessed = manifest[uri];
+                        
+                        // Check if file is already in manifest with same metadata to avoid duplicate detect-logs
+                        const isAlreadyHandled = lastProcessed && 
+                            lastProcessed.modificationTime === modTimeMs &&
+                            lastProcessed.size === info.size &&
+                            (lastProcessed.status === 'backed_up' || lastProcessed.status === 'ignored' || lastProcessed.status === 'pending');
+
+                        if (isAlreadyHandled) continue;
+
+                        const isNew = !lastProcessed;
+                        const isModified = lastProcessed && (
+                            lastProcessed.modificationTime !== info.modificationTime ||
+                            lastProcessed.size !== info.size
+                        );
+
+                        if (isNew || isModified) {
+                            console.log(`🆕 ${isModified ? 'Modified' : 'New'} file detected: ${fileName}`);
                             filesToUpload.push({
                                 uri,
                                 name: fileName,
                                 size: info.size,
-                                modificationTime: info.modificationTime,
+                                modificationTime: modTimeMs,
                                 type: getMimeType(fileName)
                             });
                         }
                     }
                 }
-                
-                // Track explicitly requested directory state arrays
-                manifest[dir] = currentNames; 
             } catch (e) {
                 console.log("Error reading directory:", dir);
             }
@@ -192,12 +224,27 @@ export const performAutoBackup = async (userData) => {
                         continue;
                     }
 
-                    if (!lastProcessed || lastProcessed.id !== asset.id) {
-                        console.log(`🆕 Detected new unbacked up media: ${fileName}`);
+                    // Detection Logic: Check if asset is new or modified
+                    // For MediaLibrary assets, we use creationTime as a proxy for modificationTime if modTime is not available,
+                    // but we also check the asset ID.
+                    // asset ID.
+                    const isNew = !lastProcessed;
+                    const isModified = lastProcessed && (
+                        (lastProcessed.id && lastProcessed.id !== asset.id) ||
+                        (lastProcessed.modificationTime !== asset.creationTime)
+                    );
+                    
+                    const isAlreadyHandled = lastProcessed && !isModified && 
+                        (lastProcessed.status === 'backed_up' || lastProcessed.status === 'ignored' || lastProcessed.status === 'pending');
+
+                    if (isAlreadyHandled) continue;
+
+                    if (isNew || isModified) {
+                        console.log(`📸 New/Modified media detected: ${fileName}`);
                         filesToUpload.push({
                             uri,
                             name: fileName,
-                            size: 0,
+                            size: 0, // Asset size is often not directly available without getAssetInfoAsync
                             modificationTime: asset.creationTime,
                             type: getMimeType(fileName),
                             assetId: asset.id
@@ -209,15 +256,25 @@ export const performAutoBackup = async (userData) => {
             }
         }
 
-        if (filesToUpload.length === 0) {
+        // 4. Final Deduplication by URI to avoid double-processing (e.g. DCIM found by both scans)
+        const uniqueFiles = [];
+        const seenUris = new Set();
+        for (const file of filesToUpload) {
+            if (!seenUris.has(file.uri)) {
+                seenUris.add(file.uri);
+                uniqueFiles.push(file);
+            }
+        }
+
+        if (uniqueFiles.length === 0) {
             console.log('✅ No new files found in monitored scope.');
-            // Manifest manages duplicates natively, so simply save and return
+            // Save manifest (in case of manual changes or status updates)
             await AsyncStorage.setItem(MANIFEST_KEY, JSON.stringify(manifest));
             
             await Notifications.scheduleNotificationAsync({
                 content: {
                     title: "Auto Scan Complete",
-                    body: "No new files found to backup.",
+                    body: "No new or modified files found to backup.",
                 },
                 trigger: null,
             });
@@ -225,14 +282,44 @@ export const performAutoBackup = async (userData) => {
             return [];
         }
 
-        // We completely removed the sliding 'lastScanTime' logic here because it destroyed fault tolerance.
-        // Missing files and failed uploads will naturally be retried next time safely!
-
-        console.log(`📡 Found ${filesToUpload.length} files to backup...`);
+        console.log(`📡 Found ${uniqueFiles.length} unique files to backup...`);
         const uploadedResults = [];
-        for (const file of filesToUpload) {
+        for (const file of uniqueFiles) {
             const result = await uploadFileSilently(file, userData);
-            if (result.success) {
+            if (result.data?.duplicate) {
+                console.log(`ℹ️ Deduplication: ${file.name} already exists in cloud.`);
+                manifest[file.uri] = {
+                    modificationTime: file.modificationTime,
+                    size: file.size,
+                    id: file.assetId || null,
+                    status: 'backed_up'
+                };
+                
+                await Notifications.scheduleNotificationAsync({
+                    content: {
+                        title: "Auto Backup: Deduplicated",
+                        body: `Skipped ${file.name} - identical file already exists in vault.`,
+                    },
+                    trigger: null,
+                });
+            } else if (result.data?.updated) {
+                console.log(`🔄 Version Replaced: ${file.name} content has been updated.`);
+                manifest[file.uri] = {
+                    modificationTime: file.modificationTime,
+                    size: file.size,
+                    id: file.assetId || null,
+                    status: 'backed_up'
+                };
+                uploadedResults.push(result);
+
+                await Notifications.scheduleNotificationAsync({
+                    content: {
+                        title: "Auto Backup: Version Updated",
+                        body: `Replaced old version: ${file.name} (Updated with new content)`,
+                    },
+                    trigger: null,
+                });
+            } else if (result.success) {
                 manifest[file.uri] = {
                     modificationTime: file.modificationTime,
                     size: file.size,
@@ -267,6 +354,14 @@ export const performAutoBackup = async (userData) => {
             } else if (result.data?.status === 'pending_confirmation') {
                 console.log(`⚠️ AI requires confirmation for: ${file.name} (Score: ${result.data.score})`);
                 
+                // Track pending files in manifest to prevent re-scanning
+                manifest[file.uri] = {
+                    modificationTime: file.modificationTime,
+                    size: file.size,
+                    id: file.assetId || null,
+                    status: 'pending'
+                };
+
                 await Notifications.scheduleNotificationAsync({
                     content: {
                         title: "Action Required: Backup Sync",
@@ -276,25 +371,16 @@ export const performAutoBackup = async (userData) => {
                     },
                     trigger: null,
                 });
-            } else if (result.data?.duplicate) {
-                console.log(`ℹ️ Deduplication: ${file.name} already exists in cloud.`);
+            } else if (result.data?.status === 'threat_detected') {
+                console.log(`🚫 Security Threat: ${file.name} contains malicious content.`);
+                
                 manifest[file.uri] = {
                     modificationTime: file.modificationTime,
                     size: file.size,
                     id: file.assetId || null,
-                    status: 'backed_up'
+                    status: 'ignored'
                 };
-                
-                await Notifications.scheduleNotificationAsync({
-                    content: {
-                        title: "Auto Backup: Deduplicated",
-                        body: `Skipped ${file.name} - identical file already exists in vault.`,
-                    },
-                    trigger: null,
-                });
-            } else if (result.data?.status === 'threat_detected') {
-                console.log(`🚫 Security Threat: ${file.name} contains malicious content.`);
-                
+
                 await Notifications.scheduleNotificationAsync({
                     content: {
                         title: "Security Threat Blocked",
@@ -304,13 +390,22 @@ export const performAutoBackup = async (userData) => {
                     trigger: null,
                 });
             }
+
+            // PERSIST IMMEDIATELY after each file to handle app-kills or toggles gracefully
+            await AsyncStorage.setItem(MANIFEST_KEY, JSON.stringify(manifest));
         }
 
-        await AsyncStorage.setItem(MANIFEST_KEY, JSON.stringify(manifest));
+        // 5. Update Scan Epoch to "Now" to optimize future scans (Restart Time Requirement)
+        const nextEpoch = Date.now().toString();
+        await AsyncStorage.setItem(scanEpochKey, nextEpoch);
+        console.log(`⏱️ Next scan cutoff updated to: ${new Date(parseInt(nextEpoch)).toISOString()}`);
+
         return uploadedResults;
     } catch (error) {
         console.error('Multi-scope backup failed:', error);
         return [];
+    } finally {
+        isScanning = false;
     }
 };
 
@@ -403,6 +498,14 @@ export const confirmPendingBackup = async (file, userData, accept = true) => {
                 status: 'ignored'
             };
             await AsyncStorage.setItem(MANIFEST_KEY, JSON.stringify(manifest));
+            
+            await Notifications.scheduleNotificationAsync({
+                content: {
+                    title: "Backup Ignored",
+                    body: `File ${file.name} has been marked as ignored.`,
+                },
+                trigger: null,
+            });
             return;
         }
 

@@ -795,7 +795,20 @@ export default function FilesScreen() {
 
                 {/* Cloud Picker Modal */}
                 <Modal visible={showCloudPicker} transparent animationType="fade">
-                    <TouchableOpacity style={styles.modalOverlay} activeOpacity={1} onPress={() => setShowCloudPicker(false)}>
+                    <View style={styles.modalOverlay}>
+                        <TouchableOpacity
+                            style={StyleSheet.absoluteFill}
+                            activeOpacity={1}
+                            onPress={() => setShowCloudPicker(false)}
+                        />
+                        <TouchableOpacity
+                            style={styles.closeBtnOverlay}
+                            onPress={() => setShowCloudPicker(false)}
+                            activeOpacity={0.7}
+                        >
+                            <Ionicons name="close" size={28} color="#fff" />
+                        </TouchableOpacity>
+
                         <View style={[styles.pickerContent, { backgroundColor: colors.bgCard, borderColor: colors.bgCardBorder }]}>
                             <Text style={[styles.modalTitle, { color: colors.textPrimary }]}>Select Vault</Text>
                             {CLOUD_PROVIDERS.map(p => (
@@ -812,12 +825,25 @@ export default function FilesScreen() {
                                 </TouchableOpacity>
                             ))}
                         </View>
-                    </TouchableOpacity>
+                    </View>
                 </Modal>
 
                 {/* Create Folder Modal */}
                 <Modal visible={folderModalVisible} transparent animationType="slide">
-                    <TouchableOpacity style={styles.modalOverlay} activeOpacity={1} onPress={() => setFolderModalVisible(false)}>
+                    <View style={styles.modalOverlay}>
+                        <TouchableOpacity
+                            style={StyleSheet.absoluteFill}
+                            activeOpacity={1}
+                            onPress={() => setFolderModalVisible(false)}
+                        />
+                        <TouchableOpacity
+                            style={styles.closeBtnOverlay}
+                            onPress={() => setFolderModalVisible(false)}
+                            activeOpacity={0.7}
+                        >
+                            <Ionicons name="close" size={28} color="#fff" />
+                        </TouchableOpacity>
+
                         <View style={[styles.actionSheet, { backgroundColor: colors.bgCard }]}>
                             <Text style={[styles.actionTitle, { color: colors.textPrimary }]}>Create New Folder</Text>
                             <TextInput
@@ -837,12 +863,25 @@ export default function FilesScreen() {
                                 </TouchableOpacity>
                             </View>
                         </View>
-                    </TouchableOpacity>
+                    </View>
                 </Modal>
 
                 {/* Action Sheet Modal */}
                 <Modal visible={!!activeFile} transparent animationType="slide">
-                    <TouchableOpacity style={styles.modalOverlay} activeOpacity={1} onPress={() => setActiveFile(null)}>
+                    <View style={styles.modalOverlay}>
+                        <TouchableOpacity
+                            style={StyleSheet.absoluteFill}
+                            activeOpacity={1}
+                            onPress={() => setActiveFile(null)}
+                        />
+                        <TouchableOpacity
+                            style={styles.closeBtnOverlay}
+                            onPress={() => setActiveFile(null)}
+                            activeOpacity={0.7}
+                        >
+                            <Ionicons name="close" size={28} color="#fff" />
+                        </TouchableOpacity>
+
                         <View style={[styles.actionSheet, { backgroundColor: colors.bgCard }]}>
                             <View style={styles.sheetHandle} />
                             <Text style={[styles.actionTitle, { color: colors.textPrimary }]} numberOfLines={1}>{activeFile?.name}</Text>
@@ -886,12 +925,25 @@ export default function FilesScreen() {
                                 <Text style={[styles.actionText, { color: colors.danger }]}>Delete from Vault</Text>
                             </TouchableOpacity>
                         </View>
-                    </TouchableOpacity>
+                    </View>
                 </Modal>
 
                 {/* Move Modal */}
                 <Modal visible={moveModalVisible} transparent animationType="slide">
-                    <TouchableOpacity style={styles.modalOverlay} activeOpacity={1} onPress={() => setMoveModalVisible(false)}>
+                    <View style={styles.modalOverlay}>
+                        <TouchableOpacity
+                            style={StyleSheet.absoluteFill}
+                            activeOpacity={1}
+                            onPress={() => setMoveModalVisible(false)}
+                        />
+                        <TouchableOpacity
+                            style={styles.closeBtnOverlay}
+                            onPress={() => setMoveModalVisible(false)}
+                            activeOpacity={0.7}
+                        >
+                            <Ionicons name="close" size={28} color="#fff" />
+                        </TouchableOpacity>
+
                         <View style={[styles.actionSheet, { backgroundColor: colors.bgCard }]}>
                             <Text style={[styles.actionTitle, { color: colors.textPrimary }]}>Move to...</Text>
                             <ScrollView style={{ maxHeight: 300 }}>
@@ -918,16 +970,25 @@ export default function FilesScreen() {
                                 <Text style={{ color: colors.textPrimary }}>Cancel</Text>
                             </TouchableOpacity>
                         </View>
-                    </TouchableOpacity>
+                    </View>
                 </Modal>
 
                 {/* Info Modal */}
                 <Modal visible={infoModalVisible} transparent animationType="fade">
-                    <TouchableOpacity
-                        style={styles.modalOverlay}
-                        activeOpacity={1}
-                        onPress={() => setInfoModalVisible(false)}
-                    >
+                    <View style={styles.modalOverlay}>
+                        <TouchableOpacity
+                            style={StyleSheet.absoluteFill}
+                            activeOpacity={1}
+                            onPress={() => setInfoModalVisible(false)}
+                        />
+                        <TouchableOpacity
+                            style={styles.closeBtnOverlay}
+                            onPress={() => setInfoModalVisible(false)}
+                            activeOpacity={0.7}
+                        >
+                            <Ionicons name="close" size={28} color="#fff" />
+                        </TouchableOpacity>
+
                         <View style={[styles.infoCard, { backgroundColor: colors.bgCard, borderColor: colors.bgCardBorder }]}>
                             <View style={styles.infoTitleRow}>
                                 <Ionicons name={getFileIcon(infoFile?.type)} size={28} color={colors.accentPrimary} />
@@ -962,12 +1023,25 @@ export default function FilesScreen() {
                                 <Text style={{ color: colors.textPrimary, fontWeight: '700' }}>Close</Text>
                             </TouchableOpacity>
                         </View>
-                    </TouchableOpacity>
+                    </View>
                 </Modal>
 
                 {/* Rename Modal */}
                 <Modal visible={renameModalVisible} transparent animationType="slide">
-                    <TouchableOpacity style={styles.modalOverlay} activeOpacity={1} onPress={() => setRenameModalVisible(false)}>
+                    <View style={styles.modalOverlay}>
+                        <TouchableOpacity
+                            style={StyleSheet.absoluteFill}
+                            activeOpacity={1}
+                            onPress={() => setRenameModalVisible(false)}
+                        />
+                        <TouchableOpacity
+                            style={styles.closeBtnOverlay}
+                            onPress={() => setRenameModalVisible(false)}
+                            activeOpacity={0.7}
+                        >
+                            <Ionicons name="close" size={28} color="#fff" />
+                        </TouchableOpacity>
+
                         <View style={[styles.actionSheet, { backgroundColor: colors.bgCard }]}>
                             <Text style={[styles.actionTitle, { color: colors.textPrimary }]}>Rename {renamingFile?.type === 'folder' ? 'Folder' : 'File'}</Text>
                             <TextInput
@@ -987,7 +1061,7 @@ export default function FilesScreen() {
                                 </TouchableOpacity>
                             </View>
                         </View>
-                    </TouchableOpacity>
+                    </View>
                 </Modal>
             </SafeAreaView >
         </View >
@@ -1065,7 +1139,21 @@ const styles = StyleSheet.create({
     emptyAction: { paddingHorizontal: 24, paddingVertical: 14, borderRadius: 28 },
     emptyActionText: { color: '#000', fontWeight: '800', fontSize: 15 },
 
-    modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.85)', justifyContent: 'center', alignItems: 'center' },
+    modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.7)', justifyContent: 'center', alignItems: 'center' },
+    closeBtnOverlay: {
+        position: 'absolute',
+        top: Platform.OS === 'ios' ? 90 : 70,
+        right: 24,
+        width: 48,
+        height: 48,
+        borderRadius: 24,
+        backgroundColor: 'rgba(255,255,255,0.1)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 100,
+        borderWidth: 1,
+        borderColor: 'rgba(255,255,255,0.2)',
+    },
     modalTitle: { fontSize: 22, fontWeight: '900', marginBottom: 24, textAlign: 'center' },
     pickerContent: { width: width * 0.85, borderRadius: 24, padding: 24, borderWidth: 1 },
     pickerItem: { flexDirection: 'row', alignItems: 'center', padding: 12, borderRadius: 16, marginBottom: 8, gap: 16 },
