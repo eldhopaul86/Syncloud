@@ -22,6 +22,7 @@ export const ThemeProvider = ({ children }) => {
         agentToken: '153022c1-26e4-4c4d-b287-c14759254ecf',
         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OThhNmJhOTFmZjE0NGJjYmNkZDI5MCIsImlhdCI6MTc3MTcwNjExNywiZXhwIjoxNzc0Mjk4MTE3fQ.m9-R4CELONXoOVtww7TA3qgGE9fGnF8PlAtsnlDOI58', // Set for authenticated testing
         aesEncryptionEnabled: false,
+        ownershipVerificationEnabled: true,
         defaultCloud: 'cloudinary',
         autoBackupEnabled: false,
         autoBackupInterval: '1h',
@@ -35,11 +36,12 @@ export const ThemeProvider = ({ children }) => {
     const [notifications, setNotifications] = useState([]);
 
     const addNotification = (notif, duration = null) => {
-        const id = Date.now();
+        const id = `${Date.now()}_${Math.floor(Math.random() * 10000)}`;
         setNotifications(prev => {
+            const now = Date.now();
             const newNotif = {
                 id,
-                timestamp: id,
+                timestamp: now,
                 read: false,
                 popupVisible: true,
                 ...notif

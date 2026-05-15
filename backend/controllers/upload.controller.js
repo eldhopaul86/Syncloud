@@ -99,6 +99,7 @@ export async function uploadToSelectedCloud(req, res) {
     // 4. Check file importance with Gemini (Only if NOT a duplicate and NOT malicious)
     // Check Analysis Cache first
     let importanceCheck = null;
+    const isEncrypted = req.body?.encrypted === "true" || req.body?.encrypted === true;
     const cachedAnalysis = await AnalysisCache.findOne({ hash: fileHash });
 
     if (cachedAnalysis) {
@@ -112,7 +113,8 @@ export async function uploadToSelectedCloud(req, res) {
     } else {
       importanceCheck = await geminiService.analyzeFile(
         req.file.originalname,
-        req.file.buffer
+        req.file.buffer,
+        isEncrypted
       );
 
       // Save to cache if analysis was successful
@@ -146,6 +148,42 @@ export async function uploadToSelectedCloud(req, res) {
           reason: importanceCheck.reason
         });
       }
+
+      // 5. Ownership Verification (Security & Privacy Requirement)
+      if (req.user.ownershipVerificationEnabled && !isEncrypted) {
+        Logger.info(`🛡️ Performing ownership verification for: ${req.file.originalname}`);
+        const ownershipService = (await import("../services/ownership.service.js")).default;
+        const verification = await ownershipService.verify(req.user, req.file.buffer, req.file.originalname);
+        
+        if (!verification.isMatch) {
+          Logger.warn(`🛡️ Ownership mismatch for ${req.file.originalname} (Score: ${verification.score}%)`);
+          
+          // If importance score is high enough to be considered for backup, ask user
+          if (score >= 5) {
+            return res.json({
+              status: "ownership_mismatch",
+              message: "Ownership verification failed: This file may not belong to you.",
+              score: score,
+              ownershipScore: verification.score,
+              importanceReason: importanceCheck.reason,
+              verificationReason: verification.reason
+            });
+          } else {
+            // If low importance AND ownership mismatch, definitely reject
+            return res.json({
+              status: "rejected",
+              message: "Automatic backup rejected: File not owned by user and low importance.",
+              score,
+              ownershipScore: verification.score,
+              reason: "Ownership verification failed and importance score is low."
+            });
+          }
+        }
+        Logger.info(`🛡️ Ownership confirmed (${verification.score}%). Proceeding with backup.`);
+      } else if (isEncrypted && req.user.ownershipVerificationEnabled) {
+        Logger.info(`🛡️ Skipping ownership verification for encrypted file: ${req.file.originalname}`);
+      }
+
       if (score >= 5 && score <= 7) {
         Logger.info(`⚠️ Auto-Backup pending: Score ${score} (5-7) (${req.file.originalname})`);
         return res.json({

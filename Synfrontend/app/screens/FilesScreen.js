@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import {
     View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView,
     ActivityIndicator, Modal, TextInput, Alert, StatusBar, Platform, Dimensions
@@ -7,11 +7,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as DocumentPicker from 'expo-document-picker';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import * as FileSystem from 'expo-file-system/legacy';
 import * as Sharing from 'expo-sharing';
+import * as MediaLibrary from 'expo-media-library';
 import { useTheme } from '../context/ThemeContext';
 import { encryptFile, generateHash, decryptFile } from '../utils/encryption';
+import FileViewerModal from '../components/FileViewerModal';
 
 const { width } = Dimensions.get('window');
 
@@ -50,9 +52,13 @@ export default function FilesScreen() {
     const [renamingFile, setRenamingFile] = useState(null);
     const [newFileName, setNewFileName] = useState('');
 
+    const [viewerVisible, setViewerVisible] = useState(false);
+    const [viewerFile, setViewerFile] = useState(null);
+    const [viewerUri, setViewerUri] = useState(null);
+
     const API_BASE = (process.env.EXPO_PUBLIC_API_URL || 'https://alivia-unrayed-dewitt.ngrok-free.dev').replace(/\/$/, '');
 
-    const fetchConnectedClouds = async () => {
+    const fetchConnectedClouds = useCallback(async () => {
         try {
             const response = await fetch(`${API_BASE}/api/cloud/credentials`, {
                 headers: { 'Authorization': `Bearer ${userData.token}` }
@@ -77,7 +83,7 @@ export default function FilesScreen() {
         } catch (err) {
             console.error('Failed to fetch connected clouds:', err);
         }
-    };
+    }, [userData.token, API_BASE, colors.warning, addNotification, userData.defaultCloud]);
 
     const handleCloudSelect = (id) => {
         setViewCloudFilter(id);
@@ -85,7 +91,7 @@ export default function FilesScreen() {
         // Removed: updateUserSettings({ defaultCloud: id }); - We don't want to change the default upload cloud when filtering views
     };
 
-    const fetchFiles = async () => {
+    const fetchFiles = useCallback(async () => {
         try {
             if (!userData.token) return;
             const url = `${API_BASE}/api/files`;
@@ -135,7 +141,7 @@ export default function FilesScreen() {
             setInitialLoading(false);
             setRefreshing(false);
         }
-    };
+    }, [userData.token, API_BASE]);
 
     const goBack = () => {
         if (!currentFolderId) return;
@@ -147,10 +153,12 @@ export default function FilesScreen() {
         setCurrentFolderId(folder.id);
     };
 
-    useEffect(() => {
-        fetchFiles();
-        fetchConnectedClouds();
-    }, [userData.token]);
+    useFocusEffect(
+        useCallback(() => {
+            fetchFiles();
+            fetchConnectedClouds();
+        }, [fetchFiles, fetchConnectedClouds])
+    );
 
     const formatFileSize = (bytes) => {
         if (!bytes) return '0 B';
@@ -181,19 +189,36 @@ export default function FilesScreen() {
             const targetCloud = viewCloudFilter !== 'all' ? viewCloudFilter : (userData.defaultCloud || 'cloudinary');
 
             if (!connectedClouds.includes(targetCloud.toLowerCase())) {
-                Alert.alert(
-                    "Cloud Not Setup",
-                    `You haven't configured credentials for ${targetCloud.toUpperCase()}. Please go to Cloud Setup to connect your account.`,
-                    [{ text: "OK" }]
-                );
-                addNotification({
-                    type: 'warning',
-                    title: 'Cloud Not Connected',
-                    message: `Please connect your ${targetCloud.toUpperCase()} account.`,
-                    icon: 'cloud-offline-outline',
-                    color: colors.warning
-                }, 2000);
-                return;
+                // Quick re-fetch to handle cases where user just returned from Cloud Setup
+                console.log('🔄 Target cloud not found in state, attempting fresh fetch...');
+                const response = await fetch(`${API_BASE}/api/cloud/credentials`, {
+                    headers: { 'Authorization': `Bearer ${userData.token}` }
+                });
+                const data = await response.json();
+                if (data.success) {
+                    const freshClouds = data.connections.map(c => c.cloudName.toLowerCase());
+                    setConnectedClouds(freshClouds);
+                    if (freshClouds.includes(targetCloud.toLowerCase())) {
+                        console.log('✅ Found cloud after re-fetch!');
+                    } else {
+                        Alert.alert(
+                            "Cloud Not Setup",
+                            `You haven't configured credentials for ${targetCloud.toUpperCase()}. Please go to Cloud Setup to connect your account.`,
+                            [{ text: "OK" }]
+                        );
+                        addNotification({
+                            type: 'warning',
+                            title: 'Cloud Not Connected',
+                            message: `Please connect your ${targetCloud.toUpperCase()} account.`,
+                            icon: 'cloud-offline-outline',
+                            color: colors.warning
+                        }, 2000);
+                        return;
+                    }
+                } else {
+                    Alert.alert("Error", "Could not verify cloud connection.");
+                    return;
+                }
             }
 
             setInitialLoading(true);
@@ -373,7 +398,10 @@ export default function FilesScreen() {
         try {
             setIsSharing(true);
             setInitialLoading(true);
-            const fileUri = `${FileSystem.cacheDirectory}${file.name}`;
+            
+            // Sanitize filename for local storage
+            const safeName = (file.name || 'file').replace(/[^\w.-]+/g, '_');
+            const fileUri = `${FileSystem.cacheDirectory}${safeName}`;
 
             console.log(`📡 Downloading file: ${file.name} (ID: ${file.id}) via proxy`);
             const downloadUrl = `${API_BASE}/api/files/${file.id}/download`;
@@ -402,7 +430,7 @@ export default function FilesScreen() {
 
                 const decryptedBase64 = decryptFile(encryptedData, file.aesKey, file.iv);
 
-                const decryptedUri = `${FileSystem.cacheDirectory}decrypted_${file.name}`;
+                const decryptedUri = `${FileSystem.cacheDirectory}decrypted_${safeName}`;
                 await FileSystem.writeAsStringAsync(decryptedUri, decryptedBase64, {
                     encoding: FileSystem.EncodingType.Base64,
                 });
@@ -410,16 +438,61 @@ export default function FilesScreen() {
                 finalUri = decryptedUri;
             }
 
-            // 3. Perform action
-            const isSharingAvailable = await Sharing.isAvailableAsync();
-            if (isSharingAvailable) {
-                await Sharing.shareAsync(finalUri, {
-                    mimeType: file.fileType,
-                    dialogTitle: `${actionName}: ${file.name}`,
-                    UTI: file.fileType // for iOS
-                });
+            // 3. Perform action: Download vs Share
+            if (actionName === 'Download') {
+                const isImage = file.fileType?.includes('image');
+                const isVideo = file.fileType?.includes('video');
+
+                if (Platform.OS === 'android') {
+                    // Try to save images/videos to gallery
+                    if (isImage || isVideo) {
+                        const { status } = await MediaLibrary.requestPermissionsAsync();
+                        if (status === 'granted') {
+                            await MediaLibrary.saveToLibraryAsync(finalUri);
+                            Alert.alert('Success', 'Saved to your Gallery');
+                        } else {
+                            await Sharing.shareAsync(finalUri);
+                        }
+                    } else {
+                        // For documents, use Storage Access Framework for "Downloads" folder
+                        try {
+                            const permissions = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync();
+                            if (permissions.granted) {
+                                const base64 = await FileSystem.readAsStringAsync(finalUri, { encoding: FileSystem.EncodingType.Base64 });
+                                await FileSystem.StorageAccessFramework.createFileAsync(permissions.directoryUri, file.name, file.fileType)
+                                    .then(async (uri) => {
+                                        await FileSystem.writeAsStringAsync(uri, base64, { encoding: FileSystem.EncodingType.Base64 });
+                                        Alert.alert('Success', `"${file.name}" saved to device.`);
+                                    })
+                                    .catch(e => { throw new Error('Could not save file to selected folder.'); });
+                            } else {
+                                await Sharing.shareAsync(finalUri);
+                            }
+                        } catch (e) {
+                            // Fallback to sharing
+                            await Sharing.shareAsync(finalUri);
+                        }
+                    }
+                } else {
+                    // iOS: Sharing is the standard way to "Save to Files" or "Save Image"
+                    await Sharing.shareAsync(finalUri, {
+                        mimeType: file.fileType,
+                        dialogTitle: `Download: ${file.name}`,
+                        UTI: file.fileType
+                    });
+                }
             } else {
-                Alert.alert('Download Complete', `File saved to ${finalUri}`);
+                // Regular Share action
+                const isSharingAvailable = await Sharing.isAvailableAsync();
+                if (isSharingAvailable) {
+                    await Sharing.shareAsync(finalUri, {
+                        mimeType: file.fileType,
+                        dialogTitle: `${actionName}: ${file.name}`,
+                        UTI: file.fileType
+                    });
+                } else {
+                    Alert.alert('Action Complete', `File is ready: ${file.name}`);
+                }
             }
 
             setActiveFile(null);
@@ -429,6 +502,67 @@ export default function FilesScreen() {
         } finally {
             setInitialLoading(false);
             setIsSharing(false);
+        }
+    };
+
+    const handleViewFile = async (file) => {
+        try {
+            if (file.type === 'folder') return;
+
+            // Handle Web platform: Redirect directly to the download proxy
+            if (Platform.OS === 'web') {
+                const downloadUrl = `${API_BASE}/api/files/${file.id}/download`;
+                window.open(downloadUrl, '_blank');
+                return;
+            }
+
+            setInitialLoading(true);
+            // Sanitize filename to prevent URI encoding issues in FileSystem paths
+            const safeName = (file.name || 'file').replace(/[^\w.-]+/g, '_');
+            const fileUri = `${FileSystem.cacheDirectory}viewer_${safeName}`;
+            const downloadUrl = `${API_BASE}/api/files/${file.id}/download`;
+
+            console.log(`👁️ Fetching preview for: ${file.name}`);
+
+            const downloadRes = await FileSystem.downloadAsync(downloadUrl, fileUri, {
+                headers: { 'Authorization': `Bearer ${userData.token}` }
+            });
+
+            if (downloadRes.status !== 200) {
+                throw new Error('Failed to fetch file content');
+            }
+
+            let finalUri = downloadRes.uri;
+
+            if (file.encrypted) {
+                console.log('🔐 Decrypting for preview...');
+                if (!file.aesKey || !file.iv) {
+                    throw new Error('This file is encrypted but decryption keys are missing.');
+                }
+
+                const encryptedData = await FileSystem.readAsStringAsync(finalUri, {
+                    encoding: FileSystem.EncodingType.Base64,
+                });
+
+                const decryptedBase64 = decryptFile(encryptedData, file.aesKey, file.iv);
+                const decryptedUri = `${FileSystem.cacheDirectory}preview_${safeName}`;
+
+                await FileSystem.writeAsStringAsync(decryptedUri, decryptedBase64, {
+                    encoding: FileSystem.EncodingType.Base64,
+                });
+
+                finalUri = decryptedUri;
+            }
+
+            setViewerUri(finalUri);
+            setViewerFile(file);
+            setViewerVisible(true);
+            setActiveFile(null);
+        } catch (error) {
+            console.error('View error:', error);
+            Alert.alert('View Failed', error.message);
+        } finally {
+            setInitialLoading(false);
         }
     };
 
@@ -801,15 +935,15 @@ export default function FilesScreen() {
                             activeOpacity={1}
                             onPress={() => setShowCloudPicker(false)}
                         />
-                        <TouchableOpacity
-                            style={styles.closeBtnOverlay}
-                            onPress={() => setShowCloudPicker(false)}
-                            activeOpacity={0.7}
-                        >
-                            <Ionicons name="close" size={28} color="#fff" />
-                        </TouchableOpacity>
 
                         <View style={[styles.pickerContent, { backgroundColor: colors.bgCard, borderColor: colors.bgCardBorder }]}>
+                            <TouchableOpacity
+                                style={styles.sheetCloseBtn}
+                                onPress={() => setShowCloudPicker(false)}
+                                activeOpacity={0.7}
+                            >
+                                <Ionicons name="close" size={24} color={colors.textPrimary} />
+                            </TouchableOpacity>
                             <Text style={[styles.modalTitle, { color: colors.textPrimary }]}>Select Vault</Text>
                             {CLOUD_PROVIDERS.map(p => (
                                 <TouchableOpacity
@@ -836,15 +970,15 @@ export default function FilesScreen() {
                             activeOpacity={1}
                             onPress={() => setFolderModalVisible(false)}
                         />
-                        <TouchableOpacity
-                            style={styles.closeBtnOverlay}
-                            onPress={() => setFolderModalVisible(false)}
-                            activeOpacity={0.7}
-                        >
-                            <Ionicons name="close" size={28} color="#fff" />
-                        </TouchableOpacity>
 
                         <View style={[styles.actionSheet, { backgroundColor: colors.bgCard }]}>
+                            <TouchableOpacity
+                                style={styles.sheetCloseBtn}
+                                onPress={() => setFolderModalVisible(false)}
+                                activeOpacity={0.7}
+                            >
+                                <Ionicons name="close" size={24} color={colors.textPrimary} />
+                            </TouchableOpacity>
                             <Text style={[styles.actionTitle, { color: colors.textPrimary }]}>Create New Folder</Text>
                             <TextInput
                                 style={[styles.modalInput, { backgroundColor: colors.bgCard2, color: colors.textPrimary, borderColor: colors.bgCardBorder }]}
@@ -874,17 +1008,24 @@ export default function FilesScreen() {
                             activeOpacity={1}
                             onPress={() => setActiveFile(null)}
                         />
-                        <TouchableOpacity
-                            style={styles.closeBtnOverlay}
-                            onPress={() => setActiveFile(null)}
-                            activeOpacity={0.7}
-                        >
-                            <Ionicons name="close" size={28} color="#fff" />
-                        </TouchableOpacity>
 
                         <View style={[styles.actionSheet, { backgroundColor: colors.bgCard }]}>
+                            <TouchableOpacity
+                                style={styles.sheetCloseBtn}
+                                onPress={() => setActiveFile(null)}
+                                activeOpacity={0.7}
+                            >
+                                <Ionicons name="close" size={24} color={colors.textPrimary} />
+                            </TouchableOpacity>
                             <View style={styles.sheetHandle} />
                             <Text style={[styles.actionTitle, { color: colors.textPrimary }]} numberOfLines={1}>{activeFile?.name}</Text>
+
+                            {activeFile?.type !== 'folder' && (
+                                <TouchableOpacity style={styles.actionItem} onPress={() => handleViewFile(activeFile)}>
+                                    <Ionicons name="eye-outline" size={22} color={colors.accentPrimary} />
+                                    <Text style={[styles.actionText, { color: colors.accentPrimary }]}>View Content</Text>
+                                </TouchableOpacity>
+                            )}
 
                             <TouchableOpacity style={styles.actionItem} onPress={() => handleFileAction(activeFile, 'Share')}>
                                 <Ionicons name="share-outline" size={22} color={colors.textPrimary} />
@@ -936,15 +1077,15 @@ export default function FilesScreen() {
                             activeOpacity={1}
                             onPress={() => setMoveModalVisible(false)}
                         />
-                        <TouchableOpacity
-                            style={styles.closeBtnOverlay}
-                            onPress={() => setMoveModalVisible(false)}
-                            activeOpacity={0.7}
-                        >
-                            <Ionicons name="close" size={28} color="#fff" />
-                        </TouchableOpacity>
 
                         <View style={[styles.actionSheet, { backgroundColor: colors.bgCard }]}>
+                            <TouchableOpacity
+                                style={styles.sheetCloseBtn}
+                                onPress={() => setMoveModalVisible(false)}
+                                activeOpacity={0.7}
+                            >
+                                <Ionicons name="close" size={24} color={colors.textPrimary} />
+                            </TouchableOpacity>
                             <Text style={[styles.actionTitle, { color: colors.textPrimary }]}>Move to...</Text>
                             <ScrollView style={{ maxHeight: 300 }}>
                                 <TouchableOpacity
@@ -981,15 +1122,15 @@ export default function FilesScreen() {
                             activeOpacity={1}
                             onPress={() => setInfoModalVisible(false)}
                         />
-                        <TouchableOpacity
-                            style={styles.closeBtnOverlay}
-                            onPress={() => setInfoModalVisible(false)}
-                            activeOpacity={0.7}
-                        >
-                            <Ionicons name="close" size={28} color="#fff" />
-                        </TouchableOpacity>
 
                         <View style={[styles.infoCard, { backgroundColor: colors.bgCard, borderColor: colors.bgCardBorder }]}>
+                            <TouchableOpacity
+                                style={styles.sheetCloseBtn}
+                                onPress={() => setInfoModalVisible(false)}
+                                activeOpacity={0.7}
+                            >
+                                <Ionicons name="close" size={24} color={colors.textPrimary} />
+                            </TouchableOpacity>
                             <View style={styles.infoTitleRow}>
                                 <Ionicons name={getFileIcon(infoFile?.type)} size={28} color={colors.accentPrimary} />
                                 <Text style={[styles.infoTitle, { color: colors.textPrimary }]} numberOfLines={1}>{infoFile?.name}</Text>
@@ -1034,15 +1175,15 @@ export default function FilesScreen() {
                             activeOpacity={1}
                             onPress={() => setRenameModalVisible(false)}
                         />
-                        <TouchableOpacity
-                            style={styles.closeBtnOverlay}
-                            onPress={() => setRenameModalVisible(false)}
-                            activeOpacity={0.7}
-                        >
-                            <Ionicons name="close" size={28} color="#fff" />
-                        </TouchableOpacity>
 
                         <View style={[styles.actionSheet, { backgroundColor: colors.bgCard }]}>
+                            <TouchableOpacity
+                                style={styles.sheetCloseBtn}
+                                onPress={() => setRenameModalVisible(false)}
+                                activeOpacity={0.7}
+                            >
+                                <Ionicons name="close" size={24} color={colors.textPrimary} />
+                            </TouchableOpacity>
                             <Text style={[styles.actionTitle, { color: colors.textPrimary }]}>Rename {renamingFile?.type === 'folder' ? 'Folder' : 'File'}</Text>
                             <TextInput
                                 style={[styles.modalInput, { backgroundColor: colors.bgCard2, color: colors.textPrimary, borderColor: colors.bgCardBorder }]}
@@ -1063,6 +1204,14 @@ export default function FilesScreen() {
                         </View>
                     </View>
                 </Modal>
+
+                <FileViewerModal
+                    visible={viewerVisible}
+                    file={viewerFile}
+                    uri={viewerUri}
+                    onClose={() => setViewerVisible(false)}
+                    onDownload={() => handleFileAction(viewerFile, 'Download')}
+                />
             </SafeAreaView >
         </View >
     );
@@ -1140,20 +1289,6 @@ const styles = StyleSheet.create({
     emptyActionText: { color: '#000', fontWeight: '800', fontSize: 15 },
 
     modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.7)', justifyContent: 'center', alignItems: 'center' },
-    closeBtnOverlay: {
-        position: 'absolute',
-        top: Platform.OS === 'ios' ? 90 : 70,
-        right: 24,
-        width: 48,
-        height: 48,
-        borderRadius: 24,
-        backgroundColor: 'rgba(255,255,255,0.1)',
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 100,
-        borderWidth: 1,
-        borderColor: 'rgba(255,255,255,0.2)',
-    },
     modalTitle: { fontSize: 22, fontWeight: '900', marginBottom: 24, textAlign: 'center' },
     pickerContent: { width: width * 0.85, borderRadius: 24, padding: 24, borderWidth: 1 },
     pickerItem: { flexDirection: 'row', alignItems: 'center', padding: 12, borderRadius: 16, marginBottom: 8, gap: 16 },
@@ -1161,6 +1296,18 @@ const styles = StyleSheet.create({
     pickerText: { flex: 1, fontSize: 17, fontWeight: '700' },
 
     actionSheet: { position: 'absolute', bottom: 0, width: '100%', borderTopLeftRadius: 36, borderTopRightRadius: 36, padding: 32, paddingBottom: 56 },
+    sheetCloseBtn: {
+        position: 'absolute',
+        top: 24,
+        right: 24,
+        width: 36,
+        height: 36,
+        borderRadius: 18,
+        backgroundColor: 'rgba(255,255,255,0.05)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 10,
+    },
     sheetHandle: { width: 48, height: 5, backgroundColor: 'rgba(255,255,255,0.15)', borderRadius: 2.5, alignSelf: 'center', marginBottom: 28 },
     actionTitle: { fontSize: 22, fontWeight: '900', marginBottom: 36, textAlign: 'center', letterSpacing: -0.5 },
     actionItem: { flexDirection: 'row', alignItems: 'center', gap: 18, paddingVertical: 20 },

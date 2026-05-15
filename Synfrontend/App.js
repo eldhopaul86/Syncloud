@@ -124,7 +124,7 @@ function AppContent() {
 
   useEffect(() => {
     const initBackup = async () => {
-      const currentConfig = `${userData?.autoBackupEnabled}-${userData?.autoBackupInterval}-${userData?.defaultCloud}-${userData?.token ? 'T' : 'N'}`;
+      const currentConfig = `${userData?.autoBackupEnabled}-${userData?.autoBackupInterval}-${userData?.defaultCloud}-${userData?.aesEncryptionEnabled}-${userData?.ownershipVerificationEnabled}-${userData?.token ? 'T' : 'N'}`;
 
       if (lastBackupConfig.current === currentConfig) return;
       lastBackupConfig.current = currentConfig;
@@ -149,7 +149,7 @@ function AppContent() {
     };
 
     initBackup();
-  }, [userData?.autoBackupEnabled, userData?.autoBackupInterval, userData?.defaultCloud, userData?.token]);
+  }, [userData?.autoBackupEnabled, userData?.autoBackupInterval, userData?.defaultCloud, userData?.aesEncryptionEnabled, userData?.ownershipVerificationEnabled, userData?.token]);
 
   // 4. Notification Listeners
   useEffect(() => {
@@ -169,6 +169,10 @@ function AppContent() {
       } else if (title.includes('Required')) {
         type = 'danger';
         icon = 'help-circle-outline';
+        color = colors.danger;
+      } else if (title.includes('Ownership')) {
+        type = 'danger';
+        icon = 'shield-alert-outline';
         color = colors.danger;
       } else if (title.includes('Success') || title.includes('Backed up') || title.includes('Confirmed')) {
         type = 'success';
@@ -234,10 +238,10 @@ function AppContent() {
 
       if (actionIdentifier === 'ACCEPT' && file) {
         console.log('User accepted backup from notification');
-        confirmPendingBackup(file, fileUserData, true);
+        confirmPendingBackup(file, userData || fileUserData, true);
       } else if (actionIdentifier === 'REJECT' && file) {
         console.log('User rejected backup from notification');
-        confirmPendingBackup(file, fileUserData, false);
+        confirmPendingBackup(file, userData || fileUserData, false);
       }
     });
 
@@ -245,7 +249,7 @@ function AppContent() {
       foregroundSubscription.remove();
       responseSubscription.remove();
     };
-  }, [colors.accentPrimary, notifications]);
+  }, [colors.accentPrimary, notifications, userData]);
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.bgPrimary }}>

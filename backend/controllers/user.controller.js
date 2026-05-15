@@ -9,6 +9,7 @@ export const updateUserSettings = async (req, res) => {
         const userId = req.user.id;
         const {
             aesEncryptionEnabled,
+            ownershipVerificationEnabled,
             defaultCloud,
             autoBackupEnabled,
             autoBackupInterval,
@@ -18,6 +19,7 @@ export const updateUserSettings = async (req, res) => {
 
         const updates = {};
         if (typeof aesEncryptionEnabled === "boolean") updates.aesEncryptionEnabled = aesEncryptionEnabled;
+        if (typeof ownershipVerificationEnabled === "boolean") updates.ownershipVerificationEnabled = ownershipVerificationEnabled;
         if (defaultCloud) updates.defaultCloud = defaultCloud;
         if (typeof autoBackupEnabled === "boolean") updates.autoBackupEnabled = autoBackupEnabled;
         if (autoBackupInterval) updates.autoBackupInterval = autoBackupInterval;

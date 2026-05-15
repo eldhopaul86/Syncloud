@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, StatusBar, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -73,11 +74,13 @@ export default function CloudSetupScreen() {
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState({ type: '', message: '' });
 
-    useEffect(() => {
-        fetchConnectedClouds();
-    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            fetchConnectedClouds();
+        }, [fetchConnectedClouds])
+    );
 
-    const fetchConnectedClouds = async () => {
+    const fetchConnectedClouds = useCallback(async () => {
         try {
             const token = userData?.token;
             if (!token) return;
@@ -91,7 +94,7 @@ export default function CloudSetupScreen() {
         } catch (err) {
             console.error('Failed to fetch connected clouds:', err);
         }
-    };
+    }, [userData?.token, API_BASE]);
 
     const toggleDefault = (providerId) => {
         const cloudName = providerId.toLowerCase().replace(' ', '');

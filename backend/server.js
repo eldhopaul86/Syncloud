@@ -13,6 +13,7 @@ import cloudRoutes from "./routes/cloud.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import fileRoutes from "./routes/file.routes.js";
 import searchRoutes from "./routes/search.routes.js";
+import verificationRoutes from "./routes/verification.routes.js";
 import { APP_CONFIG } from "./config/app.config.js";
 import { Logger } from "./utils/logger.js";
 
@@ -57,6 +58,7 @@ app.use("/api/cloud", cloudRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/files", fileRoutes);
 app.use("/api/search", searchRoutes);
+app.use("/api/verification", verificationRoutes);
 app.use("/api", uploadRoutes);
 
 // Start server

@@ -72,10 +72,19 @@ export class GeminiService {
     }
   }
 
-  async analyzeFile(fileName, fileBuffer) {
+  async analyzeFile(fileName, fileBuffer, isEncrypted = false) {
     try {
       if (!this.model) {
         throw new Error("Gemini model not initialized");
+      }
+
+      if (isEncrypted) {
+        Logger.info(`🔐 File "${fileName}" is encrypted. Using metadata-only analysis.`);
+        return await this.analyzeEncryptedFallback({ 
+          fileName, 
+          size: fileBuffer.length, 
+          mimeType: getFileMimeType(fileName) 
+        });
       }
 
       const fileExtension = getFileExtension(fileName);
@@ -188,16 +197,23 @@ File metadata:
     try {
       const result = await this.model.generateContent(prompt);
       const text = result?.response?.text?.() ?? "";
-      // keep your existing JSON extraction logic if you already have it
       const { score: importanceScore, summary: importanceReason } = this.extractScore(text);
+      
+      const finalScore = importanceScore === -1 ? 5 : importanceScore;
+      const isImportant = finalScore >= GEMINI_CONFIG.IMPORTANCE_THRESHOLD && finalScore <= 10;
+
       return {
-        importanceScore: importanceScore === -1 ? 5 : importanceScore,
-        importanceReason: importanceScore === -1 ? "Meta-only fallback assessment" : importanceReason,
+        isImportant,
+        score: finalScore,
+        reason: importanceScore === -1 ? "Meta-only fallback assessment" : importanceReason,
+        decision: "ENCRYPTED_METADATA"
       };
     } catch (e) {
       return {
-        importanceScore: 5,
-        importanceReason: `Gemini assessment failed (fallback used). ${e?.message || ""}`.trim(),
+        isImportant: true,
+        score: 5,
+        reason: `Gemini assessment failed (fallback used). ${e?.message || ""}`.trim(),
+        decision: "ERROR_FALLBACK"
       };
     }
   }

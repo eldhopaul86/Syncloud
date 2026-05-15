@@ -1,0 +1,3549 @@
+file_id,file_keyword,importance_score,importance_label
+L00002,contract,2,Low
+L00003,bond,1,Low
+L00005,non disclosure,6,Medium
+L00006,non-disclosure,2,Low
+L00007,terms and conditions,9,High
+L00008,terms & conditions,6,Medium
+L00009,t&c,6,Medium
+L00010,legal notice,9,High
+L00011,affidavit,10,High
+L00012,court,10,High
+L00013,case,9,High
+L00014,lawyer,5,Medium
+L00015,attorney,1,Low
+L00016,clause,10,High
+L00017,deed,3,Low
+L00018,lease,8,High
+L00019,rental,1,Low
+L00020,jurisdiction,6,Medium
+L00021,liability,9,High
+L00022,indemnity,4,Medium
+L00023,settlement,9,High
+L00024,arbitration,10,High
+L00025,lawsuit,10,High
+L00026,litigation,9,High
+L00027,plaintiff,2,Low
+L00028,defendant,6,Medium
+L00029,verdict,6,Medium
+L00030,judgment,7,Medium
+L00031,witness,1,Low
+L00032,testimony,4,Medium
+L00033,subpoena,4,Medium
+L00034,summons,3,Low
+L00035,petition,10,High
+L00036,memorandum,6,Medium
+L00037,mou,4,Medium
+L00038,legal document,8,High
+L00039,hereby,7,Medium
+L00040,whereas,4,Medium
+L00041,aforementioned,8,High
+L00042,undersigned,1,Low
+L00043,party of,4,Medium
+L00044,in witness whereof,3,Low
+L00045,executed,5,Medium
+L00046,notary,1,Low
+L00047,undertaking,10,High
+L00049,contract,5,Medium
+L00050,bond,8,High
+L00052,non disclosure,3,Low
+L00053,non-disclosure,10,High
+L00054,terms and conditions,5,Medium
+L00055,terms & conditions,3,Low
+L00056,t&c,2,Low
+L00057,legal notice,5,Medium
+L00058,affidavit,7,Medium
+L00059,court,5,Medium
+L00060,case,4,Medium
+L00061,lawyer,7,Medium
+L00062,attorney,9,High
+L00063,clause,5,Medium
+L00064,deed,8,High
+L00065,lease,9,High
+L00066,rental,3,Low
+L00067,jurisdiction,4,Medium
+L00068,liability,10,High
+L00069,indemnity,9,High
+L00070,settlement,4,Medium
+L00071,arbitration,10,High
+L00072,lawsuit,5,Medium
+L00073,litigation,6,Medium
+L00074,plaintiff,2,Low
+L00075,defendant,2,Low
+L00076,verdict,10,High
+L00077,judgment,10,High
+L00078,witness,1,Low
+L00079,testimony,3,Low
+L00080,subpoena,2,Low
+L00081,summons,9,High
+L00082,petition,4,Medium
+L00083,memorandum,10,High
+L00084,mou,4,Medium
+L00085,legal document,10,High
+L00086,hereby,9,High
+L00087,whereas,9,High
+L00088,aforementioned,7,Medium
+L00089,undersigned,3,Low
+L00090,party of,1,Low
+L00091,in witness whereof,8,High
+L00092,executed,1,Low
+L00093,notary,10,High
+L00094,undertaking,7,Medium
+L00096,contract,5,Medium
+L00097,bond,2,Low
+L00099,non disclosure,1,Low
+L00100,non-disclosure,8,High
+L00101,terms and conditions,5,Medium
+L00102,terms & conditions,7,Medium
+L00103,t&c,5,Medium
+L00104,legal notice,1,Low
+L00105,affidavit,1,Low
+L00106,court,4,Medium
+L00107,case,3,Low
+L00108,lawyer,3,Low
+L00109,attorney,4,Medium
+L00110,clause,9,High
+L00111,deed,2,Low
+L00112,lease,7,Medium
+L00113,rental,2,Low
+L00114,jurisdiction,6,Medium
+L00115,liability,10,High
+L00116,indemnity,3,Low
+L00117,settlement,3,Low
+L00118,arbitration,8,High
+L00119,lawsuit,7,Medium
+L00120,litigation,5,Medium
+L00121,plaintiff,6,Medium
+L00122,defendant,6,Medium
+L00123,verdict,10,High
+L00124,judgment,5,Medium
+L00125,witness,2,Low
+L00126,testimony,8,High
+L00127,subpoena,10,High
+L00128,summons,2,Low
+L00129,petition,6,Medium
+L00130,memorandum,10,High
+L00131,mou,2,Low
+L00132,legal document,1,Low
+L00133,hereby,8,High
+L00134,whereas,5,Medium
+L00135,aforementioned,9,High
+L00136,undersigned,8,High
+L00137,party of,1,Low
+L00138,in witness whereof,10,High
+L00139,executed,4,Medium
+L00140,notary,4,Medium
+L00141,undertaking,3,Low
+L00143,contract,3,Low
+L00144,bond,6,Medium
+L00146,non disclosure,6,Medium
+L00147,non-disclosure,5,Medium
+L00148,terms and conditions,10,High
+L00149,terms & conditions,8,High
+L00150,t&c,4,Medium
+L00151,legal notice,8,High
+L00152,affidavit,2,Low
+L00153,court,1,Low
+L00154,case,8,High
+L00155,lawyer,1,Low
+L00156,attorney,2,Low
+L00157,clause,3,Low
+L00158,deed,4,Medium
+L00159,lease,3,Low
+L00160,rental,1,Low
+L00161,jurisdiction,8,High
+L00162,liability,6,Medium
+L00163,indemnity,9,High
+L00164,settlement,4,Medium
+L00165,arbitration,3,Low
+L00166,lawsuit,2,Low
+L00167,litigation,6,Medium
+L00168,plaintiff,8,High
+L00169,defendant,10,High
+L00170,verdict,4,Medium
+L00171,judgment,9,High
+L00172,witness,2,Low
+L00173,testimony,3,Low
+L00174,subpoena,1,Low
+L00175,summons,1,Low
+L00176,petition,3,Low
+L00177,memorandum,2,Low
+L00178,mou,5,Medium
+L00179,legal document,5,Medium
+L00180,hereby,1,Low
+L00181,whereas,9,High
+L00182,aforementioned,3,Low
+L00183,undersigned,10,High
+L00184,party of,3,Low
+L00185,in witness whereof,3,Low
+L00186,executed,9,High
+L00187,notary,1,Low
+L00188,undertaking,4,Medium
+L00190,contract,2,Low
+L00191,bond,3,Low
+L00193,non disclosure,2,Low
+L00194,non-disclosure,5,Medium
+L00195,terms and conditions,4,Medium
+L00196,terms & conditions,1,Low
+L00197,t&c,8,High
+L00198,legal notice,3,Low
+L00199,affidavit,8,High
+L00200,court,8,High
+L00201,case,2,Low
+L00202,lawyer,6,Medium
+L00203,attorney,4,Medium
+L00204,clause,3,Low
+L00205,deed,6,Medium
+L00206,lease,3,Low
+L00207,rental,2,Low
+L00208,jurisdiction,1,Low
+L00209,liability,7,Medium
+L00210,indemnity,10,High
+L00211,settlement,8,High
+L00212,arbitration,3,Low
+L00213,lawsuit,3,Low
+L00214,litigation,3,Low
+L00215,plaintiff,8,High
+L00216,defendant,6,Medium
+L00217,verdict,10,High
+L00218,judgment,3,Low
+L00219,witness,3,Low
+L00220,testimony,5,Medium
+L00221,subpoena,10,High
+L00222,summons,9,High
+L00223,petition,1,Low
+L00224,memorandum,3,Low
+L00225,mou,3,Low
+L00226,legal document,8,High
+L00227,hereby,8,High
+L00228,whereas,3,Low
+L00229,aforementioned,9,High
+L00230,undersigned,1,Low
+L00231,party of,10,High
+L00232,in witness whereof,8,High
+L00233,executed,2,Low
+L00234,notary,1,Low
+L00235,undertaking,9,High
+L00237,contract,3,Low
+L00238,bond,8,High
+L00240,non disclosure,8,High
+L00241,non-disclosure,3,Low
+L00242,terms and conditions,7,Medium
+L00243,terms & conditions,2,Low
+L00244,t&c,10,High
+L00245,legal notice,10,High
+L00246,affidavit,3,Low
+L00247,court,9,High
+L00248,case,3,Low
+L00249,lawyer,3,Low
+L00250,attorney,10,High
+L00251,clause,2,Low
+L00252,deed,9,High
+L00253,lease,9,High
+L00254,rental,4,Medium
+L00255,jurisdiction,8,High
+L00256,liability,3,Low
+L00257,indemnity,8,High
+L00258,settlement,1,Low
+L00259,arbitration,8,High
+L00260,lawsuit,9,High
+L00261,litigation,10,High
+L00262,plaintiff,3,Low
+L00263,defendant,10,High
+L00264,verdict,4,Medium
+L00265,judgment,4,Medium
+L00266,witness,6,Medium
+L00267,testimony,3,Low
+L00268,subpoena,9,High
+L00269,summons,3,Low
+L00270,petition,9,High
+L00271,memorandum,1,Low
+L00272,mou,4,Medium
+L00273,legal document,9,High
+L00274,hereby,3,Low
+L00275,whereas,6,Medium
+L00276,aforementioned,1,Low
+L00277,undersigned,2,Low
+L00278,party of,4,Medium
+L00279,in witness whereof,9,High
+L00280,executed,2,Low
+L00281,notary,10,High
+L00282,undertaking,8,High
+L00284,contract,3,Low
+L00285,bond,1,Low
+L00287,non disclosure,4,Medium
+L00288,non-disclosure,5,Medium
+L00289,terms and conditions,10,High
+L00290,terms & conditions,7,Medium
+L00291,t&c,4,Medium
+L00292,legal notice,2,Low
+L00293,affidavit,9,High
+L00294,court,9,High
+L00295,case,4,Medium
+L00296,lawyer,5,Medium
+L00297,attorney,2,Low
+L00298,clause,3,Low
+L00299,deed,4,Medium
+L00300,lease,5,Medium
+L00301,rental,2,Low
+L00302,jurisdiction,10,High
+L00303,liability,6,Medium
+L00304,indemnity,1,Low
+L00305,settlement,7,Medium
+L00306,arbitration,10,High
+L00307,lawsuit,8,High
+L00308,litigation,8,High
+L00309,plaintiff,9,High
+L00310,defendant,10,High
+L00311,verdict,10,High
+L00312,judgment,5,Medium
+L00313,witness,3,Low
+L00314,testimony,8,High
+L00315,subpoena,3,Low
+L00316,summons,7,Medium
+L00317,petition,2,Low
+L00318,memorandum,9,High
+L00319,mou,7,Medium
+L00320,legal document,3,Low
+L00321,hereby,9,High
+L00322,whereas,3,Low
+L00323,aforementioned,2,Low
+L00324,undersigned,3,Low
+L00325,party of,4,Medium
+L00326,in witness whereof,10,High
+L00327,executed,9,High
+L00328,notary,4,Medium
+L00329,undertaking,9,High
+L00331,contract,3,Low
+L00332,bond,3,Low
+L00334,non disclosure,2,Low
+L00335,non-disclosure,1,Low
+L00336,terms and conditions,2,Low
+L00337,terms & conditions,10,High
+L00338,t&c,1,Low
+L00339,legal notice,10,High
+L00340,affidavit,6,Medium
+L00341,court,2,Low
+L00342,case,10,High
+L00343,lawyer,3,Low
+L00344,attorney,3,Low
+L00345,clause,5,Medium
+L00346,deed,10,High
+L00347,lease,8,High
+L00348,rental,3,Low
+L00349,jurisdiction,9,High
+L00350,liability,10,High
+L00351,indemnity,10,High
+L00352,settlement,6,Medium
+L00353,arbitration,2,Low
+L00354,lawsuit,9,High
+L00355,litigation,10,High
+L00356,plaintiff,6,Medium
+L00357,defendant,3,Low
+L00358,verdict,2,Low
+L00359,judgment,8,High
+L00360,witness,9,High
+L00361,testimony,5,Medium
+L00362,subpoena,9,High
+L00363,summons,1,Low
+L00364,petition,7,Medium
+L00365,memorandum,9,High
+L00366,mou,10,High
+L00367,legal document,7,Medium
+L00368,hereby,9,High
+L00369,whereas,4,Medium
+L00370,aforementioned,10,High
+L00371,undersigned,8,High
+L00372,party of,5,Medium
+L00373,in witness whereof,4,Medium
+L00374,executed,1,Low
+L00375,notary,8,High
+L00376,undertaking,7,Medium
+L00378,contract,7,Medium
+L00379,bond,3,Low
+L00381,non disclosure,8,High
+L00382,non-disclosure,10,High
+L00383,terms and conditions,3,Low
+L00384,terms & conditions,8,High
+L00385,t&c,2,Low
+L00386,legal notice,5,Medium
+L00387,affidavit,8,High
+L00388,court,4,Medium
+L00389,case,9,High
+L00390,lawyer,9,High
+L00391,attorney,2,Low
+L00392,clause,5,Medium
+L00393,deed,10,High
+L00394,lease,4,Medium
+L00395,rental,1,Low
+L00396,jurisdiction,1,Low
+L00397,liability,1,Low
+L00398,indemnity,6,Medium
+L00399,settlement,9,High
+L00400,arbitration,7,Medium
+L00401,lawsuit,2,Low
+L00402,litigation,2,Low
+L00403,plaintiff,8,High
+L00404,defendant,1,Low
+L00405,verdict,6,Medium
+L00406,judgment,4,Medium
+L00407,witness,8,High
+L00408,testimony,10,High
+L00409,subpoena,2,Low
+L00410,summons,8,High
+L00411,petition,1,Low
+L00412,memorandum,3,Low
+L00413,mou,3,Low
+L00414,legal document,10,High
+L00415,hereby,5,Medium
+L00416,whereas,3,Low
+L00417,aforementioned,9,High
+L00418,undersigned,4,Medium
+L00419,party of,1,Low
+L00420,in witness whereof,10,High
+L00421,executed,8,High
+L00422,notary,8,High
+L00423,undertaking,7,Medium
+L00425,contract,9,High
+L00426,bond,9,High
+L00428,non disclosure,2,Low
+L00429,non-disclosure,3,Low
+L00430,terms and conditions,4,Medium
+L00431,terms & conditions,7,Medium
+L00432,t&c,3,Low
+L00433,legal notice,4,Medium
+L00434,affidavit,2,Low
+L00435,court,2,Low
+L00436,case,1,Low
+L00437,lawyer,2,Low
+L00438,attorney,10,High
+L00439,clause,5,Medium
+L00440,deed,8,High
+L00441,lease,3,Low
+L00442,rental,9,High
+L00443,jurisdiction,3,Low
+L00444,liability,5,Medium
+L00445,indemnity,3,Low
+L00446,settlement,10,High
+L00447,arbitration,9,High
+L00448,lawsuit,3,Low
+L00449,litigation,1,Low
+L00450,plaintiff,1,Low
+L00451,defendant,1,Low
+L00452,verdict,2,Low
+L00453,judgment,2,Low
+L00454,witness,2,Low
+L00455,testimony,10,High
+L00456,subpoena,10,High
+L00457,summons,2,Low
+L00458,petition,9,High
+L00459,memorandum,1,Low
+L00460,mou,9,High
+L00461,legal document,3,Low
+L00462,hereby,6,Medium
+L00463,whereas,3,Low
+L00464,aforementioned,10,High
+L00465,undersigned,5,Medium
+L00466,party of,9,High
+L00467,in witness whereof,3,Low
+L00468,executed,8,High
+L00469,notary,2,Low
+L00470,undertaking,3,Low
+L00472,contract,7,Medium
+L00473,bond,7,Medium
+L00475,non disclosure,5,Medium
+L00476,non-disclosure,10,High
+L00477,terms and conditions,2,Low
+L00478,terms & conditions,6,Medium
+L00479,t&c,10,High
+L00480,legal notice,3,Low
+L00481,affidavit,7,Medium
+L00482,court,3,Low
+L00483,case,5,Medium
+L00484,lawyer,6,Medium
+L00485,attorney,1,Low
+L00486,clause,10,High
+L00487,deed,1,Low
+L00488,lease,2,Low
+L00489,rental,1,Low
+L00490,jurisdiction,5,Medium
+L00491,liability,7,Medium
+L00492,indemnity,1,Low
+L00493,settlement,4,Medium
+L00494,arbitration,6,Medium
+L00495,lawsuit,7,Medium
+L00496,litigation,10,High
+L00497,plaintiff,2,Low
+L00498,defendant,1,Low
+L00499,verdict,5,Medium
+L00500,judgment,5,Medium
+L00501,witness,6,Medium
+L00502,testimony,8,High
+L00503,subpoena,8,High
+L00504,summons,5,Medium
+L00505,petition,9,High
+L00506,memorandum,9,High
+L00507,mou,3,Low
+L00508,legal document,8,High
+L00509,hereby,9,High
+L00510,whereas,3,Low
+L00511,aforementioned,10,High
+L00512,undersigned,9,High
+L00513,party of,3,Low
+L00514,in witness whereof,4,Medium
+L00515,executed,6,Medium
+L00516,notary,5,Medium
+L00517,undertaking,10,High
+L00519,contract,1,Low
+L00520,bond,10,High
+L00522,non disclosure,1,Low
+L00523,non-disclosure,9,High
+L00524,terms and conditions,8,High
+L00525,terms & conditions,8,High
+L00526,t&c,9,High
+L00527,legal notice,4,Medium
+L00528,affidavit,1,Low
+L00529,court,7,Medium
+L00530,case,9,High
+L00531,lawyer,8,High
+L00532,attorney,2,Low
+L00533,clause,4,Medium
+L00534,deed,7,Medium
+L00535,lease,8,High
+L00536,rental,6,Medium
+L00537,jurisdiction,5,Medium
+L00538,liability,1,Low
+L00539,indemnity,4,Medium
+L00540,settlement,10,High
+L00541,arbitration,1,Low
+L00542,lawsuit,3,Low
+L00543,litigation,3,Low
+L00544,plaintiff,8,High
+L00545,defendant,9,High
+L00546,verdict,5,Medium
+L00547,judgment,10,High
+L00548,witness,6,Medium
+L00549,testimony,1,Low
+L00550,subpoena,3,Low
+L00551,summons,8,High
+L00552,petition,4,Medium
+L00553,memorandum,6,Medium
+L00554,mou,4,Medium
+L00555,legal document,2,Low
+L00556,hereby,8,High
+L00557,whereas,2,Low
+L00558,aforementioned,7,Medium
+L00559,undersigned,9,High
+L00560,party of,1,Low
+L00561,in witness whereof,9,High
+L00562,executed,6,Medium
+L00563,notary,5,Medium
+L00564,undertaking,1,Low
+L00566,contract,2,Low
+L00567,bond,3,Low
+L00569,non disclosure,2,Low
+L00570,non-disclosure,8,High
+L00571,terms and conditions,8,High
+L00572,terms & conditions,4,Medium
+L00573,t&c,5,Medium
+L00574,legal notice,7,Medium
+L00575,affidavit,1,Low
+L00576,court,8,High
+L00577,case,5,Medium
+L00578,lawyer,1,Low
+L00579,attorney,3,Low
+L00580,clause,10,High
+L00581,deed,1,Low
+L00582,lease,2,Low
+L00583,rental,1,Low
+L00584,jurisdiction,1,Low
+L00585,liability,5,Medium
+L00586,indemnity,7,Medium
+L00587,settlement,3,Low
+L00588,arbitration,2,Low
+L00589,lawsuit,10,High
+L00590,litigation,1,Low
+L00591,plaintiff,2,Low
+L00592,defendant,9,High
+L00593,verdict,3,Low
+L00594,judgment,3,Low
+L00595,witness,6,Medium
+L00596,testimony,9,High
+L00597,subpoena,8,High
+L00598,summons,4,Medium
+L00599,petition,6,Medium
+L00600,memorandum,5,Medium
+L00601,mou,3,Low
+L00602,legal document,9,High
+L00603,hereby,10,High
+L00604,whereas,3,Low
+L00605,aforementioned,8,High
+L00606,undersigned,7,Medium
+L00607,party of,1,Low
+L00608,in witness whereof,9,High
+L00609,executed,4,Medium
+L00610,notary,10,High
+L00611,undertaking,4,Medium
+L00613,contract,6,Medium
+L00614,bond,10,High
+L00616,non disclosure,7,Medium
+L00617,non-disclosure,10,High
+L00618,terms and conditions,10,High
+L00619,terms & conditions,4,Medium
+L00620,t&c,5,Medium
+L00621,legal notice,5,Medium
+L00622,affidavit,1,Low
+L00623,court,7,Medium
+L00624,case,2,Low
+L00625,lawyer,1,Low
+L00626,attorney,4,Medium
+L00627,clause,3,Low
+L00628,deed,2,Low
+L00629,lease,4,Medium
+L00630,rental,5,Medium
+L00631,jurisdiction,3,Low
+L00632,liability,2,Low
+L00633,indemnity,4,Medium
+L00634,settlement,8,High
+L00635,arbitration,5,Medium
+L00636,lawsuit,2,Low
+L00637,litigation,10,High
+L00638,plaintiff,9,High
+L00639,defendant,9,High
+L00640,verdict,3,Low
+L00641,judgment,5,Medium
+L00642,witness,4,Medium
+L00643,testimony,3,Low
+L00644,subpoena,7,Medium
+L00645,summons,8,High
+L00646,petition,2,Low
+L00647,memorandum,9,High
+L00648,mou,6,Medium
+L00649,legal document,7,Medium
+L00650,hereby,8,High
+L00651,whereas,2,Low
+L00652,aforementioned,4,Medium
+L00653,undersigned,5,Medium
+L00654,party of,3,Low
+L00655,in witness whereof,9,High
+L00656,executed,3,Low
+L00657,notary,8,High
+L00658,undertaking,9,High
+L00660,contract,5,Medium
+L00661,bond,5,Medium
+L00663,non disclosure,8,High
+L00664,non-disclosure,1,Low
+L00665,terms and conditions,7,Medium
+L00666,terms & conditions,2,Low
+L00667,t&c,6,Medium
+L00668,legal notice,6,Medium
+L00669,affidavit,2,Low
+L00670,court,7,Medium
+L00671,case,10,High
+L00672,lawyer,10,High
+L00673,attorney,9,High
+L00674,clause,7,Medium
+L00675,deed,8,High
+L00676,lease,8,High
+L00677,rental,4,Medium
+L00678,jurisdiction,7,Medium
+L00679,liability,9,High
+L00680,indemnity,4,Medium
+L00681,settlement,6,Medium
+L00682,arbitration,10,High
+L00683,lawsuit,6,Medium
+L00684,litigation,3,Low
+L00685,plaintiff,2,Low
+L00686,defendant,1,Low
+L00687,verdict,10,High
+L00688,judgment,2,Low
+L00689,witness,9,High
+L00690,testimony,10,High
+L00691,subpoena,7,Medium
+L00692,summons,5,Medium
+L00693,petition,7,Medium
+L00694,memorandum,3,Low
+L00695,mou,5,Medium
+L00696,legal document,3,Low
+L00697,hereby,6,Medium
+L00698,whereas,5,Medium
+L00699,aforementioned,8,High
+L00700,undersigned,9,High
+L00701,party of,3,Low
+L00702,in witness whereof,7,Medium
+L00703,executed,3,Low
+L00704,notary,3,Low
+L00705,undertaking,2,Low
+L00707,contract,10,High
+L00708,bond,6,Medium
+L00710,non disclosure,9,High
+L00711,non-disclosure,5,Medium
+L00712,terms and conditions,8,High
+L00713,terms & conditions,10,High
+L00714,t&c,2,Low
+L00715,legal notice,2,Low
+L00716,affidavit,9,High
+L00717,court,3,Low
+L00718,case,7,Medium
+L00719,lawyer,8,High
+L00720,attorney,9,High
+L00721,clause,7,Medium
+L00722,deed,6,Medium
+L00723,lease,3,Low
+L00724,rental,6,Medium
+L00725,jurisdiction,10,High
+L00726,liability,8,High
+L00727,indemnity,10,High
+L00728,settlement,4,Medium
+L00729,arbitration,9,High
+L00730,lawsuit,7,Medium
+L00731,litigation,5,Medium
+L00732,plaintiff,3,Low
+L00733,defendant,8,High
+L00734,verdict,4,Medium
+L00735,judgment,1,Low
+L00736,witness,4,Medium
+L00737,testimony,2,Low
+L00738,subpoena,2,Low
+L00739,summons,6,Medium
+L00740,petition,6,Medium
+L00741,memorandum,3,Low
+L00742,mou,3,Low
+L00743,legal document,9,High
+L00744,hereby,6,Medium
+L00745,whereas,5,Medium
+L00746,aforementioned,7,Medium
+L00747,undersigned,4,Medium
+L00748,party of,4,Medium
+L00749,in witness whereof,8,High
+L00750,executed,9,High
+L00751,notary,1,Low
+L00752,undertaking,5,Medium
+L00754,contract,4,Medium
+L00755,bond,7,Medium
+L00757,non disclosure,6,Medium
+L00758,non-disclosure,8,High
+L00759,terms and conditions,3,Low
+L00760,terms & conditions,9,High
+L00761,t&c,7,Medium
+L00762,legal notice,4,Medium
+L00763,affidavit,7,Medium
+L00764,court,2,Low
+L00765,case,6,Medium
+L00766,lawyer,6,Medium
+L00767,attorney,6,Medium
+L00768,clause,10,High
+L00769,deed,7,Medium
+L00770,lease,7,Medium
+L00771,rental,7,Medium
+L00772,jurisdiction,6,Medium
+L00773,liability,6,Medium
+L00774,indemnity,1,Low
+L00775,settlement,8,High
+L00776,arbitration,6,Medium
+L00777,lawsuit,1,Low
+L00778,litigation,7,Medium
+L00779,plaintiff,3,Low
+L00780,defendant,3,Low
+L00781,verdict,6,Medium
+L00782,judgment,8,High
+L00783,witness,9,High
+L00784,testimony,1,Low
+L00785,subpoena,10,High
+L00786,summons,5,Medium
+L00787,petition,8,High
+L00788,memorandum,5,Medium
+L00789,mou,9,High
+L00790,legal document,5,Medium
+L00791,hereby,10,High
+L00792,whereas,10,High
+L00793,aforementioned,6,Medium
+L00794,undersigned,5,Medium
+L00795,party of,1,Low
+L00796,in witness whereof,5,Medium
+L00797,executed,3,Low
+L00798,notary,10,High
+L00799,undertaking,3,Low
+L00801,contract,8,High
+L00802,bond,8,High
+L00804,non disclosure,7,Medium
+L00805,non-disclosure,4,Medium
+L00806,terms and conditions,8,High
+L00807,terms & conditions,10,High
+L00808,t&c,6,Medium
+L00809,legal notice,5,Medium
+L00810,affidavit,3,Low
+L00811,court,1,Low
+L00812,case,10,High
+L00813,lawyer,6,Medium
+L00814,attorney,5,Medium
+L00815,clause,5,Medium
+L00816,deed,1,Low
+L00817,lease,4,Medium
+L00818,rental,9,High
+L00819,jurisdiction,6,Medium
+L00820,liability,8,High
+L00821,indemnity,3,Low
+L00822,settlement,1,Low
+L00823,arbitration,3,Low
+L00824,lawsuit,9,High
+L00825,litigation,8,High
+L00826,plaintiff,10,High
+L00827,defendant,5,Medium
+L00828,verdict,1,Low
+L00829,judgment,1,Low
+L00830,witness,9,High
+L00831,testimony,9,High
+L00832,subpoena,4,Medium
+L00833,summons,4,Medium
+L00834,petition,7,Medium
+L00835,memorandum,5,Medium
+L00836,mou,7,Medium
+L00837,legal document,9,High
+L00838,hereby,2,Low
+L00839,whereas,10,High
+L00840,aforementioned,5,Medium
+L00841,undersigned,5,Medium
+L00842,party of,4,Medium
+L00843,in witness whereof,5,Medium
+L00844,executed,10,High
+L00845,notary,5,Medium
+L00846,undertaking,3,Low
+L00848,contract,5,Medium
+L00849,bond,2,Low
+L00851,non disclosure,5,Medium
+L00852,non-disclosure,9,High
+L00853,terms and conditions,2,Low
+L00854,terms & conditions,7,Medium
+L00855,t&c,3,Low
+L00856,legal notice,3,Low
+L00857,affidavit,9,High
+L00858,court,1,Low
+L00859,case,1,Low
+L00860,lawyer,4,Medium
+L00861,attorney,4,Medium
+L00862,clause,4,Medium
+L00863,deed,9,High
+L00864,lease,1,Low
+L00865,rental,7,Medium
+L00866,jurisdiction,9,High
+L00867,liability,6,Medium
+L00868,indemnity,6,Medium
+L00869,settlement,1,Low
+L00870,arbitration,4,Medium
+L00871,lawsuit,5,Medium
+L00872,litigation,2,Low
+L00873,plaintiff,2,Low
+L00874,defendant,4,Medium
+L00875,verdict,2,Low
+L00876,judgment,5,Medium
+L00877,witness,7,Medium
+L00878,testimony,9,High
+L00879,subpoena,6,Medium
+L00880,summons,1,Low
+L00881,petition,2,Low
+L00882,memorandum,10,High
+L00883,mou,10,High
+L00884,legal document,3,Low
+L00885,hereby,3,Low
+L00886,whereas,3,Low
+L00887,aforementioned,4,Medium
+L00888,undersigned,10,High
+L00889,party of,6,Medium
+L00890,in witness whereof,8,High
+L00891,executed,10,High
+L00892,notary,4,Medium
+L00893,undertaking,1,Low
+L00895,contract,3,Low
+L00896,bond,3,Low
+L00898,non disclosure,6,Medium
+L00899,non-disclosure,4,Medium
+L00900,terms and conditions,7,Medium
+L00901,terms & conditions,10,High
+L00902,t&c,8,High
+L00903,legal notice,5,Medium
+L00904,affidavit,9,High
+L00905,court,2,Low
+L00906,case,4,Medium
+L00907,lawyer,9,High
+L00908,attorney,6,Medium
+L00909,clause,5,Medium
+L00910,deed,2,Low
+L00911,lease,5,Medium
+L00912,rental,4,Medium
+L00913,jurisdiction,5,Medium
+L00914,liability,9,High
+L00915,indemnity,8,High
+L00916,settlement,3,Low
+L00917,arbitration,6,Medium
+L00918,lawsuit,10,High
+L00919,litigation,10,High
+L00920,plaintiff,9,High
+L00921,defendant,10,High
+L00922,verdict,1,Low
+L00923,judgment,1,Low
+L00924,witness,8,High
+L00925,testimony,1,Low
+L00926,subpoena,9,High
+L00927,summons,1,Low
+L00928,petition,7,Medium
+L00929,memorandum,7,Medium
+L00930,mou,8,High
+L00931,legal document,4,Medium
+L00932,hereby,10,High
+L00933,whereas,1,Low
+L00934,aforementioned,5,Medium
+L00935,undersigned,7,Medium
+L00936,party of,1,Low
+L00937,in witness whereof,9,High
+L00938,executed,2,Low
+L00939,notary,8,High
+L00940,undertaking,10,High
+L00942,contract,6,Medium
+L00943,bond,10,High
+L00945,non disclosure,9,High
+L00946,non-disclosure,5,Medium
+L00947,terms and conditions,3,Low
+L00948,terms & conditions,10,High
+L00949,t&c,1,Low
+L00950,legal notice,10,High
+L00951,affidavit,5,Medium
+L00952,court,3,Low
+L00953,case,4,Medium
+L00954,lawyer,8,High
+L00955,attorney,3,Low
+L00956,clause,6,Medium
+L00957,deed,3,Low
+L00958,lease,6,Medium
+L00959,rental,4,Medium
+L00960,jurisdiction,1,Low
+L00961,liability,7,Medium
+L00962,indemnity,4,Medium
+L00963,settlement,9,High
+L00964,arbitration,4,Medium
+L00965,lawsuit,9,High
+L00966,litigation,7,Medium
+L00967,plaintiff,5,Medium
+L00968,defendant,8,High
+L00969,verdict,3,Low
+L00970,judgment,2,Low
+L00971,witness,7,Medium
+L00972,testimony,5,Medium
+L00973,subpoena,10,High
+L00974,summons,8,High
+L00975,petition,8,High
+L00976,memorandum,3,Low
+L00977,mou,5,Medium
+L00978,legal document,5,Medium
+L00979,hereby,8,High
+L00980,whereas,7,Medium
+L00981,aforementioned,5,Medium
+L00982,undersigned,2,Low
+L00983,party of,1,Low
+L00984,in witness whereof,10,High
+L00985,executed,8,High
+L00986,notary,4,Medium
+L00987,undertaking,2,Low
+L00989,contract,6,Medium
+L00990,bond,2,Low
+L00992,non disclosure,1,Low
+L00993,non-disclosure,4,Medium
+L00994,terms and conditions,4,Medium
+L00995,terms & conditions,3,Low
+L00996,t&c,8,High
+L00997,legal notice,8,High
+L00998,affidavit,3,Low
+L00999,court,1,Low
+L01000,case,7,Medium
+L01001,lawyer,8,High
+L01002,attorney,4,Medium
+L01003,clause,9,High
+L01004,deed,10,High
+L01005,lease,9,High
+L01006,rental,10,High
+L01007,jurisdiction,4,Medium
+L01008,liability,9,High
+L01009,indemnity,7,Medium
+L01010,settlement,1,Low
+L01011,arbitration,1,Low
+L01012,lawsuit,5,Medium
+L01013,litigation,10,High
+L01014,plaintiff,4,Medium
+L01015,defendant,4,Medium
+L01016,verdict,8,High
+L01017,judgment,9,High
+L01018,witness,8,High
+L01019,testimony,3,Low
+L01020,subpoena,7,Medium
+L01021,summons,8,High
+L01022,petition,7,Medium
+L01023,memorandum,8,High
+L01024,mou,5,Medium
+L01025,legal document,4,Medium
+L01026,hereby,5,Medium
+L01027,whereas,3,Low
+L01028,aforementioned,10,High
+L01029,undersigned,6,Medium
+L01030,party of,9,High
+L01031,in witness whereof,8,High
+L01032,executed,9,High
+L01033,notary,3,Low
+L01034,undertaking,4,Medium
+L01036,contract,4,Medium
+L01037,bond,8,High
+L01039,non disclosure,1,Low
+L01040,non-disclosure,2,Low
+L01041,terms and conditions,5,Medium
+L01042,terms & conditions,7,Medium
+L01043,t&c,3,Low
+L01044,legal notice,2,Low
+L01045,affidavit,5,Medium
+L01046,court,9,High
+L01047,case,4,Medium
+L01048,lawyer,9,High
+L01049,attorney,1,Low
+L01050,clause,7,Medium
+L01051,deed,3,Low
+L01052,lease,10,High
+L01053,rental,7,Medium
+L01054,jurisdiction,2,Low
+L01055,liability,10,High
+L01056,indemnity,6,Medium
+L01057,settlement,8,High
+L01058,arbitration,4,Medium
+L01059,lawsuit,7,Medium
+L01060,litigation,6,Medium
+L01061,plaintiff,1,Low
+L01062,defendant,8,High
+L01063,verdict,7,Medium
+L01064,judgment,7,Medium
+L01065,witness,1,Low
+L01066,testimony,5,Medium
+L01067,subpoena,10,High
+L01068,summons,5,Medium
+L01069,petition,8,High
+L01070,memorandum,2,Low
+L01071,mou,8,High
+L01072,legal document,2,Low
+L01073,hereby,8,High
+L01074,whereas,6,Medium
+L01075,aforementioned,8,High
+L01076,undersigned,1,Low
+L01077,party of,2,Low
+L01078,in witness whereof,8,High
+L01079,executed,2,Low
+L01080,notary,10,High
+L01081,undertaking,3,Low
+L01083,contract,6,Medium
+L01084,bond,9,High
+L01086,non disclosure,6,Medium
+L01087,non-disclosure,9,High
+L01088,terms and conditions,10,High
+L01089,terms & conditions,9,High
+L01090,t&c,8,High
+L01091,legal notice,8,High
+L01092,affidavit,2,Low
+L01093,court,6,Medium
+L01094,case,3,Low
+L01095,lawyer,8,High
+L01096,attorney,9,High
+L01097,clause,2,Low
+L01098,deed,10,High
+L01099,lease,7,Medium
+L01100,rental,2,Low
+L01101,jurisdiction,8,High
+L01102,liability,9,High
+L01103,indemnity,9,High
+L01104,settlement,4,Medium
+L01105,arbitration,3,Low
+L01106,lawsuit,3,Low
+L01107,litigation,2,Low
+L01108,plaintiff,3,Low
+L01109,defendant,9,High
+L01110,verdict,7,Medium
+L01111,judgment,2,Low
+L01112,witness,3,Low
+L01113,testimony,10,High
+L01114,subpoena,2,Low
+L01115,summons,3,Low
+L01116,petition,8,High
+L01117,memorandum,1,Low
+L01118,mou,3,Low
+L01119,legal document,2,Low
+L01120,hereby,7,Medium
+L01121,whereas,5,Medium
+L01122,aforementioned,6,Medium
+L01123,undersigned,1,Low
+L01124,party of,9,High
+L01125,in witness whereof,9,High
+L01126,executed,1,Low
+L01127,notary,1,Low
+L01128,undertaking,4,Medium
+L01130,contract,7,Medium
+L01131,bond,10,High
+L01133,non disclosure,9,High
+L01134,non-disclosure,3,Low
+L01135,terms and conditions,2,Low
+L01136,terms & conditions,6,Medium
+L01137,t&c,10,High
+L01138,legal notice,4,Medium
+L01139,affidavit,2,Low
+L01140,court,3,Low
+L01141,case,10,High
+L01142,lawyer,8,High
+L01143,attorney,10,High
+L01144,clause,10,High
+L01145,deed,3,Low
+L01146,lease,7,Medium
+L01147,rental,1,Low
+L01148,jurisdiction,2,Low
+L01149,liability,10,High
+L01150,indemnity,2,Low
+L01151,settlement,10,High
+L01152,arbitration,10,High
+L01153,lawsuit,2,Low
+L01154,litigation,6,Medium
+L01155,plaintiff,3,Low
+L01156,defendant,1,Low
+L01157,verdict,7,Medium
+L01158,judgment,9,High
+L01159,witness,9,High
+L01160,testimony,3,Low
+L01161,subpoena,8,High
+L01162,summons,10,High
+L01163,petition,1,Low
+L01164,memorandum,8,High
+L01165,mou,2,Low
+L01166,legal document,8,High
+L01167,hereby,10,High
+L01168,whereas,3,Low
+L01169,aforementioned,3,Low
+L01170,undersigned,3,Low
+L01171,party of,2,Low
+L01172,in witness whereof,7,Medium
+L01173,executed,9,High
+L01174,notary,6,Medium
+L01175,undertaking,9,High
+L01177,contract,10,High
+L01178,bond,4,Medium
+L01180,non disclosure,9,High
+L01181,non-disclosure,1,Low
+L01182,terms and conditions,9,High
+L01183,terms & conditions,6,Medium
+L01184,t&c,10,High
+L01185,legal notice,7,Medium
+L01186,affidavit,9,High
+L01187,court,5,Medium
+L01188,case,3,Low
+L01189,lawyer,6,Medium
+L01190,attorney,6,Medium
+L01191,clause,3,Low
+L01192,deed,5,Medium
+L01193,lease,8,High
+L01194,rental,4,Medium
+L01195,jurisdiction,8,High
+L01196,liability,7,Medium
+L01197,indemnity,6,Medium
+L01198,settlement,5,Medium
+L01199,arbitration,8,High
+L01200,lawsuit,2,Low
+F00001,invoice,3,Low
+F00002,receipt,2,Low
+F00003,bill,6,Medium
+F00004,payment,6,Medium
+F00005,salary,3,Low
+F00006,payroll,6,Medium
+F00007,wage,1,Low
+F00008,bank,7,Medium
+F00009,account,4,Medium
+F00010,account number,7,Medium
+F00011,acct no,3,Low
+F00012,ifsc,3,Low
+F00013,swift,4,Medium
+F00014,iban,8,High
+F00015,transaction,2,Low
+F00016,statement,10,High
+F00017,balance,2,Low
+F00018,tax,1,Low
+F00019,gst,1,Low
+F00020,vat,5,Medium
+F00021,income tax,5,Medium
+F00022,pan,6,Medium
+F00023,tds,1,Low
+F00024,audit,2,Low
+F00025,budget,3,Low
+F00026,loan,1,Low
+F00027,emi,4,Medium
+F00028,mortgage,5,Medium
+F00029,credit,8,High
+F00030,debit,10,High
+F00031,withdrawal,10,High
+F00032,deposit,7,Medium
+F00033,cheque,9,High
+F00034,check,1,Low
+F00035,wire transfer,9,High
+F00036,net banking,2,Low
+F00037,upi,8,High
+F00038,neft,6,Medium
+F00039,rtgs,8,High
+F00040,micr,8,High
+F00041,routing number,8,High
+F00042,financial statement,2,Low
+F00043,profit and loss,6,Medium
+F00044,p&l,1,Low
+F00045,balance sheet,9,High
+F00046,revenue,4,Medium
+F00047,expense,6,Medium
+F00048,remittance,1,Low
+F00049,fund transfer,8,High
+F00050,payee,10,High
+F00051,payer,10,High
+F00052,due date,7,Medium
+F00053,overdue,3,Low
+F00054,outstanding,10,High
+F00055,paid,7,Medium
+F00056,unpaid,1,Low
+F00057,refund,9,High
+F00058,rupee,1,Low
+F00059,dollar,10,High
+F00060,amount,4,Medium
+F00061,total,1,Low
+F00062,subtotal,1,Low
+F00063,grand total,5,Medium
+F00064,invoice,10,High
+F00065,receipt,9,High
+F00066,bill,6,Medium
+F00067,payment,1,Low
+F00068,salary,6,Medium
+F00069,payroll,9,High
+F00070,wage,1,Low
+F00071,bank,4,Medium
+F00072,account,8,High
+F00073,account number,7,Medium
+F00074,acct no,8,High
+F00075,ifsc,4,Medium
+F00076,swift,7,Medium
+F00077,iban,10,High
+F00078,transaction,6,Medium
+F00079,statement,3,Low
+F00080,balance,3,Low
+F00081,tax,6,Medium
+F00082,gst,2,Low
+F00083,vat,3,Low
+F00084,income tax,8,High
+F00085,pan,6,Medium
+F00086,tds,1,Low
+F00087,audit,8,High
+F00088,budget,6,Medium
+F00089,loan,8,High
+F00090,emi,7,Medium
+F00091,mortgage,7,Medium
+F00092,credit,6,Medium
+F00093,debit,5,Medium
+F00094,withdrawal,8,High
+F00095,deposit,1,Low
+F00096,cheque,9,High
+F00097,check,3,Low
+F00098,wire transfer,2,Low
+F00099,net banking,8,High
+F00100,upi,8,High
+F00101,neft,6,Medium
+F00102,rtgs,5,Medium
+F00103,micr,6,Medium
+F00104,routing number,7,Medium
+F00105,financial statement,8,High
+F00106,profit and loss,1,Low
+F00107,p&l,3,Low
+F00108,balance sheet,7,Medium
+F00109,revenue,7,Medium
+F00110,expense,10,High
+F00111,remittance,6,Medium
+F00112,fund transfer,2,Low
+F00113,payee,3,Low
+F00114,payer,4,Medium
+F00115,due date,9,High
+F00116,overdue,9,High
+F00117,outstanding,2,Low
+F00118,paid,1,Low
+F00119,unpaid,4,Medium
+F00120,refund,7,Medium
+F00121,rupee,7,Medium
+F00122,dollar,10,High
+F00123,amount,9,High
+F00124,total,8,High
+F00125,subtotal,2,Low
+F00126,grand total,5,Medium
+F00127,invoice,10,High
+F00128,receipt,5,Medium
+F00129,bill,9,High
+F00130,payment,4,Medium
+F00131,salary,4,Medium
+F00132,payroll,1,Low
+F00133,wage,5,Medium
+F00134,bank,4,Medium
+F00135,account,3,Low
+F00136,account number,3,Low
+F00137,acct no,2,Low
+F00138,ifsc,4,Medium
+F00139,swift,1,Low
+F00140,iban,2,Low
+F00141,transaction,2,Low
+F00142,statement,10,High
+F00143,balance,5,Medium
+F00144,tax,2,Low
+F00145,gst,7,Medium
+F00146,vat,9,High
+F00147,income tax,7,Medium
+F00148,pan,7,Medium
+F00149,tds,10,High
+F00150,audit,2,Low
+F00151,budget,7,Medium
+F00152,loan,8,High
+F00153,emi,3,Low
+F00154,mortgage,8,High
+F00155,credit,6,Medium
+F00156,debit,2,Low
+F00157,withdrawal,5,Medium
+F00158,deposit,10,High
+F00159,cheque,5,Medium
+F00160,check,3,Low
+F00161,wire transfer,10,High
+F00162,net banking,8,High
+F00163,upi,8,High
+F00164,neft,6,Medium
+F00165,rtgs,10,High
+F00166,micr,2,Low
+F00167,routing number,9,High
+F00168,financial statement,8,High
+F00169,profit and loss,4,Medium
+F00170,p&l,7,Medium
+F00171,balance sheet,1,Low
+F00172,revenue,5,Medium
+F00173,expense,3,Low
+F00174,remittance,6,Medium
+F00175,fund transfer,10,High
+F00176,payee,2,Low
+F00177,payer,10,High
+F00178,due date,7,Medium
+F00179,overdue,2,Low
+F00180,outstanding,5,Medium
+F00181,paid,7,Medium
+F00182,unpaid,9,High
+F00183,refund,9,High
+F00184,rupee,1,Low
+F00185,dollar,10,High
+F00186,amount,1,Low
+F00187,total,7,Medium
+F00188,subtotal,6,Medium
+F00189,grand total,10,High
+F00190,invoice,6,Medium
+F00191,receipt,7,Medium
+F00192,bill,10,High
+F00193,payment,4,Medium
+F00194,salary,9,High
+F00195,payroll,9,High
+F00196,wage,8,High
+F00197,bank,2,Low
+F00198,account,3,Low
+F00199,account number,10,High
+F00200,acct no,3,Low
+F00201,ifsc,4,Medium
+F00202,swift,9,High
+F00203,iban,1,Low
+F00204,transaction,5,Medium
+F00205,statement,8,High
+F00206,balance,6,Medium
+F00207,tax,6,Medium
+F00208,gst,6,Medium
+F00209,vat,7,Medium
+F00210,income tax,3,Low
+F00211,pan,9,High
+F00212,tds,1,Low
+F00213,audit,6,Medium
+F00214,budget,8,High
+F00215,loan,7,Medium
+F00216,emi,4,Medium
+F00217,mortgage,6,Medium
+F00218,credit,2,Low
+F00219,debit,7,Medium
+F00220,withdrawal,3,Low
+F00221,deposit,3,Low
+F00222,cheque,4,Medium
+F00223,check,3,Low
+F00224,wire transfer,10,High
+F00225,net banking,10,High
+F00226,upi,5,Medium
+F00227,neft,6,Medium
+F00228,rtgs,6,Medium
+F00229,micr,9,High
+F00230,routing number,4,Medium
+F00231,financial statement,9,High
+F00232,profit and loss,2,Low
+F00233,p&l,3,Low
+F00234,balance sheet,2,Low
+F00235,revenue,3,Low
+F00236,expense,5,Medium
+F00237,remittance,4,Medium
+F00238,fund transfer,10,High
+F00239,payee,1,Low
+F00240,payer,3,Low
+F00241,due date,2,Low
+F00242,overdue,1,Low
+F00243,outstanding,5,Medium
+F00244,paid,2,Low
+F00245,unpaid,9,High
+F00246,refund,4,Medium
+F00247,rupee,4,Medium
+F00248,dollar,10,High
+F00249,amount,10,High
+F00250,total,6,Medium
+F00251,subtotal,6,Medium
+F00252,grand total,3,Low
+F00253,invoice,8,High
+F00254,receipt,2,Low
+F00255,bill,8,High
+F00256,payment,5,Medium
+F00257,salary,7,Medium
+F00258,payroll,10,High
+F00259,wage,2,Low
+F00260,bank,1,Low
+F00261,account,1,Low
+F00262,account number,6,Medium
+F00263,acct no,3,Low
+F00264,ifsc,5,Medium
+F00265,swift,2,Low
+F00266,iban,2,Low
+F00267,transaction,9,High
+F00268,statement,3,Low
+F00269,balance,6,Medium
+F00270,tax,3,Low
+F00271,gst,5,Medium
+F00272,vat,6,Medium
+F00273,income tax,4,Medium
+F00274,pan,6,Medium
+F00275,tds,4,Medium
+F00276,audit,1,Low
+F00277,budget,3,Low
+F00278,loan,1,Low
+F00279,emi,2,Low
+F00280,mortgage,2,Low
+F00281,credit,4,Medium
+F00282,debit,8,High
+F00283,withdrawal,5,Medium
+F00284,deposit,2,Low
+F00285,cheque,4,Medium
+F00286,check,10,High
+F00287,wire transfer,8,High
+F00288,net banking,10,High
+F00289,upi,2,Low
+F00290,neft,9,High
+F00291,rtgs,1,Low
+F00292,micr,8,High
+F00293,routing number,7,Medium
+F00294,financial statement,2,Low
+F00295,profit and loss,10,High
+F00296,p&l,10,High
+F00297,balance sheet,6,Medium
+F00298,revenue,8,High
+F00299,expense,9,High
+F00300,remittance,9,High
+F00301,fund transfer,1,Low
+F00302,payee,1,Low
+F00303,payer,1,Low
+F00304,due date,3,Low
+F00305,overdue,3,Low
+F00306,outstanding,5,Medium
+F00307,paid,3,Low
+F00308,unpaid,10,High
+F00309,refund,5,Medium
+F00310,rupee,9,High
+F00311,dollar,6,Medium
+F00312,amount,7,Medium
+F00313,total,5,Medium
+F00314,subtotal,9,High
+F00315,grand total,9,High
+F00316,invoice,1,Low
+F00317,receipt,3,Low
+F00318,bill,10,High
+F00319,payment,2,Low
+F00320,salary,4,Medium
+F00321,payroll,8,High
+F00322,wage,2,Low
+F00323,bank,3,Low
+F00324,account,5,Medium
+F00325,account number,6,Medium
+F00326,acct no,7,Medium
+F00327,ifsc,10,High
+F00328,swift,10,High
+F00329,iban,7,Medium
+F00330,transaction,1,Low
+F00331,statement,5,Medium
+F00332,balance,10,High
+F00333,tax,4,Medium
+F00334,gst,2,Low
+F00335,vat,10,High
+F00336,income tax,7,Medium
+F00337,pan,10,High
+F00338,tds,1,Low
+F00339,audit,8,High
+F00340,budget,2,Low
+F00341,loan,4,Medium
+F00342,emi,5,Medium
+F00343,mortgage,2,Low
+F00344,credit,4,Medium
+F00345,debit,2,Low
+F00346,withdrawal,8,High
+F00347,deposit,6,Medium
+F00348,cheque,5,Medium
+F00349,check,8,High
+F00350,wire transfer,1,Low
+F00351,net banking,1,Low
+F00352,upi,2,Low
+F00353,neft,4,Medium
+F00354,rtgs,3,Low
+F00355,micr,4,Medium
+F00356,routing number,2,Low
+F00357,financial statement,1,Low
+F00358,profit and loss,6,Medium
+F00359,p&l,9,High
+F00360,balance sheet,5,Medium
+F00361,revenue,9,High
+F00362,expense,3,Low
+F00363,remittance,4,Medium
+F00364,fund transfer,10,High
+F00365,payee,6,Medium
+F00366,payer,9,High
+F00367,due date,8,High
+F00368,overdue,2,Low
+F00369,outstanding,1,Low
+F00370,paid,10,High
+F00371,unpaid,10,High
+F00372,refund,6,Medium
+F00373,rupee,7,Medium
+F00374,dollar,5,Medium
+F00375,amount,4,Medium
+F00376,total,9,High
+F00377,subtotal,8,High
+F00378,grand total,9,High
+F00379,invoice,1,Low
+F00380,receipt,2,Low
+F00381,bill,7,Medium
+F00382,payment,6,Medium
+F00383,salary,1,Low
+F00384,payroll,1,Low
+F00385,wage,8,High
+F00386,bank,9,High
+F00387,account,9,High
+F00388,account number,10,High
+F00389,acct no,8,High
+F00390,ifsc,8,High
+F00391,swift,4,Medium
+F00392,iban,6,Medium
+F00393,transaction,1,Low
+F00394,statement,1,Low
+F00395,balance,10,High
+F00396,tax,7,Medium
+F00397,gst,7,Medium
+F00398,vat,7,Medium
+F00399,income tax,2,Low
+F00400,pan,1,Low
+F00401,tds,1,Low
+F00402,audit,8,High
+F00403,budget,10,High
+F00404,loan,10,High
+F00405,emi,10,High
+F00406,mortgage,10,High
+F00407,credit,3,Low
+F00408,debit,4,Medium
+F00409,withdrawal,6,Medium
+F00410,deposit,2,Low
+F00411,cheque,2,Low
+F00412,check,1,Low
+F00413,wire transfer,3,Low
+F00414,net banking,7,Medium
+F00415,upi,8,High
+F00416,neft,8,High
+F00417,rtgs,8,High
+F00418,micr,3,Low
+F00419,routing number,7,Medium
+F00420,financial statement,9,High
+F00421,profit and loss,3,Low
+F00422,p&l,8,High
+F00423,balance sheet,10,High
+F00424,revenue,6,Medium
+F00425,expense,8,High
+F00426,remittance,4,Medium
+F00427,fund transfer,10,High
+F00428,payee,1,Low
+F00429,payer,7,Medium
+F00430,due date,9,High
+F00431,overdue,8,High
+F00432,outstanding,3,Low
+F00433,paid,10,High
+F00434,unpaid,9,High
+F00435,refund,9,High
+F00436,rupee,8,High
+F00437,dollar,5,Medium
+F00438,amount,2,Low
+F00439,total,4,Medium
+F00440,subtotal,3,Low
+F00441,grand total,2,Low
+F00442,invoice,7,Medium
+F00443,receipt,1,Low
+F00444,bill,8,High
+F00445,payment,3,Low
+F00446,salary,9,High
+F00447,payroll,8,High
+F00448,wage,9,High
+F00449,bank,3,Low
+F00450,account,2,Low
+F00451,account number,2,Low
+F00452,acct no,6,Medium
+F00453,ifsc,9,High
+F00454,swift,1,Low
+F00455,iban,6,Medium
+F00456,transaction,6,Medium
+F00457,statement,6,Medium
+F00458,balance,8,High
+F00459,tax,7,Medium
+F00460,gst,6,Medium
+F00461,vat,8,High
+F00462,income tax,10,High
+F00463,pan,10,High
+F00464,tds,2,Low
+F00465,audit,1,Low
+F00466,budget,10,High
+F00467,loan,4,Medium
+F00468,emi,5,Medium
+F00469,mortgage,3,Low
+F00470,credit,7,Medium
+F00471,debit,1,Low
+F00472,withdrawal,10,High
+F00473,deposit,10,High
+F00474,cheque,3,Low
+F00475,check,8,High
+F00476,wire transfer,8,High
+F00477,net banking,3,Low
+F00478,upi,2,Low
+F00479,neft,10,High
+F00480,rtgs,3,Low
+F00481,micr,7,Medium
+F00482,routing number,7,Medium
+F00483,financial statement,4,Medium
+F00484,profit and loss,2,Low
+F00485,p&l,1,Low
+F00486,balance sheet,7,Medium
+F00487,revenue,1,Low
+F00488,expense,10,High
+F00489,remittance,2,Low
+F00490,fund transfer,1,Low
+F00491,payee,2,Low
+F00492,payer,5,Medium
+F00493,due date,4,Medium
+F00494,overdue,5,Medium
+F00495,outstanding,6,Medium
+F00496,paid,10,High
+F00497,unpaid,2,Low
+F00498,refund,1,Low
+F00499,rupee,6,Medium
+F00500,dollar,9,High
+F00501,amount,5,Medium
+F00502,total,2,Low
+F00503,subtotal,3,Low
+F00504,grand total,6,Medium
+F00505,invoice,9,High
+F00506,receipt,10,High
+F00507,bill,2,Low
+F00508,payment,5,Medium
+F00509,salary,9,High
+F00510,payroll,7,Medium
+F00511,wage,2,Low
+F00512,bank,10,High
+F00513,account,5,Medium
+F00514,account number,5,Medium
+F00515,acct no,4,Medium
+F00516,ifsc,2,Low
+F00517,swift,2,Low
+F00518,iban,4,Medium
+F00519,transaction,1,Low
+F00520,statement,2,Low
+F00521,balance,10,High
+F00522,tax,8,High
+F00523,gst,6,Medium
+F00524,vat,10,High
+F00525,income tax,8,High
+F00526,pan,3,Low
+F00527,tds,5,Medium
+F00528,audit,1,Low
+F00529,budget,3,Low
+F00530,loan,6,Medium
+F00531,emi,2,Low
+F00532,mortgage,4,Medium
+F00533,credit,1,Low
+F00534,debit,5,Medium
+F00535,withdrawal,5,Medium
+F00536,deposit,2,Low
+F00537,cheque,2,Low
+F00538,check,1,Low
+F00539,wire transfer,3,Low
+F00540,net banking,5,Medium
+F00541,upi,3,Low
+F00542,neft,2,Low
+F00543,rtgs,9,High
+F00544,micr,2,Low
+F00545,routing number,9,High
+F00546,financial statement,3,Low
+F00547,profit and loss,1,Low
+F00548,p&l,8,High
+F00549,balance sheet,4,Medium
+F00550,revenue,3,Low
+F00551,expense,10,High
+F00552,remittance,7,Medium
+F00553,fund transfer,6,Medium
+F00554,payee,1,Low
+F00555,payer,4,Medium
+F00556,due date,2,Low
+F00557,overdue,10,High
+F00558,outstanding,10,High
+F00559,paid,2,Low
+F00560,unpaid,8,High
+F00561,refund,7,Medium
+F00562,rupee,8,High
+F00563,dollar,8,High
+F00564,amount,6,Medium
+F00565,total,8,High
+F00566,subtotal,8,High
+F00567,grand total,9,High
+F00568,invoice,2,Low
+F00569,receipt,6,Medium
+F00570,bill,7,Medium
+F00571,payment,3,Low
+F00572,salary,9,High
+F00573,payroll,2,Low
+F00574,wage,2,Low
+F00575,bank,5,Medium
+F00576,account,10,High
+F00577,account number,2,Low
+F00578,acct no,3,Low
+F00579,ifsc,5,Medium
+F00580,swift,4,Medium
+F00581,iban,1,Low
+F00582,transaction,9,High
+F00583,statement,6,Medium
+F00584,balance,1,Low
+F00585,tax,8,High
+F00586,gst,2,Low
+F00587,vat,10,High
+F00588,income tax,3,Low
+F00589,pan,1,Low
+F00590,tds,8,High
+F00591,audit,5,Medium
+F00592,budget,9,High
+F00593,loan,8,High
+F00594,emi,4,Medium
+F00595,mortgage,4,Medium
+F00596,credit,2,Low
+F00597,debit,3,Low
+F00598,withdrawal,10,High
+F00599,deposit,1,Low
+F00600,cheque,8,High
+F00601,check,4,Medium
+F00602,wire transfer,4,Medium
+F00603,net banking,5,Medium
+F00604,upi,10,High
+F00605,neft,8,High
+F00606,rtgs,3,Low
+F00607,micr,8,High
+F00608,routing number,2,Low
+F00609,financial statement,8,High
+F00610,profit and loss,9,High
+F00611,p&l,8,High
+F00612,balance sheet,6,Medium
+F00613,revenue,2,Low
+F00614,expense,2,Low
+F00615,remittance,8,High
+F00616,fund transfer,6,Medium
+F00617,payee,3,Low
+F00618,payer,9,High
+F00619,due date,2,Low
+F00620,overdue,9,High
+F00621,outstanding,4,Medium
+F00622,paid,9,High
+F00623,unpaid,8,High
+F00624,refund,9,High
+F00625,rupee,9,High
+F00626,dollar,9,High
+F00627,amount,4,Medium
+F00628,total,7,Medium
+F00629,subtotal,5,Medium
+F00630,grand total,9,High
+F00631,invoice,3,Low
+F00632,receipt,2,Low
+F00633,bill,2,Low
+F00634,payment,2,Low
+F00635,salary,6,Medium
+F00636,payroll,10,High
+F00637,wage,2,Low
+F00638,bank,10,High
+F00639,account,2,Low
+F00640,account number,4,Medium
+F00641,acct no,6,Medium
+F00642,ifsc,9,High
+F00643,swift,8,High
+F00644,iban,6,Medium
+F00645,transaction,8,High
+F00646,statement,10,High
+F00647,balance,2,Low
+F00648,tax,2,Low
+F00649,gst,9,High
+F00650,vat,6,Medium
+F00651,income tax,1,Low
+F00652,pan,9,High
+F00653,tds,1,Low
+F00654,audit,2,Low
+F00655,budget,5,Medium
+F00656,loan,5,Medium
+F00657,emi,5,Medium
+F00658,mortgage,8,High
+F00659,credit,1,Low
+F00660,debit,8,High
+F00661,withdrawal,7,Medium
+F00662,deposit,3,Low
+F00663,cheque,8,High
+F00664,check,4,Medium
+F00665,wire transfer,5,Medium
+F00666,net banking,3,Low
+F00667,upi,8,High
+F00668,neft,7,Medium
+F00669,rtgs,8,High
+F00670,micr,7,Medium
+F00671,routing number,3,Low
+F00672,financial statement,9,High
+F00673,profit and loss,10,High
+F00674,p&l,4,Medium
+F00675,balance sheet,4,Medium
+F00676,revenue,1,Low
+F00677,expense,3,Low
+F00678,remittance,10,High
+F00679,fund transfer,10,High
+F00680,payee,5,Medium
+F00681,payer,10,High
+F00682,due date,2,Low
+F00683,overdue,5,Medium
+F00684,outstanding,7,Medium
+F00685,paid,2,Low
+F00686,unpaid,8,High
+F00687,refund,10,High
+F00688,rupee,6,Medium
+F00689,dollar,9,High
+F00690,amount,6,Medium
+F00691,total,2,Low
+F00692,subtotal,5,Medium
+F00693,grand total,7,Medium
+F00694,invoice,1,Low
+F00695,receipt,4,Medium
+F00696,bill,2,Low
+F00697,payment,7,Medium
+F00698,salary,5,Medium
+F00699,payroll,5,Medium
+F00700,wage,3,Low
+F00701,bank,1,Low
+F00702,account,3,Low
+F00703,account number,9,High
+F00704,acct no,2,Low
+F00705,ifsc,8,High
+F00706,swift,6,Medium
+F00707,iban,6,Medium
+F00708,transaction,9,High
+F00709,statement,3,Low
+F00710,balance,1,Low
+F00711,tax,10,High
+F00712,gst,7,Medium
+F00713,vat,5,Medium
+F00714,income tax,10,High
+F00715,pan,10,High
+F00716,tds,7,Medium
+F00717,audit,8,High
+F00718,budget,3,Low
+F00719,loan,7,Medium
+F00720,emi,3,Low
+F00721,mortgage,10,High
+F00722,credit,9,High
+F00723,debit,8,High
+F00724,withdrawal,4,Medium
+F00725,deposit,10,High
+F00726,cheque,2,Low
+F00727,check,5,Medium
+F00728,wire transfer,5,Medium
+F00729,net banking,9,High
+F00730,upi,9,High
+F00731,neft,8,High
+F00732,rtgs,10,High
+F00733,micr,8,High
+F00734,routing number,8,High
+F00735,financial statement,10,High
+F00736,profit and loss,9,High
+F00737,p&l,2,Low
+F00738,balance sheet,7,Medium
+F00739,revenue,8,High
+F00740,expense,2,Low
+F00741,remittance,3,Low
+F00742,fund transfer,5,Medium
+F00743,payee,3,Low
+F00744,payer,9,High
+F00745,due date,9,High
+F00746,overdue,9,High
+F00747,outstanding,10,High
+F00748,paid,1,Low
+F00749,unpaid,4,Medium
+F00750,refund,8,High
+F00751,rupee,10,High
+F00752,dollar,7,Medium
+F00753,amount,9,High
+F00754,total,10,High
+F00755,subtotal,6,Medium
+F00756,grand total,3,Low
+F00757,invoice,2,Low
+F00758,receipt,3,Low
+F00759,bill,4,Medium
+F00760,payment,1,Low
+F00761,salary,9,High
+F00762,payroll,4,Medium
+F00763,wage,1,Low
+F00764,bank,9,High
+F00765,account,9,High
+F00766,account number,7,Medium
+F00767,acct no,10,High
+F00768,ifsc,1,Low
+F00769,swift,1,Low
+F00770,iban,2,Low
+F00771,transaction,5,Medium
+F00772,statement,3,Low
+F00773,balance,8,High
+F00774,tax,1,Low
+F00775,gst,4,Medium
+F00776,vat,2,Low
+F00777,income tax,9,High
+F00778,pan,6,Medium
+F00779,tds,10,High
+F00780,audit,1,Low
+F00781,budget,6,Medium
+F00782,loan,9,High
+F00783,emi,1,Low
+F00784,mortgage,9,High
+F00785,credit,10,High
+F00786,debit,10,High
+F00787,withdrawal,5,Medium
+F00788,deposit,7,Medium
+F00789,cheque,3,Low
+F00790,check,5,Medium
+F00791,wire transfer,6,Medium
+F00792,net banking,8,High
+F00793,upi,3,Low
+F00794,neft,9,High
+F00795,rtgs,8,High
+F00796,micr,6,Medium
+F00797,routing number,8,High
+F00798,financial statement,2,Low
+F00799,profit and loss,10,High
+F00800,p&l,5,Medium
+F00801,balance sheet,2,Low
+F00802,revenue,8,High
+F00803,expense,5,Medium
+F00804,remittance,10,High
+F00805,fund transfer,10,High
+F00806,payee,8,High
+F00807,payer,5,Medium
+F00808,due date,6,Medium
+F00809,overdue,7,Medium
+F00810,outstanding,1,Low
+F00811,paid,2,Low
+F00812,unpaid,3,Low
+F00813,refund,6,Medium
+F00814,rupee,3,Low
+F00815,dollar,2,Low
+F00816,amount,6,Medium
+F00817,total,9,High
+F00818,subtotal,6,Medium
+F00819,grand total,9,High
+F00820,invoice,2,Low
+F00821,receipt,10,High
+F00822,bill,8,High
+F00823,payment,10,High
+F00824,salary,8,High
+F00825,payroll,1,Low
+F00826,wage,8,High
+F00827,bank,9,High
+F00828,account,2,Low
+F00829,account number,8,High
+F00830,acct no,4,Medium
+F00831,ifsc,7,Medium
+F00832,swift,1,Low
+F00833,iban,10,High
+F00834,transaction,3,Low
+F00835,statement,3,Low
+F00836,balance,2,Low
+F00837,tax,4,Medium
+F00838,gst,9,High
+F00839,vat,3,Low
+F00840,income tax,4,Medium
+F00841,pan,9,High
+F00842,tds,1,Low
+F00843,audit,7,Medium
+F00844,budget,10,High
+F00845,loan,6,Medium
+F00846,emi,4,Medium
+F00847,mortgage,3,Low
+F00848,credit,6,Medium
+F00849,debit,5,Medium
+F00850,withdrawal,9,High
+F00851,deposit,8,High
+F00852,cheque,6,Medium
+F00853,check,3,Low
+F00854,wire transfer,7,Medium
+F00855,net banking,4,Medium
+F00856,upi,9,High
+F00857,neft,8,High
+F00858,rtgs,9,High
+F00859,micr,9,High
+F00860,routing number,8,High
+F00861,financial statement,7,Medium
+F00862,profit and loss,2,Low
+F00863,p&l,5,Medium
+F00864,balance sheet,5,Medium
+F00865,revenue,2,Low
+F00866,expense,3,Low
+F00867,remittance,9,High
+F00868,fund transfer,2,Low
+F00869,payee,1,Low
+F00870,payer,7,Medium
+F00871,due date,7,Medium
+F00872,overdue,8,High
+F00873,outstanding,3,Low
+F00874,paid,7,Medium
+F00875,unpaid,2,Low
+F00876,refund,10,High
+F00877,rupee,1,Low
+F00878,dollar,3,Low
+F00879,amount,7,Medium
+F00880,total,3,Low
+F00881,subtotal,3,Low
+F00882,grand total,6,Medium
+F00883,invoice,9,High
+F00884,receipt,4,Medium
+F00885,bill,10,High
+F00886,payment,3,Low
+F00887,salary,1,Low
+F00888,payroll,5,Medium
+F00889,wage,10,High
+F00890,bank,3,Low
+F00891,account,3,Low
+F00892,account number,9,High
+F00893,acct no,8,High
+F00894,ifsc,5,Medium
+F00895,swift,9,High
+F00896,iban,2,Low
+F00897,transaction,5,Medium
+F00898,statement,3,Low
+F00899,balance,5,Medium
+F00900,tax,8,High
+F00901,gst,1,Low
+F00902,vat,8,High
+F00903,income tax,1,Low
+F00904,pan,2,Low
+F00905,tds,3,Low
+F00906,audit,5,Medium
+F00907,budget,9,High
+F00908,loan,7,Medium
+F00909,emi,5,Medium
+F00910,mortgage,8,High
+F00911,credit,3,Low
+F00912,debit,3,Low
+F00913,withdrawal,7,Medium
+F00914,deposit,1,Low
+F00915,cheque,2,Low
+F00916,check,6,Medium
+F00917,wire transfer,9,High
+F00918,net banking,8,High
+F00919,upi,10,High
+F00920,neft,9,High
+F00921,rtgs,1,Low
+F00922,micr,9,High
+F00923,routing number,10,High
+F00924,financial statement,3,Low
+F00925,profit and loss,2,Low
+F00926,p&l,7,Medium
+F00927,balance sheet,2,Low
+F00928,revenue,10,High
+F00929,expense,4,Medium
+F00930,remittance,9,High
+F00931,fund transfer,7,Medium
+F00932,payee,3,Low
+F00933,payer,5,Medium
+F00934,due date,8,High
+F00935,overdue,7,Medium
+F00936,outstanding,2,Low
+F00937,paid,4,Medium
+F00938,unpaid,4,Medium
+F00939,refund,3,Low
+F00940,rupee,2,Low
+F00941,dollar,9,High
+F00942,amount,10,High
+F00943,total,10,High
+F00944,subtotal,2,Low
+F00945,grand total,10,High
+F00946,invoice,2,Low
+F00947,receipt,4,Medium
+F00948,bill,7,Medium
+F00949,payment,8,High
+F00950,salary,2,Low
+F00951,payroll,5,Medium
+F00952,wage,1,Low
+F00953,bank,6,Medium
+F00954,account,3,Low
+F00955,account number,4,Medium
+F00956,acct no,3,Low
+F00957,ifsc,6,Medium
+F00958,swift,8,High
+F00959,iban,5,Medium
+F00960,transaction,9,High
+F00961,statement,8,High
+F00962,balance,10,High
+F00963,tax,10,High
+F00964,gst,6,Medium
+F00965,vat,9,High
+F00966,income tax,1,Low
+F00967,pan,6,Medium
+F00968,tds,3,Low
+F00969,audit,2,Low
+F00970,budget,3,Low
+F00971,loan,6,Medium
+F00972,emi,2,Low
+F00973,mortgage,6,Medium
+F00974,credit,7,Medium
+F00975,debit,1,Low
+F00976,withdrawal,6,Medium
+F00977,deposit,8,High
+F00978,cheque,10,High
+F00979,check,7,Medium
+F00980,wire transfer,2,Low
+F00981,net banking,10,High
+F00982,upi,10,High
+F00983,neft,6,Medium
+F00984,rtgs,9,High
+F00985,micr,9,High
+F00986,routing number,5,Medium
+F00987,financial statement,4,Medium
+F00988,profit and loss,2,Low
+F00989,p&l,10,High
+F00990,balance sheet,10,High
+F00991,revenue,6,Medium
+F00992,expense,6,Medium
+F00993,remittance,5,Medium
+F00994,fund transfer,2,Low
+F00995,payee,1,Low
+F00996,payer,1,Low
+F00997,due date,1,Low
+F00998,overdue,6,Medium
+F00999,outstanding,4,Medium
+F01000,paid,6,Medium
+F01001,unpaid,1,Low
+F01002,refund,1,Low
+F01003,rupee,3,Low
+F01004,dollar,7,Medium
+F01005,amount,8,High
+F01006,total,3,Low
+F01007,subtotal,9,High
+F01008,grand total,9,High
+F01009,invoice,1,Low
+F01010,receipt,8,High
+F01011,bill,10,High
+F01012,payment,2,Low
+F01013,salary,5,Medium
+F01014,payroll,10,High
+F01015,wage,9,High
+F01016,bank,10,High
+F01017,account,1,Low
+F01018,account number,2,Low
+F01019,acct no,2,Low
+F01020,ifsc,3,Low
+F01021,swift,9,High
+F01022,iban,6,Medium
+F01023,transaction,2,Low
+F01024,statement,7,Medium
+F01025,balance,3,Low
+F01026,tax,8,High
+F01027,gst,5,Medium
+F01028,vat,8,High
+F01029,income tax,10,High
+F01030,pan,10,High
+F01031,tds,7,Medium
+F01032,audit,3,Low
+F01033,budget,5,Medium
+F01034,loan,10,High
+F01035,emi,10,High
+F01036,mortgage,8,High
+F01037,credit,4,Medium
+F01038,debit,4,Medium
+F01039,withdrawal,1,Low
+F01040,deposit,5,Medium
+F01041,cheque,1,Low
+F01042,check,8,High
+F01043,wire transfer,5,Medium
+F01044,net banking,2,Low
+F01045,upi,6,Medium
+F01046,neft,8,High
+F01047,rtgs,1,Low
+F01048,micr,1,Low
+F01049,routing number,7,Medium
+F01050,financial statement,5,Medium
+F01051,profit and loss,4,Medium
+F01052,p&l,6,Medium
+F01053,balance sheet,1,Low
+F01054,revenue,3,Low
+F01055,expense,1,Low
+F01056,remittance,2,Low
+F01057,fund transfer,6,Medium
+F01058,payee,3,Low
+F01059,payer,10,High
+F01060,due date,1,Low
+F01061,overdue,8,High
+F01062,outstanding,6,Medium
+F01063,paid,10,High
+F01064,unpaid,7,Medium
+F01065,refund,2,Low
+F01066,rupee,2,Low
+F01067,dollar,8,High
+F01068,amount,8,High
+F01069,total,8,High
+F01070,subtotal,2,Low
+F01071,grand total,10,High
+F01072,invoice,4,Medium
+F01073,receipt,6,Medium
+F01074,bill,6,Medium
+F01075,payment,7,Medium
+F01076,salary,6,Medium
+F01077,payroll,10,High
+F01078,wage,1,Low
+F01079,bank,6,Medium
+F01080,account,8,High
+F01081,account number,10,High
+F01082,acct no,6,Medium
+F01083,ifsc,10,High
+F01084,swift,1,Low
+F01085,iban,2,Low
+F01086,transaction,10,High
+F01087,statement,9,High
+F01088,balance,3,Low
+F01089,tax,10,High
+F01090,gst,4,Medium
+F01091,vat,7,Medium
+F01092,income tax,2,Low
+F01093,pan,10,High
+F01094,tds,9,High
+F01095,audit,3,Low
+F01096,budget,1,Low
+F01097,loan,5,Medium
+F01098,emi,8,High
+F01099,mortgage,2,Low
+F01100,credit,2,Low
+F01101,debit,10,High
+F01102,withdrawal,4,Medium
+F01103,deposit,2,Low
+F01104,cheque,6,Medium
+F01105,check,3,Low
+F01106,wire transfer,2,Low
+F01107,net banking,6,Medium
+F01108,upi,4,Medium
+F01109,neft,6,Medium
+F01110,rtgs,8,High
+F01111,micr,10,High
+F01112,routing number,7,Medium
+F01113,financial statement,2,Low
+F01114,profit and loss,4,Medium
+F01115,p&l,8,High
+F01116,balance sheet,10,High
+F01117,revenue,6,Medium
+F01118,expense,2,Low
+F01119,remittance,5,Medium
+F01120,fund transfer,8,High
+F01121,payee,3,Low
+F01122,payer,9,High
+F01123,due date,9,High
+F01124,overdue,4,Medium
+F01125,outstanding,3,Low
+F01126,paid,2,Low
+F01127,unpaid,4,Medium
+F01128,refund,10,High
+F01129,rupee,2,Low
+F01130,dollar,8,High
+F01131,amount,3,Low
+F01132,total,1,Low
+F01133,subtotal,3,Low
+F01134,grand total,6,Medium
+F01135,invoice,1,Low
+F01136,receipt,4,Medium
+F01137,bill,3,Low
+F01138,payment,7,Medium
+F01139,salary,4,Medium
+F01140,payroll,2,Low
+F01141,wage,5,Medium
+F01142,bank,10,High
+F01143,account,7,Medium
+F01144,account number,5,Medium
+F01145,acct no,9,High
+F01146,ifsc,6,Medium
+F01147,swift,6,Medium
+F01148,iban,7,Medium
+F01149,transaction,2,Low
+F01150,statement,4,Medium
+F01151,balance,3,Low
+F01152,tax,7,Medium
+F01153,gst,1,Low
+F01154,vat,10,High
+F01155,income tax,1,Low
+F01156,pan,10,High
+F01157,tds,8,High
+F01158,audit,1,Low
+F01159,budget,7,Medium
+F01160,loan,5,Medium
+F01161,emi,1,Low
+F01162,mortgage,9,High
+F01163,credit,8,High
+F01164,debit,9,High
+F01165,withdrawal,7,Medium
+F01166,deposit,9,High
+F01167,cheque,10,High
+F01168,check,5,Medium
+F01169,wire transfer,10,High
+F01170,net banking,10,High
+F01171,upi,5,Medium
+F01172,neft,3,Low
+F01173,rtgs,1,Low
+F01174,micr,10,High
+F01175,routing number,9,High
+F01176,financial statement,6,Medium
+F01177,profit and loss,2,Low
+F01178,p&l,1,Low
+F01179,balance sheet,3,Low
+F01180,revenue,9,High
+F01181,expense,4,Medium
+F01182,remittance,8,High
+F01183,fund transfer,6,Medium
+F01184,payee,8,High
+F01185,payer,2,Low
+F01186,due date,1,Low
+F01187,overdue,8,High
+F01188,outstanding,9,High
+F01189,paid,10,High
+F01190,unpaid,1,Low
+F01191,refund,3,Low
+F01192,rupee,8,High
+F01193,dollar,2,Low
+F01194,amount,7,Medium
+F01195,total,7,Medium
+F01196,subtotal,10,High
+F01197,grand total,7,Medium
+F01198,invoice,6,Medium
+F01199,receipt,7,Medium
+F01200,bill,7,Medium
+I00001,aadhar,10,High
+I00002,aadhaar,3,Low
+I00003,uid,3,Low
+I00004,passport,3,Low
+I00005,visa,8,High
+I00006,voter id,10,High
+I00007,driving licence,4,Medium
+I00008,driver license,8,High
+I00009,dl no,8,High
+I00010,license number,6,Medium
+I00011,dob,5,Medium
+I00012,date of birth,9,High
+I00013,address,6,Medium
+I00014,phone number,4,Medium
+I00015,mobile number,1,Low
+I00016,contact number,1,Low
+I00017,telephone,2,Low
+I00018,email,3,Low
+I00019,e-mail,2,Low
+I00020,signature,1,Low
+I00021,photo id,2,Low
+I00022,identity proof,8,High
+I00023,id proof,3,Low
+I00024,national id,8,High
+I00025,social security,6,Medium
+I00026,ssn,3,Low
+I00027,personal information,6,Medium
+I00028,father's name,3,Low
+I00029,mother's name,3,Low
+I00030,spouse,9,High
+I00031,marital status,2,Low
+I00032,nationality,2,Low
+I00033,citizenship,8,High
+I00034,resident,9,High
+I00035,domicile,1,Low
+I00036,gender,10,High
+I00037,emergency contact,2,Low
+I00038,next of kin,3,Low
+I00039,blood group,7,Medium
+I00040,biometric,9,High
+I00041,aadhar,3,Low
+I00042,aadhaar,8,High
+I00043,uid,7,Medium
+I00044,passport,2,Low
+I00045,visa,7,Medium
+I00046,voter id,9,High
+I00047,driving licence,5,Medium
+I00048,driver license,6,Medium
+I00049,dl no,7,Medium
+I00050,license number,1,Low
+I00051,dob,3,Low
+I00052,date of birth,1,Low
+I00053,address,3,Low
+I00054,phone number,1,Low
+I00055,mobile number,3,Low
+I00056,contact number,1,Low
+I00057,telephone,9,High
+I00058,email,7,Medium
+I00059,e-mail,9,High
+I00060,signature,3,Low
+I00061,photo id,8,High
+I00062,identity proof,5,Medium
+I00063,id proof,9,High
+I00064,national id,1,Low
+I00065,social security,3,Low
+I00066,ssn,4,Medium
+I00067,personal information,3,Low
+I00068,father's name,5,Medium
+I00069,mother's name,7,Medium
+I00070,spouse,4,Medium
+I00071,marital status,4,Medium
+I00072,nationality,4,Medium
+I00073,citizenship,3,Low
+I00074,resident,3,Low
+I00075,domicile,1,Low
+I00076,gender,10,High
+I00077,emergency contact,6,Medium
+I00078,next of kin,8,High
+I00079,blood group,8,High
+I00080,biometric,4,Medium
+I00081,aadhar,1,Low
+I00082,aadhaar,2,Low
+I00083,uid,6,Medium
+I00084,passport,3,Low
+I00085,visa,10,High
+I00086,voter id,7,Medium
+I00087,driving licence,1,Low
+I00088,driver license,9,High
+I00089,dl no,7,Medium
+I00090,license number,8,High
+I00091,dob,3,Low
+I00092,date of birth,10,High
+I00093,address,8,High
+I00094,phone number,9,High
+I00095,mobile number,3,Low
+I00096,contact number,3,Low
+I00097,telephone,1,Low
+I00098,email,8,High
+I00099,e-mail,9,High
+I00100,signature,1,Low
+I00101,photo id,1,Low
+I00102,identity proof,2,Low
+I00103,id proof,5,Medium
+I00104,national id,10,High
+I00105,social security,10,High
+I00106,ssn,6,Medium
+I00107,personal information,8,High
+I00108,father's name,5,Medium
+I00109,mother's name,4,Medium
+I00110,spouse,7,Medium
+I00111,marital status,7,Medium
+I00112,nationality,1,Low
+I00113,citizenship,8,High
+I00114,resident,7,Medium
+I00115,domicile,1,Low
+I00116,gender,3,Low
+I00117,emergency contact,9,High
+I00118,next of kin,10,High
+I00119,blood group,4,Medium
+I00120,biometric,1,Low
+I00121,aadhar,9,High
+I00122,aadhaar,1,Low
+I00123,uid,5,Medium
+I00124,passport,9,High
+I00125,visa,3,Low
+I00126,voter id,1,Low
+I00127,driving licence,8,High
+I00128,driver license,8,High
+I00129,dl no,7,Medium
+I00130,license number,5,Medium
+I00131,dob,3,Low
+I00132,date of birth,9,High
+I00133,address,4,Medium
+I00134,phone number,5,Medium
+I00135,mobile number,9,High
+I00136,contact number,6,Medium
+I00137,telephone,3,Low
+I00138,email,10,High
+I00139,e-mail,10,High
+I00140,signature,5,Medium
+I00141,photo id,10,High
+I00142,identity proof,7,Medium
+I00143,id proof,3,Low
+I00144,national id,8,High
+I00145,social security,6,Medium
+I00146,ssn,9,High
+I00147,personal information,4,Medium
+I00148,father's name,6,Medium
+I00149,mother's name,10,High
+I00150,spouse,10,High
+I00151,marital status,4,Medium
+I00152,nationality,2,Low
+I00153,citizenship,5,Medium
+I00154,resident,4,Medium
+I00155,domicile,10,High
+I00156,gender,9,High
+I00157,emergency contact,8,High
+I00158,next of kin,5,Medium
+I00159,blood group,5,Medium
+I00160,biometric,7,Medium
+I00161,aadhar,8,High
+I00162,aadhaar,4,Medium
+I00163,uid,2,Low
+I00164,passport,7,Medium
+I00165,visa,1,Low
+I00166,voter id,1,Low
+I00167,driving licence,8,High
+I00168,driver license,10,High
+I00169,dl no,2,Low
+I00170,license number,7,Medium
+I00171,dob,3,Low
+I00172,date of birth,8,High
+I00173,address,4,Medium
+I00174,phone number,4,Medium
+I00175,mobile number,2,Low
+I00176,contact number,2,Low
+I00177,telephone,5,Medium
+I00178,email,9,High
+I00179,e-mail,5,Medium
+I00180,signature,4,Medium
+I00181,photo id,9,High
+I00182,identity proof,3,Low
+I00183,id proof,8,High
+I00184,national id,3,Low
+I00185,social security,4,Medium
+I00186,ssn,10,High
+I00187,personal information,10,High
+I00188,father's name,10,High
+I00189,mother's name,9,High
+I00190,spouse,2,Low
+I00191,marital status,7,Medium
+I00192,nationality,9,High
+I00193,citizenship,6,Medium
+I00194,resident,1,Low
+I00195,domicile,8,High
+I00196,gender,2,Low
+I00197,emergency contact,4,Medium
+I00198,next of kin,7,Medium
+I00199,blood group,7,Medium
+I00200,biometric,6,Medium
+I00201,aadhar,1,Low
+I00202,aadhaar,5,Medium
+I00203,uid,3,Low
+I00204,passport,9,High
+I00205,visa,4,Medium
+I00206,voter id,6,Medium
+I00207,driving licence,7,Medium
+I00208,driver license,8,High
+I00209,dl no,3,Low
+I00210,license number,5,Medium
+I00211,dob,2,Low
+I00212,date of birth,7,Medium
+I00213,address,6,Medium
+I00214,phone number,7,Medium
+I00215,mobile number,7,Medium
+I00216,contact number,1,Low
+I00217,telephone,5,Medium
+I00218,email,3,Low
+I00219,e-mail,2,Low
+I00220,signature,2,Low
+I00221,photo id,8,High
+I00222,identity proof,3,Low
+I00223,id proof,3,Low
+I00224,national id,10,High
+I00225,social security,8,High
+I00226,ssn,6,Medium
+I00227,personal information,7,Medium
+I00228,father's name,7,Medium
+I00229,mother's name,1,Low
+I00230,spouse,8,High
+I00231,marital status,1,Low
+I00232,nationality,8,High
+I00233,citizenship,7,Medium
+I00234,resident,10,High
+I00235,domicile,2,Low
+I00236,gender,9,High
+I00237,emergency contact,4,Medium
+I00238,next of kin,9,High
+I00239,blood group,4,Medium
+I00240,biometric,9,High
+I00241,aadhar,5,Medium
+I00242,aadhaar,1,Low
+I00243,uid,3,Low
+I00244,passport,3,Low
+I00245,visa,10,High
+I00246,voter id,4,Medium
+I00247,driving licence,1,Low
+I00248,driver license,1,Low
+I00249,dl no,8,High
+I00250,license number,5,Medium
+I00251,dob,1,Low
+I00252,date of birth,5,Medium
+I00253,address,3,Low
+I00254,phone number,2,Low
+I00255,mobile number,2,Low
+I00256,contact number,2,Low
+I00257,telephone,5,Medium
+I00258,email,6,Medium
+I00259,e-mail,7,Medium
+I00260,signature,10,High
+I00261,photo id,9,High
+I00262,identity proof,5,Medium
+I00263,id proof,4,Medium
+I00264,national id,3,Low
+I00265,social security,9,High
+I00266,ssn,1,Low
+I00267,personal information,1,Low
+I00268,father's name,4,Medium
+I00269,mother's name,7,Medium
+I00270,spouse,6,Medium
+I00271,marital status,2,Low
+I00272,nationality,5,Medium
+I00273,citizenship,8,High
+I00274,resident,5,Medium
+I00275,domicile,10,High
+I00276,gender,10,High
+I00277,emergency contact,1,Low
+I00278,next of kin,3,Low
+I00279,blood group,9,High
+I00280,biometric,10,High
+I00281,aadhar,9,High
+I00282,aadhaar,8,High
+I00283,uid,4,Medium
+I00284,passport,9,High
+I00285,visa,10,High
+I00286,voter id,3,Low
+I00287,driving licence,7,Medium
+I00288,driver license,5,Medium
+I00289,dl no,2,Low
+I00290,license number,5,Medium
+I00291,dob,10,High
+I00292,date of birth,9,High
+I00293,address,2,Low
+I00294,phone number,4,Medium
+I00295,mobile number,1,Low
+I00296,contact number,7,Medium
+I00297,telephone,6,Medium
+I00298,email,9,High
+I00299,e-mail,6,Medium
+I00300,signature,3,Low
+I00301,photo id,2,Low
+I00302,identity proof,5,Medium
+I00303,id proof,10,High
+I00304,national id,9,High
+I00305,social security,2,Low
+I00306,ssn,2,Low
+I00307,personal information,5,Medium
+I00308,father's name,8,High
+I00309,mother's name,5,Medium
+I00310,spouse,10,High
+I00311,marital status,4,Medium
+I00312,nationality,3,Low
+I00313,citizenship,3,Low
+I00314,resident,1,Low
+I00315,domicile,3,Low
+I00316,gender,8,High
+I00317,emergency contact,1,Low
+I00318,next of kin,7,Medium
+I00319,blood group,6,Medium
+I00320,biometric,4,Medium
+I00321,aadhar,7,Medium
+I00322,aadhaar,3,Low
+I00323,uid,1,Low
+I00324,passport,1,Low
+I00325,visa,5,Medium
+I00326,voter id,6,Medium
+I00327,driving licence,6,Medium
+I00328,driver license,9,High
+I00329,dl no,10,High
+I00330,license number,2,Low
+I00331,dob,8,High
+I00332,date of birth,1,Low
+I00333,address,8,High
+I00334,phone number,10,High
+I00335,mobile number,8,High
+I00336,contact number,9,High
+I00337,telephone,5,Medium
+I00338,email,9,High
+I00339,e-mail,2,Low
+I00340,signature,1,Low
+I00341,photo id,9,High
+I00342,identity proof,9,High
+I00343,id proof,5,Medium
+I00344,national id,7,Medium
+I00345,social security,6,Medium
+I00346,ssn,1,Low
+I00347,personal information,5,Medium
+I00348,father's name,8,High
+I00349,mother's name,6,Medium
+I00350,spouse,4,Medium
+I00351,marital status,1,Low
+I00352,nationality,8,High
+I00353,citizenship,1,Low
+I00354,resident,9,High
+I00355,domicile,10,High
+I00356,gender,4,Medium
+I00357,emergency contact,4,Medium
+I00358,next of kin,6,Medium
+I00359,blood group,10,High
+I00360,biometric,5,Medium
+I00361,aadhar,8,High
+I00362,aadhaar,1,Low
+I00363,uid,8,High
+I00364,passport,2,Low
+I00365,visa,5,Medium
+I00366,voter id,9,High
+I00367,driving licence,2,Low
+I00368,driver license,10,High
+I00369,dl no,7,Medium
+I00370,license number,3,Low
+I00371,dob,8,High
+I00372,date of birth,9,High
+I00373,address,8,High
+I00374,phone number,6,Medium
+I00375,mobile number,2,Low
+I00376,contact number,7,Medium
+I00377,telephone,5,Medium
+I00378,email,9,High
+I00379,e-mail,7,Medium
+I00380,signature,7,Medium
+I00381,photo id,10,High
+I00382,identity proof,7,Medium
+I00383,id proof,10,High
+I00384,national id,3,Low
+I00385,social security,2,Low
+I00386,ssn,10,High
+I00387,personal information,3,Low
+I00388,father's name,2,Low
+I00389,mother's name,9,High
+I00390,spouse,9,High
+I00391,marital status,8,High
+I00392,nationality,2,Low
+I00393,citizenship,9,High
+I00394,resident,4,Medium
+I00395,domicile,1,Low
+I00396,gender,7,Medium
+I00397,emergency contact,8,High
+I00398,next of kin,3,Low
+I00399,blood group,8,High
+I00400,biometric,7,Medium
+I00401,aadhar,7,Medium
+I00402,aadhaar,1,Low
+I00403,uid,10,High
+I00404,passport,7,Medium
+I00405,visa,4,Medium
+I00406,voter id,10,High
+I00407,driving licence,9,High
+I00408,driver license,9,High
+I00409,dl no,8,High
+I00410,license number,6,Medium
+I00411,dob,4,Medium
+I00412,date of birth,3,Low
+I00413,address,6,Medium
+I00414,phone number,10,High
+I00415,mobile number,3,Low
+I00416,contact number,10,High
+I00417,telephone,2,Low
+I00418,email,2,Low
+I00419,e-mail,10,High
+I00420,signature,2,Low
+I00421,photo id,10,High
+I00422,identity proof,6,Medium
+I00423,id proof,8,High
+I00424,national id,7,Medium
+I00425,social security,4,Medium
+I00426,ssn,4,Medium
+I00427,personal information,2,Low
+I00428,father's name,10,High
+I00429,mother's name,10,High
+I00430,spouse,10,High
+I00431,marital status,8,High
+I00432,nationality,10,High
+I00433,citizenship,10,High
+I00434,resident,10,High
+I00435,domicile,10,High
+I00436,gender,1,Low
+I00437,emergency contact,8,High
+I00438,next of kin,7,Medium
+I00439,blood group,3,Low
+I00440,biometric,1,Low
+I00441,aadhar,4,Medium
+I00442,aadhaar,6,Medium
+I00443,uid,8,High
+I00444,passport,2,Low
+I00445,visa,8,High
+I00446,voter id,8,High
+I00447,driving licence,4,Medium
+I00448,driver license,4,Medium
+I00449,dl no,8,High
+I00450,license number,9,High
+I00451,dob,6,Medium
+I00452,date of birth,9,High
+I00453,address,6,Medium
+I00454,phone number,7,Medium
+I00455,mobile number,9,High
+I00456,contact number,1,Low
+I00457,telephone,7,Medium
+I00458,email,9,High
+I00459,e-mail,8,High
+I00460,signature,10,High
+I00461,photo id,5,Medium
+I00462,identity proof,7,Medium
+I00463,id proof,1,Low
+I00464,national id,6,Medium
+I00465,social security,10,High
+I00466,ssn,7,Medium
+I00467,personal information,5,Medium
+I00468,father's name,4,Medium
+I00469,mother's name,8,High
+I00470,spouse,2,Low
+I00471,marital status,9,High
+I00472,nationality,3,Low
+I00473,citizenship,2,Low
+I00474,resident,1,Low
+I00475,domicile,2,Low
+I00476,gender,5,Medium
+I00477,emergency contact,9,High
+I00478,next of kin,9,High
+I00479,blood group,3,Low
+I00480,biometric,6,Medium
+I00481,aadhar,10,High
+I00482,aadhaar,1,Low
+I00483,uid,9,High
+I00484,passport,10,High
+I00485,visa,2,Low
+I00486,voter id,7,Medium
+I00487,driving licence,8,High
+I00488,driver license,6,Medium
+I00489,dl no,8,High
+I00490,license number,2,Low
+I00491,dob,2,Low
+I00492,date of birth,2,Low
+I00493,address,4,Medium
+I00494,phone number,9,High
+I00495,mobile number,2,Low
+I00496,contact number,7,Medium
+I00497,telephone,1,Low
+I00498,email,3,Low
+I00499,e-mail,1,Low
+I00500,signature,1,Low
+I00501,photo id,6,Medium
+I00502,identity proof,7,Medium
+I00503,id proof,3,Low
+I00504,national id,9,High
+I00505,social security,3,Low
+I00506,ssn,3,Low
+I00507,personal information,9,High
+I00508,father's name,10,High
+I00509,mother's name,8,High
+I00510,spouse,7,Medium
+I00511,marital status,2,Low
+I00512,nationality,2,Low
+I00513,citizenship,8,High
+I00514,resident,3,Low
+I00515,domicile,2,Low
+I00516,gender,8,High
+I00517,emergency contact,1,Low
+I00518,next of kin,5,Medium
+I00519,blood group,5,Medium
+I00520,biometric,7,Medium
+I00521,aadhar,8,High
+I00522,aadhaar,10,High
+I00523,uid,1,Low
+I00524,passport,4,Medium
+I00525,visa,10,High
+I00526,voter id,10,High
+I00527,driving licence,9,High
+I00528,driver license,10,High
+I00529,dl no,1,Low
+I00530,license number,3,Low
+I00531,dob,10,High
+I00532,date of birth,7,Medium
+I00533,address,8,High
+I00534,phone number,4,Medium
+I00535,mobile number,3,Low
+I00536,contact number,4,Medium
+I00537,telephone,9,High
+I00538,email,9,High
+I00539,e-mail,6,Medium
+I00540,signature,7,Medium
+I00541,photo id,2,Low
+I00542,identity proof,1,Low
+I00543,id proof,7,Medium
+I00544,national id,9,High
+I00545,social security,9,High
+I00546,ssn,2,Low
+I00547,personal information,7,Medium
+I00548,father's name,8,High
+I00549,mother's name,3,Low
+I00550,spouse,9,High
+I00551,marital status,4,Medium
+I00552,nationality,3,Low
+I00553,citizenship,8,High
+I00554,resident,3,Low
+I00555,domicile,1,Low
+I00556,gender,2,Low
+I00557,emergency contact,1,Low
+I00558,next of kin,9,High
+I00559,blood group,3,Low
+I00560,biometric,10,High
+I00561,aadhar,5,Medium
+I00562,aadhaar,3,Low
+I00563,uid,5,Medium
+I00564,passport,8,High
+I00565,visa,1,Low
+I00566,voter id,3,Low
+I00567,driving licence,2,Low
+I00568,driver license,9,High
+I00569,dl no,5,Medium
+I00570,license number,2,Low
+I00571,dob,6,Medium
+I00572,date of birth,9,High
+I00573,address,2,Low
+I00574,phone number,1,Low
+I00575,mobile number,3,Low
+I00576,contact number,1,Low
+I00577,telephone,6,Medium
+I00578,email,10,High
+I00579,e-mail,10,High
+I00580,signature,5,Medium
+I00581,photo id,3,Low
+I00582,identity proof,8,High
+I00583,id proof,2,Low
+I00584,national id,1,Low
+I00585,social security,7,Medium
+I00586,ssn,2,Low
+I00587,personal information,10,High
+I00588,father's name,8,High
+I00589,mother's name,1,Low
+I00590,spouse,8,High
+I00591,marital status,8,High
+I00592,nationality,4,Medium
+I00593,citizenship,5,Medium
+I00594,resident,3,Low
+I00595,domicile,6,Medium
+I00596,gender,3,Low
+I00597,emergency contact,2,Low
+I00598,next of kin,2,Low
+I00599,blood group,2,Low
+I00600,biometric,3,Low
+I00601,aadhar,6,Medium
+I00602,aadhaar,1,Low
+I00603,uid,6,Medium
+I00604,passport,9,High
+I00605,visa,3,Low
+I00606,voter id,5,Medium
+I00607,driving licence,3,Low
+I00608,driver license,7,Medium
+I00609,dl no,7,Medium
+I00610,license number,6,Medium
+I00611,dob,9,High
+I00612,date of birth,8,High
+I00613,address,8,High
+I00614,phone number,4,Medium
+I00615,mobile number,2,Low
+I00616,contact number,1,Low
+I00617,telephone,7,Medium
+I00618,email,3,Low
+I00619,e-mail,1,Low
+I00620,signature,8,High
+I00621,photo id,1,Low
+I00622,identity proof,1,Low
+I00623,id proof,10,High
+I00624,national id,5,Medium
+I00625,social security,8,High
+I00626,ssn,10,High
+I00627,personal information,7,Medium
+I00628,father's name,4,Medium
+I00629,mother's name,8,High
+I00630,spouse,10,High
+I00631,marital status,4,Medium
+I00632,nationality,7,Medium
+I00633,citizenship,7,Medium
+I00634,resident,4,Medium
+I00635,domicile,2,Low
+I00636,gender,5,Medium
+I00637,emergency contact,7,Medium
+I00638,next of kin,2,Low
+I00639,blood group,9,High
+I00640,biometric,9,High
+I00641,aadhar,5,Medium
+I00642,aadhaar,10,High
+I00643,uid,4,Medium
+I00644,passport,1,Low
+I00645,visa,1,Low
+I00646,voter id,7,Medium
+I00647,driving licence,4,Medium
+I00648,driver license,3,Low
+I00649,dl no,6,Medium
+I00650,license number,3,Low
+I00651,dob,3,Low
+I00652,date of birth,9,High
+I00653,address,10,High
+I00654,phone number,8,High
+I00655,mobile number,8,High
+I00656,contact number,9,High
+I00657,telephone,8,High
+I00658,email,2,Low
+I00659,e-mail,9,High
+I00660,signature,9,High
+I00661,photo id,1,Low
+I00662,identity proof,10,High
+I00663,id proof,3,Low
+I00664,national id,3,Low
+I00665,social security,10,High
+I00666,ssn,4,Medium
+I00667,personal information,8,High
+I00668,father's name,8,High
+I00669,mother's name,8,High
+I00670,spouse,2,Low
+I00671,marital status,1,Low
+I00672,nationality,2,Low
+I00673,citizenship,7,Medium
+I00674,resident,4,Medium
+I00675,domicile,3,Low
+I00676,gender,5,Medium
+I00677,emergency contact,6,Medium
+I00678,next of kin,7,Medium
+I00679,blood group,2,Low
+I00680,biometric,1,Low
+I00681,aadhar,8,High
+I00682,aadhaar,4,Medium
+I00683,uid,7,Medium
+I00684,passport,8,High
+I00685,visa,5,Medium
+I00686,voter id,6,Medium
+I00687,driving licence,10,High
+I00688,driver license,2,Low
+I00689,dl no,3,Low
+I00690,license number,8,High
+I00691,dob,9,High
+I00692,date of birth,8,High
+I00693,address,8,High
+I00694,phone number,4,Medium
+I00695,mobile number,5,Medium
+I00696,contact number,1,Low
+I00697,telephone,7,Medium
+I00698,email,3,Low
+I00699,e-mail,10,High
+I00700,signature,9,High
+I00701,photo id,10,High
+I00702,identity proof,5,Medium
+I00703,id proof,9,High
+I00704,national id,6,Medium
+I00705,social security,4,Medium
+I00706,ssn,1,Low
+I00707,personal information,3,Low
+I00708,father's name,2,Low
+I00709,mother's name,10,High
+I00710,spouse,9,High
+I00711,marital status,4,Medium
+I00712,nationality,1,Low
+I00713,citizenship,5,Medium
+I00714,resident,1,Low
+I00715,domicile,4,Medium
+I00716,gender,2,Low
+I00717,emergency contact,7,Medium
+I00718,next of kin,1,Low
+I00719,blood group,6,Medium
+I00720,biometric,6,Medium
+I00721,aadhar,8,High
+I00722,aadhaar,4,Medium
+I00723,uid,9,High
+I00724,passport,1,Low
+I00725,visa,3,Low
+I00726,voter id,4,Medium
+I00727,driving licence,2,Low
+I00728,driver license,5,Medium
+I00729,dl no,1,Low
+I00730,license number,2,Low
+I00731,dob,3,Low
+I00732,date of birth,6,Medium
+I00733,address,1,Low
+I00734,phone number,3,Low
+I00735,mobile number,10,High
+I00736,contact number,10,High
+I00737,telephone,10,High
+I00738,email,2,Low
+I00739,e-mail,3,Low
+I00740,signature,1,Low
+I00741,photo id,2,Low
+I00742,identity proof,9,High
+I00743,id proof,10,High
+I00744,national id,8,High
+I00745,social security,7,Medium
+I00746,ssn,4,Medium
+I00747,personal information,1,Low
+I00748,father's name,2,Low
+I00749,mother's name,3,Low
+I00750,spouse,9,High
+I00751,marital status,1,Low
+I00752,nationality,6,Medium
+I00753,citizenship,4,Medium
+I00754,resident,7,Medium
+I00755,domicile,1,Low
+I00756,gender,6,Medium
+I00757,emergency contact,10,High
+I00758,next of kin,5,Medium
+I00759,blood group,2,Low
+I00760,biometric,8,High
+I00761,aadhar,8,High
+I00762,aadhaar,7,Medium
+I00763,uid,1,Low
+I00764,passport,5,Medium
+I00765,visa,8,High
+I00766,voter id,1,Low
+I00767,driving licence,3,Low
+I00768,driver license,6,Medium
+I00769,dl no,6,Medium
+I00770,license number,4,Medium
+I00771,dob,9,High
+I00772,date of birth,2,Low
+I00773,address,3,Low
+I00774,phone number,5,Medium
+I00775,mobile number,7,Medium
+I00776,contact number,3,Low
+I00777,telephone,6,Medium
+I00778,email,9,High
+I00779,e-mail,8,High
+I00780,signature,2,Low
+I00781,photo id,8,High
+I00782,identity proof,5,Medium
+I00783,id proof,10,High
+I00784,national id,5,Medium
+I00785,social security,4,Medium
+I00786,ssn,8,High
+I00787,personal information,2,Low
+I00788,father's name,6,Medium
+I00789,mother's name,3,Low
+I00790,spouse,3,Low
+I00791,marital status,2,Low
+I00792,nationality,7,Medium
+I00793,citizenship,5,Medium
+I00794,resident,4,Medium
+I00795,domicile,1,Low
+I00796,gender,10,High
+I00797,emergency contact,4,Medium
+I00798,next of kin,1,Low
+I00799,blood group,1,Low
+I00800,biometric,2,Low
+I00801,aadhar,3,Low
+I00802,aadhaar,7,Medium
+I00803,uid,10,High
+I00804,passport,5,Medium
+I00805,visa,1,Low
+I00806,voter id,10,High
+I00807,driving licence,9,High
+I00808,driver license,3,Low
+I00809,dl no,9,High
+I00810,license number,10,High
+I00811,dob,10,High
+I00812,date of birth,1,Low
+I00813,address,8,High
+I00814,phone number,1,Low
+I00815,mobile number,1,Low
+I00816,contact number,3,Low
+I00817,telephone,3,Low
+I00818,email,8,High
+I00819,e-mail,3,Low
+I00820,signature,6,Medium
+I00821,photo id,5,Medium
+I00822,identity proof,1,Low
+I00823,id proof,3,Low
+I00824,national id,2,Low
+I00825,social security,8,High
+I00826,ssn,5,Medium
+I00827,personal information,8,High
+I00828,father's name,7,Medium
+I00829,mother's name,9,High
+I00830,spouse,8,High
+I00831,marital status,7,Medium
+I00832,nationality,6,Medium
+I00833,citizenship,5,Medium
+I00834,resident,10,High
+I00835,domicile,5,Medium
+I00836,gender,3,Low
+I00837,emergency contact,5,Medium
+I00838,next of kin,2,Low
+I00839,blood group,2,Low
+I00840,biometric,10,High
+I00841,aadhar,6,Medium
+I00842,aadhaar,7,Medium
+I00843,uid,7,Medium
+I00844,passport,7,Medium
+I00845,visa,9,High
+I00846,voter id,8,High
+I00847,driving licence,1,Low
+I00848,driver license,3,Low
+I00849,dl no,4,Medium
+I00850,license number,6,Medium
+I00851,dob,2,Low
+I00852,date of birth,6,Medium
+I00853,address,10,High
+I00854,phone number,5,Medium
+I00855,mobile number,7,Medium
+I00856,contact number,4,Medium
+I00857,telephone,3,Low
+I00858,email,2,Low
+I00859,e-mail,10,High
+I00860,signature,4,Medium
+I00861,photo id,5,Medium
+I00862,identity proof,9,High
+I00863,id proof,6,Medium
+I00864,national id,10,High
+I00865,social security,4,Medium
+I00866,ssn,4,Medium
+I00867,personal information,9,High
+I00868,father's name,3,Low
+I00869,mother's name,5,Medium
+I00870,spouse,5,Medium
+I00871,marital status,3,Low
+I00872,nationality,7,Medium
+I00873,citizenship,2,Low
+I00874,resident,7,Medium
+I00875,domicile,10,High
+I00876,gender,5,Medium
+I00877,emergency contact,7,Medium
+I00878,next of kin,5,Medium
+I00879,blood group,10,High
+I00880,biometric,3,Low
+I00881,aadhar,3,Low
+I00882,aadhaar,10,High
+I00883,uid,8,High
+I00884,passport,9,High
+I00885,visa,8,High
+I00886,voter id,5,Medium
+I00887,driving licence,6,Medium
+I00888,driver license,5,Medium
+I00889,dl no,1,Low
+I00890,license number,5,Medium
+I00891,dob,3,Low
+I00892,date of birth,7,Medium
+I00893,address,3,Low
+I00894,phone number,3,Low
+I00895,mobile number,8,High
+I00896,contact number,3,Low
+I00897,telephone,8,High
+I00898,email,3,Low
+I00899,e-mail,4,Medium
+I00900,signature,4,Medium
+I00901,photo id,8,High
+I00902,identity proof,7,Medium
+I00903,id proof,3,Low
+I00904,national id,5,Medium
+I00905,social security,6,Medium
+I00906,ssn,9,High
+I00907,personal information,1,Low
+I00908,father's name,3,Low
+I00909,mother's name,5,Medium
+I00910,spouse,9,High
+I00911,marital status,2,Low
+I00912,nationality,10,High
+I00913,citizenship,5,Medium
+I00914,resident,5,Medium
+I00915,domicile,6,Medium
+I00916,gender,5,Medium
+I00917,emergency contact,2,Low
+I00918,next of kin,7,Medium
+I00919,blood group,10,High
+I00920,biometric,4,Medium
+I00921,aadhar,9,High
+I00922,aadhaar,5,Medium
+I00923,uid,8,High
+I00924,passport,1,Low
+I00925,visa,9,High
+I00926,voter id,5,Medium
+I00927,driving licence,7,Medium
+I00928,driver license,3,Low
+I00929,dl no,8,High
+I00930,license number,3,Low
+I00931,dob,8,High
+I00932,date of birth,2,Low
+I00933,address,6,Medium
+I00934,phone number,5,Medium
+I00935,mobile number,5,Medium
+I00936,contact number,2,Low
+I00937,telephone,9,High
+I00938,email,1,Low
+I00939,e-mail,7,Medium
+I00940,signature,6,Medium
+I00941,photo id,5,Medium
+I00942,identity proof,2,Low
+I00943,id proof,5,Medium
+I00944,national id,3,Low
+I00945,social security,3,Low
+I00946,ssn,3,Low
+I00947,personal information,6,Medium
+I00948,father's name,6,Medium
+I00949,mother's name,10,High
+I00950,spouse,10,High
+I00951,marital status,10,High
+I00952,nationality,1,Low
+I00953,citizenship,1,Low
+I00954,resident,5,Medium
+I00955,domicile,5,Medium
+I00956,gender,3,Low
+I00957,emergency contact,4,Medium
+I00958,next of kin,6,Medium
+I00959,blood group,10,High
+I00960,biometric,3,Low
+I00961,aadhar,3,Low
+I00962,aadhaar,1,Low
+I00963,uid,9,High
+I00964,passport,9,High
+I00965,visa,6,Medium
+I00966,voter id,2,Low
+I00967,driving licence,9,High
+I00968,driver license,2,Low
+I00969,dl no,10,High
+I00970,license number,8,High
+I00971,dob,9,High
+I00972,date of birth,9,High
+I00973,address,10,High
+I00974,phone number,8,High
+I00975,mobile number,5,Medium
+I00976,contact number,1,Low
+I00977,telephone,10,High
+I00978,email,4,Medium
+I00979,e-mail,2,Low
+I00980,signature,2,Low
+I00981,photo id,1,Low
+I00982,identity proof,1,Low
+I00983,id proof,8,High
+I00984,national id,8,High
+I00985,social security,8,High
+I00986,ssn,1,Low
+I00987,personal information,10,High
+I00988,father's name,6,Medium
+I00989,mother's name,1,Low
+I00990,spouse,10,High
+I00991,marital status,1,Low
+I00992,nationality,10,High
+I00993,citizenship,3,Low
+I00994,resident,10,High
+I00995,domicile,1,Low
+I00996,gender,9,High
+I00997,emergency contact,8,High
+I00998,next of kin,5,Medium
+I00999,blood group,9,High
+I01000,biometric,9,High
+I01001,aadhar,1,Low
+I01002,aadhaar,5,Medium
+I01003,uid,8,High
+I01004,passport,5,Medium
+I01005,visa,9,High
+I01006,voter id,3,Low
+I01007,driving licence,1,Low
+I01008,driver license,2,Low
+I01009,dl no,7,Medium
+I01010,license number,2,Low
+I01011,dob,9,High
+I01012,date of birth,2,Low
+I01013,address,9,High
+I01014,phone number,2,Low
+I01015,mobile number,4,Medium
+I01016,contact number,10,High
+I01017,telephone,2,Low
+I01018,email,8,High
+I01019,e-mail,5,Medium
+I01020,signature,3,Low
+I01021,photo id,10,High
+I01022,identity proof,6,Medium
+I01023,id proof,2,Low
+I01024,national id,10,High
+I01025,social security,3,Low
+I01026,ssn,6,Medium
+I01027,personal information,1,Low
+I01028,father's name,1,Low
+I01029,mother's name,5,Medium
+I01030,spouse,2,Low
+I01031,marital status,6,Medium
+I01032,nationality,9,High
+I01033,citizenship,6,Medium
+I01034,resident,1,Low
+I01035,domicile,6,Medium
+I01036,gender,2,Low
+I01037,emergency contact,2,Low
+I01038,next of kin,4,Medium
+I01039,blood group,1,Low
+I01040,biometric,5,Medium
+I01041,aadhar,7,Medium
+I01042,aadhaar,8,High
+I01043,uid,4,Medium
+I01044,passport,6,Medium
+I01045,visa,10,High
+I01046,voter id,5,Medium
+I01047,driving licence,8,High
+I01048,driver license,6,Medium
+I01049,dl no,10,High
+I01050,license number,9,High
+I01051,dob,7,Medium
+I01052,date of birth,10,High
+I01053,address,4,Medium
+I01054,phone number,5,Medium
+I01055,mobile number,9,High
+I01056,contact number,2,Low
+I01057,telephone,9,High
+I01058,email,5,Medium
+I01059,e-mail,9,High
+I01060,signature,10,High
+I01061,photo id,9,High
+I01062,identity proof,2,Low
+I01063,id proof,5,Medium
+I01064,national id,9,High
+I01065,social security,4,Medium
+I01066,ssn,2,Low
+I01067,personal information,3,Low
+I01068,father's name,1,Low
+I01069,mother's name,10,High
+I01070,spouse,3,Low
+I01071,marital status,3,Low
+I01072,nationality,5,Medium
+I01073,citizenship,7,Medium
+I01074,resident,10,High
+I01075,domicile,9,High
+I01076,gender,4,Medium
+I01077,emergency contact,9,High
+I01078,next of kin,1,Low
+I01079,blood group,2,Low
+I01080,biometric,3,Low
+I01081,aadhar,4,Medium
+I01082,aadhaar,5,Medium
+I01083,uid,5,Medium
+I01084,passport,8,High
+I01085,visa,3,Low
+I01086,voter id,8,High
+I01087,driving licence,3,Low
+I01088,driver license,8,High
+I01089,dl no,3,Low
+I01090,license number,10,High
+I01091,dob,4,Medium
+I01092,date of birth,8,High
+I01093,address,5,Medium
+I01094,phone number,7,Medium
+I01095,mobile number,1,Low
+I01096,contact number,10,High
+I01097,telephone,4,Medium
+I01098,email,9,High
+I01099,e-mail,7,Medium
+I01100,signature,8,High
+I01101,photo id,1,Low
+I01102,identity proof,9,High
+I01103,id proof,9,High
+I01104,national id,8,High
+I01105,social security,7,Medium
+I01106,ssn,4,Medium
+I01107,personal information,8,High
+I01108,father's name,1,Low
+I01109,mother's name,7,Medium
+I01110,spouse,9,High
+I01111,marital status,3,Low
+I01112,nationality,3,Low
+I01113,citizenship,9,High
+I01114,resident,9,High
+I01115,domicile,9,High
+I01116,gender,1,Low
+I01117,emergency contact,5,Medium
+I01118,next of kin,8,High
+I01119,blood group,5,Medium
+I01120,biometric,9,High
+I01121,aadhar,9,High
+I01122,aadhaar,8,High
+I01123,uid,2,Low
+I01124,passport,9,High
+I01125,visa,3,Low
+I01126,voter id,5,Medium
+I01127,driving licence,4,Medium
+I01128,driver license,3,Low
+I01129,dl no,9,High
+I01130,license number,3,Low
+I01131,dob,7,Medium
+I01132,date of birth,9,High
+I01133,address,8,High
+I01134,phone number,8,High
+I01135,mobile number,7,Medium
+I01136,contact number,2,Low
+I01137,telephone,5,Medium
+I01138,email,9,High
+I01139,e-mail,9,High
+I01140,signature,4,Medium
+I01141,photo id,10,High
+I01142,identity proof,8,High
+I01143,id proof,9,High
+I01144,national id,4,Medium
+I01145,social security,3,Low
+I01146,ssn,5,Medium
+I01147,personal information,3,Low
+I01148,father's name,9,High
+I01149,mother's name,2,Low
+I01150,spouse,5,Medium
+I01151,marital status,1,Low
+I01152,nationality,8,High
+I01153,citizenship,9,High
+I01154,resident,6,Medium
+I01155,domicile,3,Low
+I01156,gender,10,High
+I01157,emergency contact,7,Medium
+I01158,next of kin,8,High
+I01159,blood group,7,Medium
+I01160,biometric,1,Low
+I01161,aadhar,3,Low
+I01162,aadhaar,9,High
+I01163,uid,3,Low
+I01164,passport,3,Low
+I01165,visa,8,High
+I01166,voter id,4,Medium
+I01167,driving licence,9,High
+I01168,driver license,10,High
+I01169,dl no,1,Low
+I01170,license number,9,High
+I01171,dob,2,Low
+I01172,date of birth,3,Low
+I01173,address,2,Low
+I01174,phone number,7,Medium
+I01175,mobile number,10,High
+I01176,contact number,7,Medium
+I01177,telephone,5,Medium
+I01178,email,4,Medium
+I01179,e-mail,6,Medium
+I01180,signature,3,Low
+I01181,photo id,7,Medium
+I01182,identity proof,10,High
+I01183,id proof,6,Medium
+I01184,national id,8,High
+I01185,social security,9,High
+I01186,ssn,3,Low
+I01187,personal information,2,Low
+I01188,father's name,2,Low
+I01189,mother's name,5,Medium
+I01190,spouse,5,Medium
+I01191,marital status,3,Low
+I01192,nationality,8,High
+I01193,citizenship,2,Low
+I01194,resident,6,Medium
+I01195,domicile,9,High
+I01196,gender,1,Low
+I01197,emergency contact,9,High
+I01198,next of kin,5,Medium
+I01199,blood group,10,High
+I01200,biometric,6,Medium

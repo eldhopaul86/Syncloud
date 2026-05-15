@@ -162,6 +162,22 @@ export default function ProfileScreen() {
                             }}
                         />
                         <SettingItem
+                            icon="🛡️"
+                            label="Ownership Verification"
+                            type="toggle"
+                            value={userData.ownershipVerificationEnabled}
+                            onValueChange={(val) => {
+                                updateUserSettings({ ownershipVerificationEnabled: val });
+                                addNotification({
+                                    type: val ? 'success' : 'warning',
+                                    title: val ? 'Verification Enabled' : 'Verification Disabled',
+                                    message: val ? 'Files will now be verified against your account ownership.' : 'Files will be backed up without ownership verification.',
+                                    icon: val ? 'shield-checkmark-outline' : 'shield-outline',
+                                    color: val ? colors.success : colors.warning
+                                }, 2000);
+                            }}
+                        />
+                        <SettingItem
                             icon="📅"
                             label="Backup Interval"
                             value={userData.autoBackupEnabled ? `${userData.autoBackupInterval}` : "N/A"}

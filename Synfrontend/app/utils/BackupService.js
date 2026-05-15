@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { encryptFile, generateHash } from './encryption';
 import * as MediaLibrary from 'expo-media-library';
 import * as Notifications from 'expo-notifications';
+import { Platform } from 'react-native';
 
 const BACKUP_TASK_NAME = 'BACKGROUND_BACKUP_TASK';
 const MANIFEST_KEY = 'BACKUP_MANIFEST';
@@ -139,8 +140,8 @@ export const performAutoBackup = async (userData) => {
                             modTimeMs = modTimeMs * 1000;
                         }
 
-                        // Enforce account creation limit
-                        if (modTimeMs < userCreatedAt) {
+                        // Enforce account creation and scan epoch limit
+                        if (modTimeMs < cutoffTimeMs) {
                             continue;
                         }
 
@@ -219,8 +220,8 @@ export const performAutoBackup = async (userData) => {
                     const fileName = asset.filename;
                     const lastProcessed = manifest[uri];
 
-                    // Enforce account creation limit
-                    if (asset.creationTime < userCreatedAt) {
+                    // Enforce account creation and scan epoch limit
+                    if (asset.creationTime < cutoffTimeMs) {
                         continue;
                     }
 
@@ -366,7 +367,27 @@ export const performAutoBackup = async (userData) => {
                     content: {
                         title: "Action Required: Backup Sync",
                         body: `AI detected a potentially important file: ${file.name}. Should we back it up?`,
-                        data: { file, userData: { id: userData.id, token: userData.token, defaultCloud: userData.defaultCloud } },
+                        data: { file, userData: { id: userData.id, token: userData.token, defaultCloud: userData.defaultCloud, aesEncryptionEnabled: userData.aesEncryptionEnabled } },
+                        categoryIdentifier: 'BACKUP_CONFIRMATION',
+                    },
+                    trigger: null,
+                });
+            } else if (result.data?.status === 'ownership_mismatch') {
+                console.log(`🛡️ Ownership mismatch for: ${file.name} (Score: ${result.data.ownershipScore}%)`);
+                
+                // Track pending files in manifest to prevent re-scanning
+                manifest[file.uri] = {
+                    modificationTime: file.modificationTime,
+                    size: file.size,
+                    id: file.assetId || null,
+                    status: 'pending'
+                };
+
+                await Notifications.scheduleNotificationAsync({
+                    content: {
+                        title: "Action Required: Ownership Verification",
+                        body: `This file (${file.name}) may not belong to you. Do you still want to backup it?`,
+                        data: { file, userData: { id: userData.id, token: userData.token, defaultCloud: userData.defaultCloud, aesEncryptionEnabled: userData.aesEncryptionEnabled } },
                         categoryIdentifier: 'BACKUP_CONFIRMATION',
                     },
                     trigger: null,
@@ -410,6 +431,7 @@ export const performAutoBackup = async (userData) => {
 };
 
 const uploadFileSilently = async (file, userData) => {
+    let tempFileUri = null;
     try {
         const base64Data = await FileSystem.readAsStringAsync(file.uri, {
             encoding: FileSystem.EncodingType.Base64,
@@ -428,12 +450,22 @@ const uploadFileSilently = async (file, userData) => {
             isAutoBackup: 'true'
         };
 
+        let uploadUri = file.uri;
+
         if (userData.aesEncryptionEnabled) {
+            console.log(`🔐 Encrypting "${file.name}" for auto-backup...`);
             const encrypted = await encryptFile(base64Data, file.name);
             uploadPayload.encrypted = true;
             uploadPayload.aesKey = encrypted.key;
             uploadPayload.iv = encrypted.iv;
             uploadPayload.hash = encrypted.sha256;
+
+            const safeTempName = file.name.replace(/[^\w.-]+/g, '_');
+            tempFileUri = `${FileSystem.cacheDirectory}auto_${safeTempName}.enc`;
+            await FileSystem.writeAsStringAsync(tempFileUri, encrypted.encryptedData, {
+                encoding: FileSystem.EncodingType.Base64
+            });
+            uploadUri = tempFileUri;
         } else {
             uploadPayload.hash = generateHash(base64Data);
         }
@@ -456,7 +488,7 @@ const uploadFileSilently = async (file, userData) => {
         }
 
         formData.append('file', {
-            uri: file.uri,
+            uri: Platform.OS === 'android' ? uploadUri : uploadUri.replace('file://', ''),
             name: file.name,
             type: uploadPayload.fileType
         });
@@ -471,6 +503,10 @@ const uploadFileSilently = async (file, userData) => {
             body: formData
         });
 
+        if (tempFileUri) {
+            await FileSystem.deleteAsync(tempFileUri, { idempotent: true }).catch(() => { });
+        }
+
         const responseText = await response.text();
         try {
             const data = JSON.parse(responseText);
@@ -480,11 +516,15 @@ const uploadFileSilently = async (file, userData) => {
             return { success: false, error: 'Malformed server response' };
         }
     } catch (error) {
+        if (tempFileUri) {
+            await FileSystem.deleteAsync(tempFileUri, { idempotent: true }).catch(() => { });
+        }
         return { success: false, error: error.message };
     }
 };
 
 export const confirmPendingBackup = async (file, userData, accept = true) => {
+    let tempFileUri = null;
     try {
         let manifest = await AsyncStorage.getItem(MANIFEST_KEY);
         manifest = manifest ? JSON.parse(manifest) : {};
@@ -509,7 +549,45 @@ export const confirmPendingBackup = async (file, userData, accept = true) => {
             return;
         }
 
-        console.log(`✅ User accepted backup for: ${file.name}. Re-uploading with override...`);
+        console.log(`✅ User accepted backup for: ${file.name}. Processing...`);
+
+        // Load latest settings to override the passed userData (which might be stale from notification)
+        const latestSettingsRaw = await AsyncStorage.getItem('user_settings');
+        const latestSettings = latestSettingsRaw ? JSON.parse(latestSettingsRaw) : null;
+        
+        // Use latest settings for encryption toggle if available
+        const encryptionEnabled = (latestSettings && latestSettings.aesEncryptionEnabled !== undefined) 
+            ? latestSettings.aesEncryptionEnabled 
+            : userData.aesEncryptionEnabled;
+
+        const base64Data = await FileSystem.readAsStringAsync(file.uri, {
+            encoding: FileSystem.EncodingType.Base64,
+        });
+
+        let uploadUri = file.uri;
+        let isEncrypted = false;
+        let aesKey = null;
+        let iv = null;
+        let hash = '';
+
+        if (encryptionEnabled) {
+            console.log(`🔐 Encrypting "${file.name}" for confirmed backup (Encryption: ENABLED)...`);
+            const encrypted = await encryptFile(base64Data, file.name);
+            isEncrypted = true;
+            aesKey = encrypted.key;
+            iv = encrypted.iv;
+            hash = encrypted.sha256;
+
+            const safeTempName = file.name.replace(/[^\w.-]+/g, '_');
+            tempFileUri = `${FileSystem.cacheDirectory}conf_${safeTempName}.enc`;
+            await FileSystem.writeAsStringAsync(tempFileUri, encrypted.encryptedData, {
+                encoding: FileSystem.EncodingType.Base64
+            });
+            uploadUri = tempFileUri;
+        } else {
+            console.log(`📂 Uploading "${file.name}" without encryption (Encryption: DISABLED)`);
+            hash = generateHash(base64Data);
+        }
         
         // Prepare payload with forceUpload: true
         const formData = new FormData();
@@ -517,14 +595,20 @@ export const confirmPendingBackup = async (file, userData, accept = true) => {
         formData.append('fileName', file.name);
         formData.append('fileSize', (file.size || 0).toString());
         formData.append('fileType', file.type);
-        formData.append('encrypted', 'false'); // confirmation flow uses simple upload for now
+        formData.append('encrypted', isEncrypted.toString());
         formData.append('priority', 'high');
         formData.append('reason', 'User Confirmed Backup');
         formData.append('forceUpload', 'true');
         formData.append('isAutoBackup', 'true');
+        formData.append('sha256', hash);
+
+        if (isEncrypted) {
+            formData.append('aesKey', aesKey);
+            formData.append('iv', iv);
+        }
 
         formData.append('file', {
-            uri: file.uri,
+            uri: Platform.OS === 'android' ? uploadUri : uploadUri.replace('file://', ''),
             name: file.name,
             type: file.type
         });
@@ -538,6 +622,10 @@ export const confirmPendingBackup = async (file, userData, accept = true) => {
             },
             body: formData
         });
+
+        if (tempFileUri) {
+            await FileSystem.deleteAsync(tempFileUri, { idempotent: true }).catch(() => { });
+        }
 
         const data = await response.json();
         if (data.status === 'success') {
@@ -559,6 +647,9 @@ export const confirmPendingBackup = async (file, userData, accept = true) => {
         }
     } catch (error) {
         console.error('Failed to confirm backup:', error);
+        if (tempFileUri) {
+            await FileSystem.deleteAsync(tempFileUri, { idempotent: true }).catch(() => { });
+        }
     }
 };
 
